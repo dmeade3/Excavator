@@ -41,6 +41,7 @@ Side code project:
                 -fxml
                 -start small then build off
                 -basic
+                -highlighting rules like that of excel green good red bad all in a range 0 -> largest number all rated by the worst info in column
                 -for dynamic the gui is given the path the the jar file
                 -gui should be able to launch code / for static just give it the root directory
                     -remembers from last time so you dont have to keep retyping
