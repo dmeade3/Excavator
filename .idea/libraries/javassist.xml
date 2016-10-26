@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="javassist">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/javassist.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Downloads/javassist.jar!/" />
+    </SOURCES>
+  </library>
+</component>

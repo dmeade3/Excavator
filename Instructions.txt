@@ -1,0 +1,7 @@
+Put
+
+-javaagent:"C:\Users\dcmeade\Desktop\Intelij Workspace\Excavator\out\artifacts\Excavator_jar\Excavator.jar"
+
+in the VM options of your ide.
+
+Make sure the path to the jar file is correct
