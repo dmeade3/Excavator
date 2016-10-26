@@ -28,6 +28,8 @@ Side code project:
 
         General:
 
+            record time spent in methods, have a total field
+
             Index out program so it can refer to other classes:
                 -each class has its own object containing all its stats
 
@@ -42,6 +44,7 @@ Side code project:
                 -start small then build off
                 -basic
                 -highlighting rules like that of excel green good red bad all in a range 0 -> largest number all rated by the worst info in column
+                -has setup section at the bottom of scene, does not grow in height
                 -for dynamic the gui is given the path the the jar file
                 -gui should be able to launch code / for static just give it the root directory
                     -remembers from last time so you dont have to keep retyping

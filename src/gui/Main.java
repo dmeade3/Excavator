@@ -2,7 +2,6 @@ package gui;
 
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.TreeItem;
@@ -16,16 +15,15 @@ import java.util.List;
 
 public class Main extends Application
 {
-    List<Employee> employees = Arrays.<Employee>asList(
-                    new Employee("Ethan Williams", "ethan.williams@example.com"),
-                    new Employee("Emma Jones",     "emma.jones@example.com"),
-                    new Employee("Michael Brown",  "michael.brown@example.com"),
-                    new Employee("Anna Black",     "anna.black@example.com"),
-                    new Employee("Rodger York",    "roger.york@example.com"),
-                    new Employee("Susan Collins",  "susan.collins@example.com"));
+    List<ApplicationStat> applicationStats = Arrays.<ApplicationStat>asList( new ApplicationStat("method 1", 789),
+                                                                             new ApplicationStat("method 2", 321),
+                                                                             new ApplicationStat("method 3", 123456789),
+                                                                             new ApplicationStat("method 4", 1254),
+                                                                             new ApplicationStat("method 5", 80),
+                                                                             new ApplicationStat("method 6", 70));
 
-    final TreeItem<Employee> root = new TreeItem<>(new Employee("Sales Department", ""));
-    TreeTableView<Employee> treeTableView;
+    final TreeItem<ApplicationStat> root = new TreeItem<>(new ApplicationStat("Application Statistics", 0));
+    TreeTableView<ApplicationStat> treeTableView;
 
     @Override
     public void start(Stage stage)
@@ -34,45 +32,34 @@ public class Main extends Application
 
         root.setExpanded(true);
 
-        employees.forEach((employee) ->
-        {
-            root.getChildren().add(new TreeItem<>(employee));
-        });
+        applicationStats.forEach((applicationStat) -> root.getChildren().add(new TreeItem<>(applicationStat)));
 
         stage.setTitle("Excavator");
         final Scene scene = new Scene(new Group(), 1400, 600);
         scene.setFill(Color.LIGHTGRAY);
 
         // Listeners for scene growth
-        scene.widthProperty().addListener((observableValue, oldSceneWidth, newSceneWidth) ->
-        {
-            treeTableView.setPrefWidth((Double) newSceneWidth);
-        });
-
-        scene.heightProperty().addListener((observableValue, oldSceneHeight, newSceneHeight) ->
-        {
-            treeTableView.setPrefHeight((Double) newSceneHeight);
-        });
-
+        scene.widthProperty().addListener((observableValue, oldSceneWidth, newSceneWidth) ->    treeTableView.setPrefWidth((Double)  newSceneWidth));
+        scene.heightProperty().addListener((observableValue, oldSceneHeight, newSceneHeight) -> treeTableView.setPrefHeight((Double) newSceneHeight - 200));
 
         Group sceneRoot = (Group) scene.getRoot();
 
-        TreeTableColumn<Employee, String> empColumn = new TreeTableColumn<>("Employee");
-        empColumn.setPrefWidth(170);
-        empColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<Employee, String> param) ->  new ReadOnlyStringWrapper(param.getValue().getValue().getName()));
+        TreeTableColumn<ApplicationStat, String> methodNameColumn = new TreeTableColumn<>("Method Name");
+        methodNameColumn.setPrefWidth(170);
+        methodNameColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, String> param) ->  new ReadOnlyStringWrapper(param.getValue().getValue().getmethodName()));
 
-        TreeTableColumn<Employee, String> emailColumn = new TreeTableColumn<>("Email");
-        emailColumn.setPrefWidth(210);
-        emailColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<Employee, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getEmail()));
+        TreeTableColumn<ApplicationStat, String> methodCallCountColumn = new TreeTableColumn<>("Method Name");
+        methodCallCountColumn.setPrefWidth(170);
+        methodCallCountColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, String> param) ->  new ReadOnlyStringWrapper(String.valueOf(param.getValue().getValue().getCallCount())));
+
 
         treeTableView = new TreeTableView<>(root);
         treeTableView.setTableMenuButtonVisible(true);
         treeTableView.setPrefWidth(1400);
-        treeTableView.setPrefHeight(600);
+        treeTableView.setPrefHeight(600 - 200);
 
 
-
-        treeTableView.getColumns().setAll(empColumn, emailColumn);
+        treeTableView.getColumns().setAll(methodNameColumn, methodCallCountColumn);
         sceneRoot.getChildren().add(treeTableView);
         stage.setScene(scene);
         stage.show();
@@ -84,81 +71,6 @@ public class Main extends Application
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public class Employee
-    {
-        private SimpleStringProperty name;
-        private SimpleStringProperty email;
-
-        public SimpleStringProperty nameProperty()
-        {
-            if (name == null)
-            {
-                name = new SimpleStringProperty(this, "name");
-            }
-            return name;
-        }
-
-        public SimpleStringProperty emailProperty()
-        {
-            if (email == null)
-            {
-                email = new SimpleStringProperty(this, "email");
-            }
-            return email;
-        }
-
-        private Employee(String name, String email)
-        {
-            this.name = new SimpleStringProperty(name);
-            this.email = new SimpleStringProperty(email);
-        }
-
-        public String getName()
-        {
-            return name.get();
-        }
-
-        public void setName(String fName)
-        {
-            name.set(fName);
-        }
-
-        public String getEmail()
-        {
-            return email.get();
-        }
-
-        public void setEmail(String fName)
-        {
-            email.set(fName);
-        }
-    }
 
     public static void main(String[] args)
     {
