@@ -10,6 +10,7 @@ Side code project:
 
             Main - launches gui, gui asks for java root code directory
                 stores the root directory in a common area
+                reads in setting from config file
 
             Once root directory added and confirmed correct
                 make initial pass over all files get non recursive complexity count and other counts
@@ -27,13 +28,13 @@ Side code project:
 
 
         General:
-
+            on close save settings
             record time spent in methods, have a total field
 
             Index out program so it can refer to other classes:
                 -each class has its own object containing all its stats
 
-            Keeps track of line numbers and filename for user feedback
+            Keeps track of line numbers and filename for user feedback for static
 
             make multithreaded:
                 create a thread for each file / directory whichever is faster:
@@ -44,7 +45,6 @@ Side code project:
                 very top level is the program name
 
             Make the interface a gui
-                -fxml
                 -start small then build off
                 -basic
                 -highlighting rules like that of excel green good red bad all in a range 0 -> largest number all rated by the worst info in column
@@ -52,10 +52,9 @@ Side code project:
                 -for dynamic the gui is given the path the the jar file
                 -gui should be able to launch code / for static just give it the root directory
                     -remembers from last time so you dont have to keep retyping
-                -analyzing please wait as you wait for results
+                -analyzing please wait
                     -give stats after like
                         -analysis took 4.345 seconds
-                -basically just a treetable to show results
 
             be able to save results
                 -think about whether it should autocratically save the results to disk though

@@ -1,0 +1,19 @@
+.root
+{
+    -fx-font-size: 12pt;
+    -fx-font-family: "Verdana";
+    -fx-text-fill: rgb(0, 0, 0);
+    -fx-base: rgb(93, 118, 158);
+    -fx-background: rgb(225, 228, 203);
+
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
+}
+
+.button
+{
+    -fx-text-fill: rgb(0, 0, 0);
+    -fx-border-color: rgb(49, 89, 23);
+    -fx-border-radius: 5;
+    -fx-padding: 3 6 6 6;
+}
