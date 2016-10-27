@@ -13,24 +13,14 @@ public class ApplicationStat
 
     // TODO organize so is easily added to
 
-
-
     private SimpleStringProperty methodName;
     private long callCount;
+
 
     public ApplicationStat(String methodName, int callCount)
     {
         this.methodName = new SimpleStringProperty(methodName);
         this.callCount = callCount;
-    }
-
-    public SimpleStringProperty methodNameProperty()
-    {
-        if (methodName == null)
-        {
-            methodName = new SimpleStringProperty(this, "methodName");
-        }
-        return methodName;
     }
 
 

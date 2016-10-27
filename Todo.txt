@@ -39,6 +39,10 @@ Side code project:
                 create a thread for each file / directory whichever is faster:
                     unless performance isn't an issue
 
+            -each entry into the treetable is a file
+                the stems from that are methods
+                very top level is the program name
+
             Make the interface a gui
                 -fxml
                 -start small then build off
