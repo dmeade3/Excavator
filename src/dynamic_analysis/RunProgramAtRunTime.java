@@ -7,6 +7,7 @@ import data_storage.DynamicMethodDataEntry;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Stack;
 
 import static data_storage.SystemConfig.*;
 
@@ -67,15 +68,15 @@ public class RunProgramAtRunTime
             String className;
             String methodName;
 
-            enteringExitingOrOther= getEnterExitStatus(line);
+            enteringExitingOrOther = getEnterExitStatus(line);
 
             if(enteringExitingOrOther.equals("Entering") || enteringExitingOrOther.equals("Exiting"))
             {
                 className = getClassName(line);
                 methodName = getMethodName(line);
 
-                //System.out.println("Classname: " + className);
-                //System.out.println("Method Name: " + methodName);
+                System.out.println("Classname: " + className);
+                System.out.println("Method Name: " + methodName);
 
                 // Add class
                 if (!DynamicData.getInstance().contains(className))
@@ -101,7 +102,54 @@ public class RunProgramAtRunTime
             }
         }
 
+        applyTimeEntries(splitProgramOutput);
+
+        System.out.println("\n");
         displayClassData();
+    }
+
+    private static void applyTimeEntries(String[] splitProgramOutput)
+    {
+
+        Stack<MethodNameTime> methodTimeStack = new Stack();
+
+        for (String line : splitProgramOutput)
+        {
+            String enteringExitingOrOther = getEnterExitStatus(line);
+
+            // If entering push to stack
+            if(enteringExitingOrOther.equals("Entering"))
+            {
+                //System.out.println(getTimeStamp(line));
+                //System.out.println(getMethodName(line));
+
+                MethodNameTime methodNameTime = new MethodNameTime(getMethodName(line), Long.valueOf(getTimeStamp(line)));
+
+                methodTimeStack.push(methodNameTime);
+            }
+            // if exiting then pop off the stack and set the time
+            else if (enteringExitingOrOther.equals("Exiting"))
+            {
+                String methodName = getMethodName(line);
+
+                if (methodTimeStack.peek().getName().equals(methodName))
+                {
+                    long startTime = methodTimeStack.pop().getTimeStamp();
+
+                    long endTime = Long.valueOf(getTimeStamp(line));
+
+                    DynamicData.getInstance().get(getClassName(line)).get(methodName).addTimeSpentEntry(endTime - startTime);
+
+                }
+            }
+        }
+    }
+
+    private static String getTimeStamp(String line)
+    {
+        String[] splitLine = line.split(" ");
+
+        return splitLine[0];
     }
 
     public static void displayClassData()
@@ -113,7 +161,12 @@ public class RunProgramAtRunTime
             for (DynamicMethodDataEntry methodEntry : classEntry.getData().values())
             {
                 System.out.println("\t" + methodEntry.getMethodName());
-                System.out.println("\t\t Call Count: " + methodEntry.getCallCount());
+                System.out.println("\t\tCall Count: " + methodEntry.getCallCount());
+
+                for (Long entry : methodEntry.getTimesSpentInMethod())
+                {
+                    System.out.println("\t\tTime Entry: " + entry);
+                }
             }
         }
     }
@@ -149,11 +202,13 @@ public class RunProgramAtRunTime
 
     private static String getEnterExitStatus(String line)
     {
-        if (line.startsWith("Entering "))
+        line = line.split(" ")[1];
+
+        if (line.equals("Entering"))
         {
             return "Entering";
         }
-        else if (line.startsWith("Exiting "))
+        else if (line.equals("Exiting"))
         {
             return "Exiting";
         }
@@ -196,5 +251,37 @@ public class RunProgramAtRunTime
     public static void main(String[] args)
     {
         RunOutsideProgram();
+    }
+
+    private static class MethodNameTime {
+
+        private String name;
+        private long timeStamp;
+
+        public MethodNameTime(String name, long timeStamp)
+        {
+            this.name = name;
+            this.timeStamp = timeStamp;
+        }
+
+        public String getName()
+        {
+            return name;
+        }
+
+        public void setName(String name)
+        {
+            this.name = name;
+        }
+
+        public long getTimeStamp()
+        {
+            return timeStamp;
+        }
+
+        public void setTimeStamp(long timeStamp)
+        {
+            this.timeStamp = timeStamp;
+        }
     }
 }

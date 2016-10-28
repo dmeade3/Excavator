@@ -53,8 +53,9 @@ public class Profiler implements ClassFileTransformer
                 if (filter(methods[k].getLongName(), className))
                 {
 
-                    methods[k].insertBefore("System.out.println(\"Entering " + methods[k].getLongName() + "\");");
-                    methods[k].insertAfter( "System.out.println(\"Exiting  " + methods[k].getLongName() + "\");");
+                    methods[k].insertBefore("long timeStampzzzz = System.nanoTime(); System.out.println(timeStampzzzz + \" Entering " + methods[k].getLongName() + "\");");
+
+                    methods[k].insertAfter( "long timeStampzzzz = System.nanoTime(); System.out.println(timeStampzzzz + \" Exiting  " + methods[k].getLongName() + "\");");
                 }
             }
 

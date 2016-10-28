@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="javassist" level="project" />
+    <orderEntry type="library" exported="" name="javassist" level="project" />
   </component>
   <component name="sonarModuleSettings">
     <option name="alternativeWorkingDirPath" value="" />

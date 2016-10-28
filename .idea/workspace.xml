@@ -49,13 +49,24 @@
       <file leaf-file-name="RunProgramAtRunTime.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/dynamic_analysis/RunProgramAtRunTime.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="370">
-              <caret line="95" column="39" selection-start-line="95" selection-start-column="39" selection-end-line="95" selection-end-column="39" />
+            <state relative-caret-position="238">
+              <caret line="119" column="40" selection-start-line="119" selection-start-column="40" selection-end-line="119" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#getTimeStamp#0;class#RunProgramAtRunTime#0" expanded="false" />
+                <element signature="method#displayClassData#0;class#RunProgramAtRunTime#0" expanded="false" />
                 <element signature="method#getMethodName#0;class#RunProgramAtRunTime#0" expanded="false" />
                 <element signature="method#getEnterExitStatus#0;class#RunProgramAtRunTime#0" expanded="false" />
                 <element signature="method#getClassName#0;class#RunProgramAtRunTime#0" expanded="false" />
+                <element signature="class#MethodNameTime#0;class#RunProgramAtRunTime#0" expanded="false" />
+                <element signature="e#7896#7897#0" expanded="true" />
+                <element signature="e#7931#7932#0" expanded="true" />
+                <element signature="e#7983#7984#0" expanded="true" />
+                <element signature="e#8023#8024#0" expanded="true" />
+                <element signature="e#8069#8070#0" expanded="true" />
+                <element signature="e#8109#8110#0" expanded="true" />
+                <element signature="e#8169#8170#0" expanded="true" />
+                <element signature="e#8219#8220#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -85,9 +96,11 @@
       <file leaf-file-name="DynamicMethodDataEntry.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/data_storage/DynamicMethodDataEntry.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
-              <folding />
+            <state relative-caret-position="572">
+              <caret line="45" column="38" selection-start-line="45" selection-start-column="38" selection-end-line="45" selection-end-column="38" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -95,10 +108,10 @@
       <file leaf-file-name="Profiler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/dynamic_analysis/Profiler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="479">
-              <caret line="56" column="20" selection-start-line="56" selection-start-column="20" selection-end-line="56" selection-end-column="20" />
+            <state relative-caret-position="298">
+              <caret line="57" column="117" selection-start-line="57" selection-start-column="117" selection-end-line="57" selection-end-column="117" />
               <folding>
-                <element signature="method#Profiler#0;class#Profiler#0" expanded="false" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -149,10 +162,10 @@
         <option value="$PROJECT_DIR$/Excavator.iml" />
         <option value="$PROJECT_DIR$/src/data_storage/SystemConfig.java" />
         <option value="$PROJECT_DIR$/src/data_storage/DynamicFileDataEntry.java" />
-        <option value="$PROJECT_DIR$/src/dynamic_analysis/Profiler.java" />
-        <option value="$PROJECT_DIR$/src/data_storage/DynamicMethodDataEntry.java" />
         <option value="$PROJECT_DIR$/src/data_storage/DynamicData.java" />
         <option value="$PROJECT_DIR$/src/data_storage/DynamicClassDataEntry.java" />
+        <option value="$PROJECT_DIR$/src/dynamic_analysis/Profiler.java" />
+        <option value="$PROJECT_DIR$/src/data_storage/DynamicMethodDataEntry.java" />
         <option value="$PROJECT_DIR$/src/dynamic_analysis/RunProgramAtRunTime.java" />
       </list>
     </option>
@@ -218,6 +231,10 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="Excavator" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -304,8 +321,8 @@
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="vcs.Subversion" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/javassist.jar!/" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.20496324" />
     <property name="findjar.last.used.dir" value="$PROJECT_DIR$" />
@@ -313,6 +330,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\dcmeade\Desktop\Intelij Workspace\Excavator\src" />
       <recent name="C:\Users\dcmeade\Desktop\Intelij Workspace\Excavator\src\styleSheets" />
       <recent name="C:\Users\dcmeade\Desktop\Intelij Workspace\Excavator" />
     </key>
@@ -654,7 +672,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="477" y="0" width="2474" height="1398" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -666,6 +684,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32603407" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32927817" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12708333" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -733,9 +752,20 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#getTimeStamp#0;class#RunProgramAtRunTime#0" expanded="false" />
+            <element signature="method#displayClassData#0;class#RunProgramAtRunTime#0" expanded="false" />
             <element signature="method#getMethodName#0;class#RunProgramAtRunTime#0" expanded="false" />
             <element signature="method#getEnterExitStatus#0;class#RunProgramAtRunTime#0" expanded="false" />
             <element signature="method#getClassName#0;class#RunProgramAtRunTime#0" expanded="false" />
+            <element signature="class#MethodNameTime#0;class#RunProgramAtRunTime#0" expanded="false" />
+            <element signature="e#7896#7897#0" expanded="true" />
+            <element signature="e#7931#7932#0" expanded="true" />
+            <element signature="e#7983#7984#0" expanded="true" />
+            <element signature="e#8023#8024#0" expanded="true" />
+            <element signature="e#8069#8070#0" expanded="true" />
+            <element signature="e#8109#8110#0" expanded="true" />
+            <element signature="e#8169#8170#0" expanded="true" />
+            <element signature="e#8219#8220#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -809,9 +839,20 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#getTimeStamp#0;class#RunProgramAtRunTime#0" expanded="false" />
+            <element signature="method#displayClassData#0;class#RunProgramAtRunTime#0" expanded="false" />
             <element signature="method#getMethodName#0;class#RunProgramAtRunTime#0" expanded="false" />
             <element signature="method#getEnterExitStatus#0;class#RunProgramAtRunTime#0" expanded="false" />
             <element signature="method#getClassName#0;class#RunProgramAtRunTime#0" expanded="false" />
+            <element signature="class#MethodNameTime#0;class#RunProgramAtRunTime#0" expanded="false" />
+            <element signature="e#7896#7897#0" expanded="true" />
+            <element signature="e#7931#7932#0" expanded="true" />
+            <element signature="e#7983#7984#0" expanded="true" />
+            <element signature="e#8023#8024#0" expanded="true" />
+            <element signature="e#8069#8070#0" expanded="true" />
+            <element signature="e#8109#8110#0" expanded="true" />
+            <element signature="e#8169#8170#0" expanded="true" />
+            <element signature="e#8219#8220#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -820,6 +861,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1010,6 +1052,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1059,37 +1102,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/dynamic_analysis/Profiler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="479">
-          <caret line="56" column="20" selection-start-line="56" selection-start-column="20" selection-end-line="56" selection-end-column="20" />
-          <folding>
-            <element signature="method#Profiler#0;class#Profiler#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_storage/DynamicMethodDataEntry.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_storage/DynamicData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="41" selection-end-column="5" />
-          <folding>
-            <element signature="method#getInstance#0;class#DynamicData#0" expanded="false" />
-            <element signature="method#put#0;class#DynamicData#0" expanded="false" />
-            <element signature="e#888#889#0" expanded="true" />
-            <element signature="e#915#916#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/data_storage/DynamicClassDataEntry.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="418">
@@ -1109,15 +1121,59 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/dynamic_analysis/RunProgramAtRunTime.java">
+    <entry file="file://$PROJECT_DIR$/src/dynamic_analysis/Profiler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="95" column="39" selection-start-line="95" selection-start-column="39" selection-end-line="95" selection-end-column="39" />
+        <state relative-caret-position="298">
+          <caret line="57" column="117" selection-start-line="57" selection-start-column="117" selection-end-line="57" selection-end-column="117" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data_storage/DynamicMethodDataEntry.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="45" column="38" selection-start-line="45" selection-start-column="38" selection-end-line="45" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data_storage/DynamicData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="41" selection-end-column="5" />
+          <folding>
+            <element signature="method#getInstance#0;class#DynamicData#0" expanded="false" />
+            <element signature="method#put#0;class#DynamicData#0" expanded="false" />
+            <element signature="e#888#889#0" expanded="true" />
+            <element signature="e#915#916#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dynamic_analysis/RunProgramAtRunTime.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="119" column="40" selection-start-line="119" selection-start-column="40" selection-end-line="119" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getTimeStamp#0;class#RunProgramAtRunTime#0" expanded="false" />
+            <element signature="method#displayClassData#0;class#RunProgramAtRunTime#0" expanded="false" />
             <element signature="method#getMethodName#0;class#RunProgramAtRunTime#0" expanded="false" />
             <element signature="method#getEnterExitStatus#0;class#RunProgramAtRunTime#0" expanded="false" />
             <element signature="method#getClassName#0;class#RunProgramAtRunTime#0" expanded="false" />
+            <element signature="class#MethodNameTime#0;class#RunProgramAtRunTime#0" expanded="false" />
+            <element signature="e#7896#7897#0" expanded="true" />
+            <element signature="e#7931#7932#0" expanded="true" />
+            <element signature="e#7983#7984#0" expanded="true" />
+            <element signature="e#8023#8024#0" expanded="true" />
+            <element signature="e#8069#8070#0" expanded="true" />
+            <element signature="e#8109#8110#0" expanded="true" />
+            <element signature="e#8169#8170#0" expanded="true" />
+            <element signature="e#8219#8220#0" expanded="true" />
           </folding>
         </state>
       </provider>
