@@ -29,10 +29,13 @@ Side code project:
 
         General:
             on close save settings
-            record time spent in methods, have a total field
+
+            after running dynamic analysis the sizing doesnt work anymore
 
             Index out program so it can refer to other classes:
                 -each class has its own object containing all its stats
+
+            When setting paths you shouldnt have to use quotes
 
             Keeps track of line numbers and filename for user feedback for static
 
@@ -40,13 +43,15 @@ Side code project:
                 create a thread for each file / directory whichever is faster:
                     unless performance isn't an issue
 
-            -each entry into the treetable is a file
-                the stems from that are methods
-                very top level is the program name
+            Gui columns dont sort right
+
+            specify in gui its using nanos
+
+            on gui use formatted numbers with commas
+
+            cant pick up private methods
 
             Make the interface a gui
-                -start small then build off
-                -basic
                 -highlighting rules like that of excel green good red bad all in a range 0 -> largest number all rated by the worst info in column
                 -has setup section at the bottom of scene, does not grow in height
                 -for dynamic the gui is given the path the the jar file
@@ -90,4 +95,6 @@ Side code project:
             would be cool to have an actual call count
 
             time spent in each function / method / object type
+
+            if theres an error a popup box with only the abilty to close it should come up and display the error message
 

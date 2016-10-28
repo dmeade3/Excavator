@@ -75,8 +75,8 @@ public class RunProgramAtRunTime
                 className = getClassName(line);
                 methodName = getMethodName(line);
 
-                System.out.println("Classname: " + className);
-                System.out.println("Method Name: " + methodName);
+                //System.out.println("Classname: " + className);
+                //System.out.println("Method Name: " + methodName);
 
                 // Add class
                 if (!DynamicData.getInstance().contains(className))
@@ -104,13 +104,12 @@ public class RunProgramAtRunTime
 
         applyTimeEntries(splitProgramOutput);
 
-        System.out.println("\n");
+        System.out.println();
         displayClassData();
     }
 
     private static void applyTimeEntries(String[] splitProgramOutput)
     {
-
         Stack<MethodNameTime> methodTimeStack = new Stack();
 
         for (String line : splitProgramOutput)
@@ -120,9 +119,6 @@ public class RunProgramAtRunTime
             // If entering push to stack
             if(enteringExitingOrOther.equals("Entering"))
             {
-                //System.out.println(getTimeStamp(line));
-                //System.out.println(getMethodName(line));
-
                 MethodNameTime methodNameTime = new MethodNameTime(getMethodName(line), Long.valueOf(getTimeStamp(line)));
 
                 methodTimeStack.push(methodNameTime);
@@ -132,6 +128,7 @@ public class RunProgramAtRunTime
             {
                 String methodName = getMethodName(line);
 
+                // Peek looks at the top of the stack
                 if (methodTimeStack.peek().getName().equals(methodName))
                 {
                     long startTime = methodTimeStack.pop().getTimeStamp();
@@ -139,7 +136,6 @@ public class RunProgramAtRunTime
                     long endTime = Long.valueOf(getTimeStamp(line));
 
                     DynamicData.getInstance().get(getClassName(line)).get(methodName).addTimeSpentEntry(endTime - startTime);
-
                 }
             }
         }
@@ -162,11 +158,15 @@ public class RunProgramAtRunTime
             {
                 System.out.println("\t" + methodEntry.getMethodName());
                 System.out.println("\t\tCall Count: " + methodEntry.getCallCount());
+                System.out.println("\t\tTotal Time: " + methodEntry.getTotalTime());
+                System.out.println("\t\tAvg Time:   " + methodEntry.getAverageTime());
 
                 for (Long entry : methodEntry.getTimesSpentInMethod())
                 {
                     System.out.println("\t\tTime Entry: " + entry);
                 }
+
+                System.out.println();
             }
         }
     }

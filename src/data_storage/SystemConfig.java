@@ -7,6 +7,8 @@ public class SystemConfig
     ///// Non-Final Fields /////
     public static String OUTSIDEPROGRAMPATH = "\"C:\\Users\\dcmeade\\Desktop\\Intelij Workspace\\Hello World\\out\\artifacts\\Hello_World_jar\\Hello World.jar\"";
 
+    public static String OUTSIDEPROGRAMSOURCEPATH = "\"C:\\Users\\dcmeade\\Desktop\\Intelij Workspace\\Hello World\\src\"";
+
 
     ///// Final Fields ///////
     public static final String PATHTOMAINSTYLESHEET = "/styleSheets/mainStyleSheet.css";

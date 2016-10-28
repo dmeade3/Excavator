@@ -1,7 +1,5 @@
 package gui;
 
-import javafx.beans.property.SimpleStringProperty;
-
 /*
 *
 * Whenever a new column is added there needs to be a new field in here to represent it
@@ -11,23 +9,24 @@ import javafx.beans.property.SimpleStringProperty;
 public class ApplicationStat
 {
 
-    // TODO organize so is easily added to
-
-    private SimpleStringProperty methodName;
+    private String methodName;
     private long callCount;
+    private long averageMethodTime;
+    private long totalMethodTime;
 
-
-    public ApplicationStat(String methodName, int callCount)
+    public ApplicationStat(String methodName, long callCount, long averageMethodTime, long totalMethodTime)
     {
-        this.methodName = new SimpleStringProperty(methodName);
+        this.methodName = methodName;
         this.callCount = callCount;
-    }
+        this.averageMethodTime = averageMethodTime;
+        this.totalMethodTime = totalMethodTime;
 
+    }
 
     // Getters
     public String getmethodName()
     {
-        return methodName.get();
+        return methodName;
     }
 
     public long getCallCount()
@@ -35,14 +34,34 @@ public class ApplicationStat
         return callCount;
     }
 
-    // Setters
-    public void setStat(String name)
+    public long getTotalMethodTime()
     {
-        methodName.set(name);
+        return totalMethodTime;
+    }
+
+    public long getAverageMethodTime()
+    {
+        return averageMethodTime;
+    }
+
+    // Setters
+    public void setStat(String methodName)
+    {
+        this.methodName = methodName;
     }
 
     public void setCallCount(long callCount)
     {
         this.callCount = callCount;
+    }
+
+    public void setAverageMethodTime(long averageMethodTime)
+    {
+        this.averageMethodTime = averageMethodTime;
+    }
+
+    public void setTotalMethodTime(long totalMethodTime)
+    {
+        this.totalMethodTime = totalMethodTime;
     }
 }

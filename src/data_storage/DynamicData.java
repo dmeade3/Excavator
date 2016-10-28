@@ -40,4 +40,9 @@ public class DynamicData
     {
         return data;
     }
+
+    public void clear()
+    {
+        data.clear();
+    }
 }

@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class DynamicClassDataEntry
 {
     private String className;
-    private final  HashMap<String, DynamicMethodDataEntry> methodStore = new HashMap<>();
+    private final HashMap<String, DynamicMethodDataEntry> methodStore = new HashMap<>();
 
     public DynamicClassDataEntry(String className)
     {
