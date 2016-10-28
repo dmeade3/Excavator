@@ -5,14 +5,18 @@ public class SystemConfig
     ///// Read-In Fields /////
 
     ///// Non-Final Fields /////
-    public static String OUTSIDEPROGRAMPATH = "\"C:\\Users\\dcmeade\\Desktop\\Intelij Workspace\\Hello World\\out\\artifacts\\Hello_World_jar\\Hello World.jar\"";
+    //public static String OUTSIDEPROGRAMPATH = "\"C:\\Users\\dcmeade\\Desktop\\Intelij Workspace\\Hello World\\out\\artifacts\\Hello_World_jar\\Hello World.jar\"";
+
+	public static String OUTSIDEPROGRAMPATH = "\"C:\\Users\\David\\Desktop\\Intelij Workspace\\Hello-World\\out\\artifacts\\Hello_World_jar\\Hello World.jar\"";
 
     public static String OUTSIDEPROGRAMSOURCEPATH = "\"C:\\Users\\dcmeade\\Desktop\\Intelij Workspace\\Hello World\\src\"";
 
 
     ///// Final Fields ///////
     public static final String PATHTOMAINSTYLESHEET = "/styleSheets/mainStyleSheet.css";
-    public static final String AGENTCOMMAND = "\"-javaagent:C:\\Users\\dcmeade\\Desktop\\Intelij Workspace\\Excavator\\out\\artifacts\\Excavator_jar\\Excavator.jar\"";
+    //public static final String AGENTCOMMAND = "\"-javaagent:C:\\Users\\dcmeade\\Desktop\\Intelij Workspace\\Excavator\\out\\artifacts\\Excavator_jar\\Excavator.jar\"";
+
+	public static final String AGENTCOMMAND = "\"-javaagent:C:\\Users\\David\\Desktop\\Intelij Workspace\\Excavator\\out\\artifacts\\Excavator_jar\\Excavator.jar\"";
 
     public static final boolean SHOWOUTSIDEPROGRAMOUTPUT = true;
 

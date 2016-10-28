@@ -13,12 +13,37 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/data_storage/DynamicData.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/data_storage/DynamicMethodDataEntry.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/data_storage/SystemConfig.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/dynamic_analysis/RunProgramAtRunTime.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/gui/ApplicationStat.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/gui/GUIMain.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Hello-World/src/com/company/Main.java">
           <value>
             <set />
           </value>
