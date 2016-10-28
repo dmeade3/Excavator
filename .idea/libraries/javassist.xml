@@ -1,13 +1,9 @@
 <component name="libraryTable">
   <library name="javassist">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Downloads/jboss-javassist-javassist-rel_3_22_0_cr1-2-g6a9079a.zip!/" />
+      <root url="jar://$USER_HOME$/Downloads/javassist.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/Downloads/jboss-javassist-javassist-rel_3_22_0_cr1-2-g6a9079a.zip!/jboss-javassist-javassist-6a9079a" />
-      <root url="jar://$USER_HOME$/Downloads/jboss-javassist-javassist-rel_3_22_0_cr1-2-g6a9079a.zip!/jboss-javassist-javassist-6a9079a/src/main" />
-      <root url="jar://$USER_HOME$/Downloads/jboss-javassist-javassist-rel_3_22_0_cr1-2-g6a9079a.zip!/jboss-javassist-javassist-6a9079a/src/test" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>
