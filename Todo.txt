@@ -9,20 +9,19 @@ Side code project:
                     done
 
             Main - launches gui, gui asks for java root code directory
-                stores the root directory in a common area
                 reads in setting from config file
 
             Once root directory added and confirmed correct
-                make initial pass over all files get non recursive complexity count and other counts
-                    get recursive information
+                scan files for complexity info and other info
 
-
-            Last step is to analyze the data gotten by the recursive analysis
 
             be able to change time type to milli, sec, nano, min
 
 
         look up common java performance pitfalls so my program can look for them
+
+
+        scrollpane ajust height with text size
 
 
         General:
@@ -33,8 +32,6 @@ Side code project:
 
             Index out program so it can refer to other classes:
                 -each class has its own object containing all its stats
-
-            When setting paths you shouldnt have to use quotes
 
             try and get it to where you dont need the outside jar to be compiled with javassist
 
@@ -83,6 +80,13 @@ Side code project:
         Static:
             have a "Potential Hotspot" detector
             give interesting stats on each file
+            line count
+            total method complexity
+            individual method complexity
+            for loop count
+            while loop count
+
+            popup that says possible problems
 
 
         Dynamic:

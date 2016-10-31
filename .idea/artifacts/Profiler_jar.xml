@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Profiler:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Profiler_jar</output-path>
+    <root id="archive" name="Profiler.jar">
+      <element id="module-output" name="Excavator" />
+      <element id="library" level="project" name="javassist" />
+      <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+    </root>
+  </artifact>
+</component>

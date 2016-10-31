@@ -4,9 +4,11 @@ import java.util.HashMap;
 
 public class DynamicClassDataEntry
 {
+    ///// Fields /////
     private String className;
     private final HashMap<String, DynamicMethodDataEntry> methodStore = new HashMap<>();
 
+    ///// Methods /////
     public DynamicClassDataEntry(String className)
     {
         this.className = className;

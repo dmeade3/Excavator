@@ -17,3 +17,9 @@
     -fx-border-radius: 5;
     -fx-padding: 3 6 6 6;
 }
+
+.scroll-pane
+{
+    -fx-background: rgb(0, 0, 0);
+}
+

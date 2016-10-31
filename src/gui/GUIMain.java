@@ -7,6 +7,7 @@ import data_storage.SystemConfig;
 import dynamic_analysis.RunProgramAtRunTime;
 import javafx.application.Application;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -28,34 +29,55 @@ public class GUIMain extends Application
 
     TreeTableView<ApplicationStat> treeTableView = new TreeTableView<>(root);
 
+    ScrollPane rightScrollPane = new ScrollPane();
+    final TextArea textArea = TextAreaBuilder.create().prefWidth(SCENEHEIGHT - SPACEFROMBOTTOMBUTTONS).prefHeight(SCENEHEIGHT - SPACEFROMBOTTOMBUTTONS - 2).wrapText(true).build();
+
     GridPane bottomButtons = new GridPane();
 
     // Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void start(Stage stage)
     {
-        // Todo organize this
         root.setExpanded(true);
-
+        Color backgroundColor = new Color(.225, .228, .203, .5);
 
         final Scene scene = new Scene(new Group(), SCENEWIDTH, SCENEHEIGHT);
         scene.getStylesheets().add(SystemConfig.PATHTOMAINSTYLESHEET);
-        scene.setFill(new Color(.225, .228, .203, .5));
+        scene.setFill(backgroundColor);
 
         // Tree table size adjusting
         treeTableView.setTableMenuButtonVisible(true);
-        treeTableView.setPrefWidth(SCENEWIDTH);
+        treeTableView.setPrefWidth(SCENEWIDTH - 400);
         treeTableView.setPrefHeight(SCENEHEIGHT - SPACEFROMBOTTOMBUTTONS);
 
+        // Right Right Scrollpane
+        // TODO make scrollpane width size a constant
+        textArea.setEditable(false);
+        rightScrollPane.setPrefWidth(400);
+        rightScrollPane.setPrefHeight(SCENEHEIGHT - SPACEFROMBOTTOMBUTTONS);
+        //rightScrollPane.getStyleClass().add("noborder-scroll-pane");
+        rightScrollPane.setContent(textArea);
+        rightScrollPane.setFitToWidth(true);
+
+        textArea.setText("Additional Results:");
+
+
         // Listeners for scene growth
-        scene.widthProperty().addListener((observableValue, oldSceneWidth, newSceneWidth) -> treeTableView.setPrefWidth((Double)  newSceneWidth));
-        scene.heightProperty().addListener((observableValue, oldSceneHeight, newSceneHeight) -> treeTableView.setPrefHeight((Double) newSceneHeight - SPACEFROMBOTTOMBUTTONS));
+        scene.widthProperty().addListener((observableValue, oldSceneWidth, newSceneWidth) -> treeTableView.setPrefWidth((Double)  newSceneWidth - 400));
+        scene.heightProperty().addListener((observableValue, oldSceneHeight, newSceneHeight) -> {
+
+            treeTableView.setPrefHeight((Double) newSceneHeight - SPACEFROMBOTTOMBUTTONS);
+            textArea.setPrefHeight((Double) newSceneHeight - SPACEFROMBOTTOMBUTTONS - 2);
+            rightScrollPane.setPrefHeight((Double) newSceneHeight - SPACEFROMBOTTOMBUTTONS - 2);
+        });
 
         Group sceneRoot = (Group) scene.getRoot();
         BorderPane mainBorderPane = new BorderPane();
 
         updateTreeTable();
         mainBorderPane.setCenter(treeTableView);
+
+        mainBorderPane.setRight(rightScrollPane);
 
         initBottomButtonGridPane(sceneRoot, mainBorderPane);
 
@@ -106,22 +128,23 @@ public class GUIMain extends Application
             root.getChildren().add(classEntry);
         }
 
+        treeTableView.setSortMode(TreeSortMode.ALL_DESCENDANTS);
 
         TreeTableColumn<ApplicationStat, String> methodClassNameColumn = new TreeTableColumn<>("");
-        methodClassNameColumn.setPrefWidth(280);
+        methodClassNameColumn.setPrefWidth(500);
         methodClassNameColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getmethodName()));
 
-        TreeTableColumn<ApplicationStat, String> methodCallCountColumn = new TreeTableColumn<>("Call Count");
+        TreeTableColumn<ApplicationStat, Long> methodCallCountColumn = new TreeTableColumn<>("Call Count");
         methodCallCountColumn.setPrefWidth(115);
-        methodCallCountColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, String> param) -> new ReadOnlyStringWrapper(String.valueOf(param.getValue().getValue().getCallCount())));
+        methodCallCountColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, Long> param) -> new SimpleObjectProperty<>(param.getValue().getValue().getCallCount()));
 
-        TreeTableColumn<ApplicationStat, String> averageTimeColumn = new TreeTableColumn<>("Average Time");
+        TreeTableColumn<ApplicationStat, Long> averageTimeColumn = new TreeTableColumn<>("Average Time");
         averageTimeColumn.setPrefWidth(150);
-        averageTimeColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, String> param) -> new ReadOnlyStringWrapper(String.valueOf(param.getValue().getValue().getAverageMethodTime())));
+        averageTimeColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, Long> param) -> new SimpleObjectProperty<>(param.getValue().getValue().getAverageMethodTime()));
 
-        TreeTableColumn<ApplicationStat, String> totalTimeColumn = new TreeTableColumn<>("Total Time");
+        TreeTableColumn<ApplicationStat, Long> totalTimeColumn = new TreeTableColumn<>("Total Time");
         totalTimeColumn.setPrefWidth(150);
-        totalTimeColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, String> param) -> new ReadOnlyStringWrapper(String.valueOf(param.getValue().getValue().getTotalMethodTime())));
+        totalTimeColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, Long> param) -> new SimpleObjectProperty<>(param.getValue().getValue().getTotalMethodTime()));
 
         // Add all the columns to the tree table
         treeTableView.getColumns().setAll(methodClassNameColumn, methodCallCountColumn, averageTimeColumn, totalTimeColumn);
@@ -186,7 +209,7 @@ public class GUIMain extends Application
                 dialog.setTitle("Select / Change Source Path");
                 dialog.setHeaderText("Select / Change Source Path");
 	            dialog.setResizable(true);
-	        dialog.getDialogPane().setPrefSize(DIALOGWIDTH, DIALOGHEIGHT);
+	            dialog.getDialogPane().setPrefSize(DIALOGWIDTH, DIALOGHEIGHT);
 
                 Optional<String> result = dialog.showAndWait();
                 if (result.isPresent())
@@ -205,8 +228,16 @@ public class GUIMain extends Application
             root.setValue(overallStat);
 
 			dynamicStateLabel.setText("Running...");
+
+            long start = System.nanoTime();
             RunProgramAtRunTime.RunOutsideProgram();
-	        dynamicStateLabel.setText("Done");
+            long end = System.nanoTime();
+
+            SystemConfig.OUTSIDEPROGRAMEXECUTIONTIME = end - start;
+
+            appendToScrollPanel("Dynamic Analysis Total Execution Time: " + SystemConfig.OUTSIDEPROGRAMEXECUTIONTIME);
+
+            dynamicStateLabel.setText("Done");
 
             root.getChildren().clear();
 
@@ -218,12 +249,17 @@ public class GUIMain extends Application
 	        rootTitle = splitString[splitString.length-1];
 	        root.getValue().setMethodName(rootTitle);
 
-            setRootExpandedRecursively(root);
+            //setRootExpandedRecursively(root);
         });
 
 
         mainBorderPane.setBottom(bottomButtons);
         sceneRoot.getChildren().add(mainBorderPane);
+    }
+
+    private void appendToScrollPanel(String input)
+    {
+        textArea.setText(textArea.getText() + "\n" + input);
     }
 
     private void setRootExpandedRecursively(TreeItem<ApplicationStat> root)

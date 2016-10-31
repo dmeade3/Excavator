@@ -1,10 +1,8 @@
 package dynamic_analysis;
 
 
-import javassist.ByteArrayClassPath;
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.CtMethod;
+import data_storage.SystemConfig;
+import javassist.*;
 
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
@@ -28,9 +26,13 @@ public class Profiler implements ClassFileTransformer
     public Profiler(Instrumentation inst)
     {
         // TODO come up with clever way to do this, maybe have these filters in another file
-        filterList.add("java");
-        filterList.add("sun");
-        filterList.add("com.intellij.");
+
+        if (SystemConfig.FILTEROUTNONUSERMETHODS)
+        {
+            filterList.add("java");
+            filterList.add("sun");
+            filterList.add("com.intellij.");
+        }
 
         instrumentation = inst;
         classPool = ClassPool.getDefault();
@@ -47,19 +49,30 @@ public class Profiler implements ClassFileTransformer
             classPool.insertClassPath(new ByteArrayClassPath(className, classfileBuffer));
             CtClass cc = classPool.get(className);
 
+            CtMethod[] methods = cc.getDeclaredMethods();
+            CtConstructor[] constructors = cc.getConstructors();
 
-            CtMethod[] methods = cc.getMethods();
-
-	        cc.
 
             for (int k=0; k < methods.length; k++)
             {
+
                 if (filter(methods[k].getLongName(), className))
                 {
 
                     methods[k].insertBefore("long timeStampzzzz = System.nanoTime(); System.out.println(timeStampzzzz + \" Entering " + methods[k].getLongName() + "\");");
 
                     methods[k].insertAfter( "long timeStampzzzz = System.nanoTime(); System.out.println(timeStampzzzz + \" Exiting  " + methods[k].getLongName() + "\");");
+                }
+            }
+
+            for (int k=0; k < constructors.length; k++)
+            {
+                if (filter(constructors[k].getLongName(), className))
+                {
+
+                    constructors[k].insertBefore("long timeStampzzzz = System.nanoTime(); System.out.println(timeStampzzzz + \" Entering " + constructors[k].getLongName() + "\");");
+
+                    constructors[k].insertAfter( "long timeStampzzzz = System.nanoTime(); System.out.println(timeStampzzzz + \" Exiting  " + constructors[k].getLongName() + "\");");
                 }
             }
 
@@ -96,5 +109,4 @@ public class Profiler implements ClassFileTransformer
 
         return result;
     }
-
 }

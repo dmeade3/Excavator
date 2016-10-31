@@ -18,7 +18,8 @@ public class RunProgramAtRunTime
         try
         {
             Runtime runTime = Runtime.getRuntime();
-            Process process = runTime.exec("java " + AGENTCOMMAND + " -jar \"" + OUTSIDEPROGRAMJARPATH + "\"");
+            Process process = runTime.exec("java \"" + AGENTCOMMAND + "\" -jar \"" + OUTSIDEPROGRAMJARPATH + "\"");
+            //Process process = runTime.exec("java -jar \"" + OUTSIDEPROGRAMJARPATH + "\"");
 
             if (SHOWOUTSIDEPROGRAMOUTPUT)
             {
@@ -200,22 +201,22 @@ public class RunProgramAtRunTime
         return line;
     }
 
-    private static String getEnterExitStatus(String line)
-    {
-        line = line.split(" ")[1];
+    private static String getEnterExitStatus(String line) {
 
-        if (line.equals("Entering"))
+        if (line.contains(" "))
         {
-            return "Entering";
+            line = line.split(" ")[1];
+
+            if (line.equals("Entering")) {
+                return "Entering";
+            } else if (line.equals("Exiting")) {
+                return "Exiting";
+            } else {
+                return "Other";
+            }
         }
-        else if (line.equals("Exiting"))
-        {
-            return "Exiting";
-        }
-        else
-        {
-            return "Other";
-        }
+
+        return "Other";
     }
 
     private static String getClassName(String line)
