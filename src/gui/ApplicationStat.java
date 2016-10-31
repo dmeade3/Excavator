@@ -44,7 +44,12 @@ public class ApplicationStat
         return averageMethodTime;
     }
 
-    // Setters
+	public String getMethodName()
+	{
+		return methodName;
+	}
+
+	// Setters
     public void setStat(String methodName)
     {
         this.methodName = methodName;
@@ -64,4 +69,9 @@ public class ApplicationStat
     {
         this.totalMethodTime = totalMethodTime;
     }
+
+	public void setMethodName(String methodName)
+	{
+		this.methodName = methodName;
+	}
 }

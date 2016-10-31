@@ -46,7 +46,11 @@ public class Profiler implements ClassFileTransformer
 
             classPool.insertClassPath(new ByteArrayClassPath(className, classfileBuffer));
             CtClass cc = classPool.get(className);
+
+
             CtMethod[] methods = cc.getMethods();
+
+	        cc.
 
             for (int k=0; k < methods.length; k++)
             {

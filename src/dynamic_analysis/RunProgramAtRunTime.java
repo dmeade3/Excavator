@@ -18,7 +18,7 @@ public class RunProgramAtRunTime
         try
         {
             Runtime runTime = Runtime.getRuntime();
-            Process process = runTime.exec("java " + AGENTCOMMAND + " -jar " + OUTSIDEPROGRAMPATH);
+            Process process = runTime.exec("java " + AGENTCOMMAND + " -jar \"" + OUTSIDEPROGRAMJARPATH + "\"");
 
             if (SHOWOUTSIDEPROGRAMOUTPUT)
             {

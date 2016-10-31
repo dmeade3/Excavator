@@ -28,6 +28,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/dynamic_analysis/Profiler.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/dynamic_analysis/RunProgramAtRunTime.java">
           <value>
             <set />

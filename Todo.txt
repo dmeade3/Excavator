@@ -16,26 +16,27 @@ Side code project:
                 make initial pass over all files get non recursive complexity count and other counts
                     get recursive information
 
-            Separate large storage space for all code stat info
-                concurrenthashmap
-                    main hashmap
-                    holds objects that represent the files
 
             Last step is to analyze the data gotten by the recursive analysis
+
+            be able to change time type to milli, sec, nano, min
 
 
         look up common java performance pitfalls so my program can look for them
 
 
         General:
-            on close save settings
 
-            after running dynamic analysis the sizing doesnt work anymore
+            make section for time assumed in private methods / junk time (total time - main time)
+
+            on close save settings
 
             Index out program so it can refer to other classes:
                 -each class has its own object containing all its stats
 
             When setting paths you shouldnt have to use quotes
+
+            try and get it to where you dont need the outside jar to be compiled with javassist
 
             Keeps track of line numbers and filename for user feedback for static
 
@@ -53,13 +54,8 @@ Side code project:
 
             Make the interface a gui
                 -highlighting rules like that of excel green good red bad all in a range 0 -> largest number all rated by the worst info in column
-                -has setup section at the bottom of scene, does not grow in height
-                -for dynamic the gui is given the path the the jar file
-                -gui should be able to launch code / for static just give it the root directory
+                -gui should be able to launch program / for static just give it the root directory
                     -remembers from last time so you dont have to keep retyping
-                -analyzing please wait
-                    -give stats after like
-                        -analysis took 4.345 seconds
 
             be able to save results
                 -think about whether it should autocratically save the results to disk though

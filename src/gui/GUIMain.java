@@ -133,13 +133,13 @@ public class GUIMain extends Application
         // TODO organize this
         // TODO path is field at top that is set by button window
         // TODO verify the path can be used
-        // TODO if path wrong show a sample format of a path with spaces and complicated things that might have gone wrong
+        // TODO if path wrong show a sample format of a path with spaces and complicated things that might have gone wrong, sample format should tak into account whether its a linux or windows machine
         bottomButtons.setHgap(5);
         bottomButtons.setVgap(5);
 
         Button linkJarUpButton = new Button("Select / Change Jar File Path");
         // Displays current path to jar
-        Label jarPathLabel = new Label(OUTSIDEPROGRAMPATH);
+        Label jarPathLabel = new Label(OUTSIDEPROGRAMJARPATH);
         bottomButtons.add(linkJarUpButton, 0, 0);
         bottomButtons.add(jarPathLabel, 1, 0);
 
@@ -151,18 +151,24 @@ public class GUIMain extends Application
 
         // Todo label saying idle or running or done
         Button runStaticAnalysisButton  = new Button("Run Static Analysis             ");
-        Button runDynamicAnalysisButton = new Button("Run Dynamic Analysis         ");
+	    Label staticStateLabel = new Label("");
+	    bottomButtons.add(runStaticAnalysisButton, 0, 3);
+		bottomButtons.add(staticStateLabel, 1, 3);
 
-        bottomButtons.add(runDynamicAnalysisButton, 0, 2);
-        bottomButtons.add(runStaticAnalysisButton, 0, 3);
+        Button runDynamicAnalysisButton = new Button("Run Dynamic Analysis         ");
+	    bottomButtons.add(runDynamicAnalysisButton, 0, 2);
+	    Label dynamicStateLabel = new Label("");
+	    bottomButtons.add(dynamicStateLabel, 1, 2);
 
         // Listeners
         linkJarUpButton.setOnAction(event -> {
 
                 // TODO path from last time goes here in label also come up with a default if the old path is not here");
-                TextInputDialog dialog = new TextInputDialog();
+                TextInputDialog dialog = new TextInputDialog(SystemConfig.OUTSIDEPROGRAMJARPATH);
                 dialog.setTitle("Select / Change Jar File Path");
                 dialog.setHeaderText("Select / Change Jar File Path");
+	            dialog.setResizable(true);
+	            dialog.getDialogPane().setPrefSize(DIALOGWIDTH, DIALOGHEIGHT);
 
                 Optional<String> result = dialog.showAndWait();
                 if (result.isPresent())
@@ -176,9 +182,11 @@ public class GUIMain extends Application
         linkSourceUpButton.setOnAction(event -> {
 
                  // TODO path from last time goes here in label also come up with a default if the old path is not here");
-                TextInputDialog dialog = new TextInputDialog();
+                TextInputDialog dialog = new TextInputDialog(SystemConfig.OUTSIDEPROGRAMSOURCEPATH);
                 dialog.setTitle("Select / Change Source Path");
                 dialog.setHeaderText("Select / Change Source Path");
+	            dialog.setResizable(true);
+	        dialog.getDialogPane().setPrefSize(DIALOGWIDTH, DIALOGHEIGHT);
 
                 Optional<String> result = dialog.showAndWait();
                 if (result.isPresent())
@@ -196,11 +204,19 @@ public class GUIMain extends Application
             overallStat = new ApplicationStat("", 0, 0, 0);
             root.setValue(overallStat);
 
+			dynamicStateLabel.setText("Running...");
             RunProgramAtRunTime.RunOutsideProgram();
+	        dynamicStateLabel.setText("Done");
 
             root.getChildren().clear();
 
             updateTreeTable();
+
+	        // Set Root title
+	        String rootTitle = OUTSIDEPROGRAMJARPATH;
+	        String[] splitString = rootTitle.split("\\\\");
+	        rootTitle = splitString[splitString.length-1];
+	        root.getValue().setMethodName(rootTitle);
 
             setRootExpandedRecursively(root);
         });
