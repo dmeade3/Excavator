@@ -35,7 +35,7 @@ public class RunProgramAtRunTime
                 {
                     standardOutput.append(c1, 0, n1);
                 }
-				System.out.println(standardOutput.toString());
+				//System.out.println(standardOutput.toString());
                 outputAnalysis(standardOutput.toString());
 
                 int n2;
@@ -63,7 +63,7 @@ public class RunProgramAtRunTime
 
         for (String line : splitProgramOutput)
         {
-            System.out.println(line);
+            //System.out.println(line);
 
             String enteringExitingOrOther;
             String className;
@@ -105,8 +105,8 @@ public class RunProgramAtRunTime
 
         applyTimeEntries(splitProgramOutput);
 
-        System.out.println();
-        displayClassData();
+        //System.out.println();
+        //displayClassData();
     }
 
     private static void applyTimeEntries(String[] splitProgramOutput)

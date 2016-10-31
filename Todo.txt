@@ -21,10 +21,12 @@ Side code project:
         look up common java performance pitfalls so my program can look for them
 
 
-        scrollpane ajust height with text size
-
-
         General:
+
+            make easier to use on other projects for profiling
+                or at least write down process of making the project able to be profiled
+
+            when scrollpane grows scrollbar should stay in the same place
 
             make section for time assumed in private methods / junk time (total time - main time)
 

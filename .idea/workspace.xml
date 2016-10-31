@@ -24,18 +24,18 @@
       <file leaf-file-name="Todo.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Todo.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="506">
-              <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="46" />
+            <state relative-caret-position="418">
+              <caret line="28" column="73" selection-start-line="28" selection-start-column="73" selection-end-line="28" selection-end-column="73" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GUIMain.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GUIMain.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/GUIMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="133" column="45" selection-start-line="133" selection-start-column="45" selection-end-line="133" selection-end-column="45" />
+            <state relative-caret-position="320">
+              <caret line="233" column="41" selection-start-line="233" selection-start-column="41" selection-end-line="233" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#setRootExpandedRecursively#0;class#GUIMain#0" expanded="false" />
@@ -60,25 +60,25 @@
       <file leaf-file-name="SystemConfig.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/data_storage/SystemConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
+            <state relative-caret-position="486">
+              <caret line="24" column="64" selection-start-line="24" selection-start-column="64" selection-end-line="24" selection-end-column="64" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RunProgramAtRunTime.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RunProgramAtRunTime.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/dynamic_analysis/RunProgramAtRunTime.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-218">
-              <caret line="81" column="22" selection-start-line="81" selection-start-column="19" selection-end-line="81" selection-end-column="22" />
+            <state relative-caret-position="244">
+              <caret line="108" column="10" selection-start-line="108" selection-start-column="10" selection-end-line="108" selection-end-column="10" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#applyTimeEntries#0;class#RunProgramAtRunTime#0" expanded="false" />
                 <element signature="method#getTimeStamp#0;class#RunProgramAtRunTime#0" expanded="false" />
                 <element signature="method#getMethodName#0;class#RunProgramAtRunTime#0" expanded="false" />
-                <marker date="1477930747557" expanded="false" signature="7232:7884" ph="{...}" />
-                <marker date="1477930747557" expanded="false" signature="8011:8596" ph="{...}" />
+                <marker date="1477945491556" expanded="false" signature="7240:7892" ph="{...}" />
+                <marker date="1477945491556" expanded="false" signature="8019:8604" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -87,8 +87,8 @@
       <file leaf-file-name="Profiler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/dynamic_analysis/Profiler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
-              <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
+            <state relative-caret-position="662">
+              <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#premain#0;class#Profiler#0" expanded="false" />
@@ -153,13 +153,13 @@
         <option value="$PROJECT_DIR$/src/static_analysis/StaticAnalysis.java" />
         <option value="$PROJECT_DIR$/src/data_storage/DynamicClassDataEntry.java" />
         <option value="$PROJECT_DIR$/src/styleSheets/mainStyleSheet.css" />
-        <option value="$PROJECT_DIR$/src/dynamic_analysis/RunProgramAtRunTime.java" />
         <option value="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
         <option value="$PROJECT_DIR$/src/dynamic_analysis/Testing.java" />
-        <option value="$PROJECT_DIR$/Todo.txt" />
         <option value="$PROJECT_DIR$/src/dynamic_analysis/Profiler.java" />
         <option value="$PROJECT_DIR$/src/data_storage/SystemConfig.java" />
+        <option value="$PROJECT_DIR$/Todo.txt" />
         <option value="$PROJECT_DIR$/src/gui/GUIMain.java" />
+        <option value="$PROJECT_DIR$/src/dynamic_analysis/RunProgramAtRunTime.java" />
       </list>
     </option>
   </component>
@@ -956,8 +956,8 @@
             <element signature="method#applyTimeEntries#0;class#RunProgramAtRunTime#0" expanded="false" />
             <element signature="method#getTimeStamp#0;class#RunProgramAtRunTime#0" expanded="false" />
             <element signature="method#getMethodName#0;class#RunProgramAtRunTime#0" expanded="false" />
-            <marker date="1477930747557" expanded="false" signature="7232:7884" ph="{...}" />
-            <marker date="1477930747557" expanded="false" signature="8011:8596" ph="{...}" />
+            <marker date="1477945491556" expanded="false" signature="7240:7892" ph="{...}" />
+            <marker date="1477945491556" expanded="false" signature="8019:8604" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1013,8 +1013,8 @@
             <element signature="method#applyTimeEntries#0;class#RunProgramAtRunTime#0" expanded="false" />
             <element signature="method#getTimeStamp#0;class#RunProgramAtRunTime#0" expanded="false" />
             <element signature="method#getMethodName#0;class#RunProgramAtRunTime#0" expanded="false" />
-            <marker date="1477930747557" expanded="false" signature="7232:7884" ph="{...}" />
-            <marker date="1477930747557" expanded="false" signature="8011:8596" ph="{...}" />
+            <marker date="1477945491556" expanded="false" signature="7240:7892" ph="{...}" />
+            <marker date="1477945491556" expanded="false" signature="8019:8604" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1079,8 +1079,8 @@
             <element signature="method#applyTimeEntries#0;class#RunProgramAtRunTime#0" expanded="false" />
             <element signature="method#getTimeStamp#0;class#RunProgramAtRunTime#0" expanded="false" />
             <element signature="method#getMethodName#0;class#RunProgramAtRunTime#0" expanded="false" />
-            <marker date="1477930747557" expanded="false" signature="7232:7884" ph="{...}" />
-            <marker date="1477930747557" expanded="false" signature="8011:8596" ph="{...}" />
+            <marker date="1477945491556" expanded="false" signature="7240:7892" ph="{...}" />
+            <marker date="1477945491556" expanded="false" signature="8019:8604" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1286,17 +1286,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/static_analysis/StaticAnalysis.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="662">
-          <caret line="106" column="28" selection-start-line="106" selection-start-column="28" selection-end-line="106" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#filterFileByType#0;class#StaticAnalysis#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/META-INF/MANIFEST.MF">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
@@ -1321,33 +1310,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Todo.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dynamic_analysis/RunProgramAtRunTime.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-218">
-          <caret line="81" column="22" selection-start-line="81" selection-start-column="19" selection-end-line="81" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#applyTimeEntries#0;class#RunProgramAtRunTime#0" expanded="false" />
-            <element signature="method#getTimeStamp#0;class#RunProgramAtRunTime#0" expanded="false" />
-            <element signature="method#getMethodName#0;class#RunProgramAtRunTime#0" expanded="false" />
-            <marker date="1477930747557" expanded="false" signature="7232:7884" ph="{...}" />
-            <marker date="1477930747557" expanded="false" signature="8011:8596" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/dynamic_analysis/Profiler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="12" />
+        <state relative-caret-position="662">
+          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#premain#0;class#Profiler#0" expanded="false" />
@@ -1357,19 +1323,53 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/data_storage/SystemConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
+        <state relative-caret-position="486">
+          <caret line="24" column="64" selection-start-line="24" selection-start-column="64" selection-end-line="24" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/static_analysis/StaticAnalysis.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="662">
+          <caret line="106" column="28" selection-start-line="106" selection-start-column="28" selection-end-line="106" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#filterFileByType#0;class#StaticAnalysis#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Todo.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="28" column="73" selection-start-line="28" selection-start-column="73" selection-end-line="28" selection-end-column="73" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/GUIMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="133" column="45" selection-start-line="133" selection-start-column="45" selection-end-line="133" selection-end-column="45" />
+        <state relative-caret-position="320">
+          <caret line="233" column="41" selection-start-line="233" selection-start-column="41" selection-end-line="233" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#setRootExpandedRecursively#0;class#GUIMain#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dynamic_analysis/RunProgramAtRunTime.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="108" column="10" selection-start-line="108" selection-start-column="10" selection-end-line="108" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#applyTimeEntries#0;class#RunProgramAtRunTime#0" expanded="false" />
+            <element signature="method#getTimeStamp#0;class#RunProgramAtRunTime#0" expanded="false" />
+            <element signature="method#getMethodName#0;class#RunProgramAtRunTime#0" expanded="false" />
+            <marker date="1477945491556" expanded="false" signature="7240:7892" ph="{...}" />
+            <marker date="1477945491556" expanded="false" signature="8019:8604" ph="{...}" />
           </folding>
         </state>
       </provider>

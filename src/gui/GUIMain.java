@@ -232,16 +232,18 @@ public class GUIMain extends Application
             long start = System.nanoTime();
             RunProgramAtRunTime.RunOutsideProgram();
             long end = System.nanoTime();
-
             SystemConfig.OUTSIDEPROGRAMEXECUTIONTIME = end - start;
 
-            appendToScrollPanel("Dynamic Analysis Total Execution Time: " + SystemConfig.OUTSIDEPROGRAMEXECUTIONTIME);
+            appendToScrollPanel("Dynamic Analysis Total Execution Time:\n\t" + SystemConfig.OUTSIDEPROGRAMEXECUTIONTIME);
 
             dynamicStateLabel.setText("Done");
 
             root.getChildren().clear();
 
             updateTreeTable();
+
+            appendToScrollPanel("Dynamic Analysis Overhead Time:\n\t"  + (SystemConfig.OUTSIDEPROGRAMEXECUTIONTIME - overallStat.getTotalMethodTime()));
+            appendToScrollPanel("\n");
 
 	        // Set Root title
 	        String rootTitle = OUTSIDEPROGRAMJARPATH;

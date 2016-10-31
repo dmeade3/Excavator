@@ -22,7 +22,7 @@ public class SystemConfig
 	//public static final String AGENTCOMMAND = "-javaagent:C:\\Users\\David\\Desktop\\Intelij Workspace\\Excavator\\out\\artifacts\\Excavator_jar\\Excavator.jar";
 
     public static final boolean SHOWOUTSIDEPROGRAMOUTPUT = true;
-    public static final boolean FILTEROUTNONUSERMETHODS  = false;
+    public static final boolean FILTEROUTNONUSERMETHODS  = true;
 
     public static final int SPACEFROMBOTTOMBUTTONS = 200;
     public static final int SCENEWIDTH = 1400;
