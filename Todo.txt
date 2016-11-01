@@ -26,7 +26,17 @@ Side code project:
             make easier to use on other projects for profiling
                 or at least write down process of making the project able to be profiled
 
+            run dynamicanalysis in its own thread
+
+            make sure label changes to running... when running
+
             when scrollpane grows scrollbar should stay in the same place
+
+            add in additional scrollpane results percentage of time spent in certain places
+
+            long complicated lines make functiona out of
+
+            when time type changes, refill the scroll pane so there arnt a lot of extra copies, wil eventually need the space
 
             make section for time assumed in private methods / junk time (total time - main time)
 

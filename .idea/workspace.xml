@@ -21,12 +21,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="Todo.txt" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Todo.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Todo.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="616">
-              <caret line="28" column="73" selection-start-line="28" selection-start-column="73" selection-end-line="28" selection-end-column="73" />
+            <state relative-caret-position="528">
+              <caret line="30" column="62" selection-start-line="30" selection-start-column="62" selection-end-line="30" selection-end-column="62" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GUIMain.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/gui/GUIMain.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="688">
+              <caret line="275" column="223" selection-start-line="275" selection-start-column="223" selection-end-line="275" selection-end-column="223" />
+              <folding>
+                <element signature="method#start#0;class#GUIMain#0" expanded="false" />
+                <element signature="e#1714#1752#0" expanded="false" />
+                <element signature="method#updateTreeTable#0;class#GUIMain#0" expanded="false" />
+                <element signature="method#convertTimeBigInt#0;class#GUIMain#0" expanded="false" />
+                <element signature="e#8256#8287#0" expanded="false" />
+                <element signature="e#13290#13312#0" expanded="false" />
+                <element signature="e#14027#14047#0" expanded="false" />
+                <element signature="method#convertTime#0;class#GUIMain#0" expanded="false" />
+                <element signature="method#getTimeDivisor#0;class#GUIMain#0" expanded="false" />
+                <element signature="method#setRootExpandedRecursively#0;class#GUIMain#0" expanded="false" />
+                <element signature="method#getTimeShortDescription#0;class#GUIMain#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -34,50 +56,11 @@
       <file leaf-file-name="SystemConfig.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/data_storage/SystemConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="946">
-              <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RunProgramAtRunTime.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/dynamic_analysis/RunProgramAtRunTime.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="531">
-              <caret line="37" column="16" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="16" />
+            <state relative-caret-position="418">
+              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#applyTimeEntries#0;class#RunProgramAtRunTime#0" expanded="false" />
-                <element signature="method#getTimeStamp#0;class#RunProgramAtRunTime#0" expanded="false" />
-                <element signature="method#displayClassData#0;class#RunProgramAtRunTime#0" expanded="false" />
-                <element signature="method#getMethodName#0;class#RunProgramAtRunTime#0" expanded="false" />
-                <element signature="method#getEnterExitStatus#0;class#RunProgramAtRunTime#0" expanded="false" />
-                <element signature="method#getClassName#0;class#RunProgramAtRunTime#0" expanded="false" />
-                <element signature="class#MethodNameTime#0;class#RunProgramAtRunTime#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Profiler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/dynamic_analysis/Profiler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-              <folding>
-                <element signature="method#premain#0;class#Profiler#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MANIFEST.MF" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/META-INF/MANIFEST.MF">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="44">
-              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -123,18 +106,18 @@
         <option value="$PROJECT_DIR$/src/data_storage/DynamicFileDataEntry.java" />
         <option value="$PROJECT_DIR$/src/data_storage/DynamicMethodDataEntry.java" />
         <option value="$PROJECT_DIR$/src/data_storage/DynamicData.java" />
-        <option value="$PROJECT_DIR$/src/gui/ApplicationStat.java" />
         <option value="$PROJECT_DIR$/src/static_analysis/StaticEval.java" />
         <option value="$PROJECT_DIR$/src/static_analysis/StaticAnalysis.java" />
         <option value="$PROJECT_DIR$/src/data_storage/DynamicClassDataEntry.java" />
         <option value="$PROJECT_DIR$/src/styleSheets/mainStyleSheet.css" />
         <option value="$PROJECT_DIR$/src/dynamic_analysis/Testing.java" />
         <option value="$PROJECT_DIR$/src/dynamic_analysis/Profiler.java" />
-        <option value="$PROJECT_DIR$/Todo.txt" />
-        <option value="$PROJECT_DIR$/src/gui/GUIMain.java" />
         <option value="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
-        <option value="$PROJECT_DIR$/src/data_storage/SystemConfig.java" />
         <option value="$PROJECT_DIR$/src/dynamic_analysis/RunProgramAtRunTime.java" />
+        <option value="$PROJECT_DIR$/src/gui/ApplicationStat.java" />
+        <option value="$PROJECT_DIR$/src/gui/GUIMain.java" />
+        <option value="$PROJECT_DIR$/src/data_storage/SystemConfig.java" />
+        <option value="$PROJECT_DIR$/Todo.txt" />
       </list>
     </option>
   </component>
@@ -380,10 +363,6 @@
               <option name="myItemId" value="artifacts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Profiler_jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -421,7 +400,7 @@
       <recent name="C:\Users\dcmeade\Desktop\Intelij Workspace\Excavator" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.RunProgramAtRunTime">
+  <component name="RunManager" selected="Application.GUIMain">
     <configuration default="false" name="GUIMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -775,8 +754,8 @@
     </list>
     <recent_temporary>
       <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Application.RunProgramAtRunTime" />
-        <item index="1" class="java.lang.String" itemvalue="Application.GUIMain" />
+        <item index="0" class="java.lang.String" itemvalue="Application.GUIMain" />
+        <item index="1" class="java.lang.String" itemvalue="Application.RunProgramAtRunTime" />
         <item index="2" class="java.lang.String" itemvalue="Application.Testing" />
         <item index="3" class="java.lang.String" itemvalue="Application.StaticAnalysis" />
       </list>
@@ -803,18 +782,27 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
     <frame x="477" y="0" width="2474" height="1398" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32927817" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32765612" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32035685" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32035685" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -822,6 +810,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12791666" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32927817" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="SonarLint" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32846716" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -834,7 +823,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="SonarQube" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32846716" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -859,45 +847,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/data_storage/DynamicMethodDataEntry.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="836">
-          <caret line="68" column="24" selection-start-line="68" selection-start-column="24" selection-end-line="68" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#addTimeSpentEntry#0;class#DynamicMethodDataEntry#0" expanded="false" />
-            <element signature="e#1234#1235#0" expanded="true" />
-            <element signature="e#1266#1267#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/ApplicationStat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="814">
-          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Todo.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/GUIMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="135" column="122" selection-start-line="135" selection-start-column="122" selection-end-line="135" selection-end-column="122" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#setRootExpandedRecursively#0;class#GUIMain#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/data_storage/DynamicData.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -905,8 +854,8 @@
           <folding>
             <element signature="method#getInstance#0;class#DynamicData#0" expanded="false" />
             <element signature="method#put#0;class#DynamicData#0" expanded="false" />
-            <element signature="e#946#947#0" expanded="true" />
-            <element signature="e#974#975#0" expanded="true" />
+            <element signature="e#946#947#0" expanded="false" />
+            <element signature="e#974#975#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -915,7 +864,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -969,8 +920,17 @@
         <state relative-caret-position="0">
           <caret line="31" column="100" selection-start-line="31" selection-start-column="100" selection-end-line="31" selection-end-column="100" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="method#start#0;class#GUIMain#0" expanded="false" />
+            <element signature="e#1714#1752#0" expanded="false" />
+            <element signature="method#updateTreeTable#0;class#GUIMain#0" expanded="false" />
+            <element signature="method#convertTimeBigInt#0;class#GUIMain#0" expanded="false" />
+            <element signature="e#8256#8287#0" expanded="false" />
+            <element signature="e#13290#13312#0" expanded="false" />
+            <element signature="e#14027#14047#0" expanded="false" />
+            <element signature="method#convertTime#0;class#GUIMain#0" expanded="false" />
+            <element signature="method#getTimeDivisor#0;class#GUIMain#0" expanded="false" />
             <element signature="method#setRootExpandedRecursively#0;class#GUIMain#0" expanded="false" />
+            <element signature="method#getTimeShortDescription#0;class#GUIMain#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -996,7 +956,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="11" column="31" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1034,8 +996,17 @@
         <state relative-caret-position="0">
           <caret line="31" column="100" selection-start-line="31" selection-start-column="100" selection-end-line="31" selection-end-column="100" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="method#start#0;class#GUIMain#0" expanded="false" />
+            <element signature="e#1714#1752#0" expanded="false" />
+            <element signature="method#updateTreeTable#0;class#GUIMain#0" expanded="false" />
+            <element signature="method#convertTimeBigInt#0;class#GUIMain#0" expanded="false" />
+            <element signature="e#8256#8287#0" expanded="false" />
+            <element signature="e#13290#13312#0" expanded="false" />
+            <element signature="e#14027#14047#0" expanded="false" />
+            <element signature="method#convertTime#0;class#GUIMain#0" expanded="false" />
+            <element signature="method#getTimeDivisor#0;class#GUIMain#0" expanded="false" />
             <element signature="method#setRootExpandedRecursively#0;class#GUIMain#0" expanded="false" />
+            <element signature="method#getTimeShortDescription#0;class#GUIMain#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1068,7 +1039,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1106,8 +1079,17 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="method#start#0;class#GUIMain#0" expanded="false" />
+            <element signature="e#1714#1752#0" expanded="false" />
+            <element signature="method#updateTreeTable#0;class#GUIMain#0" expanded="false" />
+            <element signature="method#convertTimeBigInt#0;class#GUIMain#0" expanded="false" />
+            <element signature="e#8256#8287#0" expanded="false" />
+            <element signature="e#13290#13312#0" expanded="false" />
+            <element signature="e#14027#14047#0" expanded="false" />
+            <element signature="method#convertTime#0;class#GUIMain#0" expanded="false" />
+            <element signature="method#getTimeDivisor#0;class#GUIMain#0" expanded="false" />
             <element signature="method#setRootExpandedRecursively#0;class#GUIMain#0" expanded="false" />
+            <element signature="method#getTimeShortDescription#0;class#GUIMain#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1139,8 +1121,17 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="method#start#0;class#GUIMain#0" expanded="false" />
+            <element signature="e#1714#1752#0" expanded="false" />
+            <element signature="method#updateTreeTable#0;class#GUIMain#0" expanded="false" />
+            <element signature="method#convertTimeBigInt#0;class#GUIMain#0" expanded="false" />
+            <element signature="e#8256#8287#0" expanded="false" />
+            <element signature="e#13290#13312#0" expanded="false" />
+            <element signature="e#14027#14047#0" expanded="false" />
+            <element signature="method#convertTime#0;class#GUIMain#0" expanded="false" />
+            <element signature="method#getTimeDivisor#0;class#GUIMain#0" expanded="false" />
             <element signature="method#setRootExpandedRecursively#0;class#GUIMain#0" expanded="false" />
+            <element signature="method#getTimeShortDescription#0;class#GUIMain#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1201,16 +1192,9 @@
           <folding>
             <element signature="method#getInstance#0;class#DynamicData#0" expanded="false" />
             <element signature="method#put#0;class#DynamicData#0" expanded="false" />
-            <element signature="e#946#947#0" expanded="true" />
-            <element signature="e#974#975#0" expanded="true" />
+            <element signature="e#946#947#0" expanded="false" />
+            <element signature="e#974#975#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/ApplicationStat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1264,27 +1248,8 @@
         <state relative-caret-position="2112">
           <caret line="106" column="28" selection-start-line="106" selection-start-column="28" selection-end-line="106" selection-end-column="28" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
             <element signature="method#filterFileByType#0;class#StaticAnalysis#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Todo.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="28" column="73" selection-start-line="28" selection-start-column="73" selection-end-line="28" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gui/GUIMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5126">
-          <caret line="233" column="41" selection-start-line="233" selection-start-column="41" selection-end-line="233" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#setRootExpandedRecursively#0;class#GUIMain#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1307,18 +1272,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_storage/SystemConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="946">
-          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/dynamic_analysis/RunProgramAtRunTime.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="531">
-          <caret line="37" column="16" selection-start-line="37" selection-start-column="16" selection-end-line="37" selection-end-column="16" />
+        <state relative-caret-position="3">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#applyTimeEntries#0;class#RunProgramAtRunTime#0" expanded="false" />
@@ -1329,6 +1286,87 @@
             <element signature="method#getClassName#0;class#RunProgramAtRunTime#0" expanded="false" />
             <element signature="class#MethodNameTime#0;class#RunProgramAtRunTime#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_91/src.zip!/java/text/DecimalFormat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
+          <caret line="506" column="0" selection-start-line="506" selection-start-column="0" selection-end-line="506" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/ApplicationStat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="41" column="18" selection-start-line="41" selection-start-column="18" selection-end-line="41" selection-end-column="18" />
+          <folding>
+            <element signature="e#868#869#0" expanded="true" />
+            <element signature="e#908#909#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_91/src.zip!/java/lang/NumberFormatException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="607">
+          <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_91/src.zip!/java/math/BigInteger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="460" column="0" selection-start-line="460" selection-start-column="0" selection-end-line="460" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_91/src.zip!/java/lang/Integer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="579" column="0" selection-start-line="579" selection-start-column="0" selection-end-line="579" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gui/GUIMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="688">
+          <caret line="275" column="223" selection-start-line="275" selection-start-column="223" selection-end-line="275" selection-end-column="223" />
+          <folding>
+            <element signature="method#start#0;class#GUIMain#0" expanded="false" />
+            <element signature="e#1714#1752#0" expanded="false" />
+            <element signature="method#updateTreeTable#0;class#GUIMain#0" expanded="false" />
+            <element signature="method#convertTimeBigInt#0;class#GUIMain#0" expanded="false" />
+            <element signature="e#8256#8287#0" expanded="false" />
+            <element signature="e#13290#13312#0" expanded="false" />
+            <element signature="e#14027#14047#0" expanded="false" />
+            <element signature="method#convertTime#0;class#GUIMain#0" expanded="false" />
+            <element signature="method#getTimeDivisor#0;class#GUIMain#0" expanded="false" />
+            <element signature="method#setRootExpandedRecursively#0;class#GUIMain#0" expanded="false" />
+            <element signature="method#getTimeShortDescription#0;class#GUIMain#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data_storage/SystemConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Todo.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="30" column="62" selection-start-line="30" selection-start-column="62" selection-end-line="30" selection-end-column="62" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -35,7 +35,7 @@ public class RunProgramAtRunTime
                 {
                     standardOutput.append(c1, 0, n1);
                 }
-				System.out.println(standardOutput.toString());
+				//System.out.println(standardOutput.toString());
                 outputAnalysis(standardOutput.toString());
 
                 int n2;

@@ -11,10 +11,10 @@ public class ApplicationStat
 
     private String methodName;
     private long callCount;
-    private long averageMethodTime;
-    private long totalMethodTime;
+    private String averageMethodTime;
+    private String totalMethodTime;
 
-    public ApplicationStat(String methodName, long callCount, long averageMethodTime, long totalMethodTime)
+    public ApplicationStat(String methodName, long callCount, String averageMethodTime, String totalMethodTime)
     {
         this.methodName = methodName;
         this.callCount = callCount;
@@ -34,20 +34,17 @@ public class ApplicationStat
         return callCount;
     }
 
-    public long getTotalMethodTime()
+    public String getTotalMethodTime()
     {
         return totalMethodTime;
     }
 
-    public long getAverageMethodTime()
+    public String getAverageMethodTime()
     {
         return averageMethodTime;
     }
 
-	public String getMethodName()
-	{
-		return methodName;
-	}
+
 
 	// Setters
     public void setStat(String methodName)
@@ -60,12 +57,12 @@ public class ApplicationStat
         this.callCount = callCount;
     }
 
-    public void setAverageMethodTime(long averageMethodTime)
+    public void setAverageMethodTime(String averageMethodTime)
     {
         this.averageMethodTime = averageMethodTime;
     }
 
-    public void setTotalMethodTime(long totalMethodTime)
+    public void setTotalMethodTime(String totalMethodTime)
     {
         this.totalMethodTime = totalMethodTime;
     }
