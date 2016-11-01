@@ -4,7 +4,7 @@
     <root id="archive" name="Profiler.jar">
       <element id="module-output" name="Excavator" />
       <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
-      <element id="file-copy" path="$USER_HOME$/Downloads/javassist.jar" />
+      <element id="library" level="project" name="javassist" />
     </root>
   </artifact>
 </component>
