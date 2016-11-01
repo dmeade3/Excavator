@@ -3,8 +3,8 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Profiler_jar</output-path>
     <root id="archive" name="Profiler.jar">
       <element id="module-output" name="Excavator" />
-      <element id="library" level="project" name="javassist" />
       <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      <element id="file-copy" path="$USER_HOME$/Downloads/javassist.jar" />
     </root>
   </artifact>
 </component>
