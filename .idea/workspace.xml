@@ -24,8 +24,8 @@
       <file leaf-file-name="Todo.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Todo.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
-              <caret line="34" column="57" selection-start-line="34" selection-start-column="57" selection-end-line="34" selection-end-column="57" />
+            <state relative-caret-position="-168">
+              <caret line="47" column="52" selection-start-line="47" selection-start-column="52" selection-end-line="47" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -34,20 +34,20 @@
       <file leaf-file-name="GUIMain.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gui/GUIMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="353" column="75" selection-start-line="353" selection-start-column="75" selection-end-line="353" selection-end-column="75" />
+            <state relative-caret-position="210">
+              <caret line="192" column="52" selection-start-line="192" selection-start-column="52" selection-end-line="192" selection-end-column="52" />
               <folding>
                 <element signature="method#start#0;class#GUIMain#0" expanded="false" />
+                <element signature="e#2058#2096#0" expanded="false" />
                 <element signature="method#updateTreeTable#0;class#GUIMain#0" expanded="false" />
                 <element signature="method#convertTimeBigDecimal#0;class#GUIMain#0" expanded="false" />
-                <element signature="e#15575#15576#0" expanded="true" />
-                <element signature="e#15632#15633#0" expanded="true" />
+                <element signature="e#14267#14289#0" expanded="false" />
+                <element signature="e#15063#15083#0" expanded="false" />
+                <element signature="method#updateRightScrollPane#0;class#GUIMain#0" expanded="false" />
                 <element signature="method#convertTime#0;class#GUIMain#0" expanded="false" />
                 <element signature="method#getTimeDivisor#0;class#GUIMain#0" expanded="false" />
                 <element signature="method#setRootExpandedRecursively#0;class#GUIMain#0" expanded="false" />
                 <element signature="method#getTimeShortDescription#0;class#GUIMain#0" expanded="false" />
-                <element signature="e#16938#16939#0" expanded="true" />
-                <element signature="e#16993#16994#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -784,13 +784,13 @@
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32927817" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32927817" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32603407" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31954584" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31954584" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -894,16 +894,16 @@
           <caret line="275" column="223" selection-start-line="275" selection-start-column="223" selection-end-line="275" selection-end-column="223" />
           <folding>
             <element signature="method#start#0;class#GUIMain#0" expanded="false" />
+            <element signature="e#2058#2096#0" expanded="false" />
             <element signature="method#updateTreeTable#0;class#GUIMain#0" expanded="false" />
             <element signature="method#convertTimeBigDecimal#0;class#GUIMain#0" expanded="false" />
-            <element signature="e#15575#15576#0" expanded="true" />
-            <element signature="e#15632#15633#0" expanded="true" />
+            <element signature="e#14267#14289#0" expanded="false" />
+            <element signature="e#15063#15083#0" expanded="false" />
+            <element signature="method#updateRightScrollPane#0;class#GUIMain#0" expanded="false" />
             <element signature="method#convertTime#0;class#GUIMain#0" expanded="false" />
             <element signature="method#getTimeDivisor#0;class#GUIMain#0" expanded="false" />
             <element signature="method#setRootExpandedRecursively#0;class#GUIMain#0" expanded="false" />
             <element signature="method#getTimeShortDescription#0;class#GUIMain#0" expanded="false" />
-            <element signature="e#16938#16939#0" expanded="true" />
-            <element signature="e#16993#16994#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1010,16 +1010,16 @@
           <caret line="31" column="100" selection-start-line="31" selection-start-column="100" selection-end-line="31" selection-end-column="100" />
           <folding>
             <element signature="method#start#0;class#GUIMain#0" expanded="false" />
+            <element signature="e#2058#2096#0" expanded="false" />
             <element signature="method#updateTreeTable#0;class#GUIMain#0" expanded="false" />
             <element signature="method#convertTimeBigDecimal#0;class#GUIMain#0" expanded="false" />
-            <element signature="e#15575#15576#0" expanded="true" />
-            <element signature="e#15632#15633#0" expanded="true" />
+            <element signature="e#14267#14289#0" expanded="false" />
+            <element signature="e#15063#15083#0" expanded="false" />
+            <element signature="method#updateRightScrollPane#0;class#GUIMain#0" expanded="false" />
             <element signature="method#convertTime#0;class#GUIMain#0" expanded="false" />
             <element signature="method#getTimeDivisor#0;class#GUIMain#0" expanded="false" />
             <element signature="method#setRootExpandedRecursively#0;class#GUIMain#0" expanded="false" />
             <element signature="method#getTimeShortDescription#0;class#GUIMain#0" expanded="false" />
-            <element signature="e#16938#16939#0" expanded="true" />
-            <element signature="e#16993#16994#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1088,16 +1088,16 @@
           <caret line="31" column="100" selection-start-line="31" selection-start-column="100" selection-end-line="31" selection-end-column="100" />
           <folding>
             <element signature="method#start#0;class#GUIMain#0" expanded="false" />
+            <element signature="e#2058#2096#0" expanded="false" />
             <element signature="method#updateTreeTable#0;class#GUIMain#0" expanded="false" />
             <element signature="method#convertTimeBigDecimal#0;class#GUIMain#0" expanded="false" />
-            <element signature="e#15575#15576#0" expanded="true" />
-            <element signature="e#15632#15633#0" expanded="true" />
+            <element signature="e#14267#14289#0" expanded="false" />
+            <element signature="e#15063#15083#0" expanded="false" />
+            <element signature="method#updateRightScrollPane#0;class#GUIMain#0" expanded="false" />
             <element signature="method#convertTime#0;class#GUIMain#0" expanded="false" />
             <element signature="method#getTimeDivisor#0;class#GUIMain#0" expanded="false" />
             <element signature="method#setRootExpandedRecursively#0;class#GUIMain#0" expanded="false" />
             <element signature="method#getTimeShortDescription#0;class#GUIMain#0" expanded="false" />
-            <element signature="e#16938#16939#0" expanded="true" />
-            <element signature="e#16993#16994#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1173,16 +1173,16 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="method#start#0;class#GUIMain#0" expanded="false" />
+            <element signature="e#2058#2096#0" expanded="false" />
             <element signature="method#updateTreeTable#0;class#GUIMain#0" expanded="false" />
             <element signature="method#convertTimeBigDecimal#0;class#GUIMain#0" expanded="false" />
-            <element signature="e#15575#15576#0" expanded="true" />
-            <element signature="e#15632#15633#0" expanded="true" />
+            <element signature="e#14267#14289#0" expanded="false" />
+            <element signature="e#15063#15083#0" expanded="false" />
+            <element signature="method#updateRightScrollPane#0;class#GUIMain#0" expanded="false" />
             <element signature="method#convertTime#0;class#GUIMain#0" expanded="false" />
             <element signature="method#getTimeDivisor#0;class#GUIMain#0" expanded="false" />
             <element signature="method#setRootExpandedRecursively#0;class#GUIMain#0" expanded="false" />
             <element signature="method#getTimeShortDescription#0;class#GUIMain#0" expanded="false" />
-            <element signature="e#16938#16939#0" expanded="true" />
-            <element signature="e#16993#16994#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1215,16 +1215,16 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="method#start#0;class#GUIMain#0" expanded="false" />
+            <element signature="e#2058#2096#0" expanded="false" />
             <element signature="method#updateTreeTable#0;class#GUIMain#0" expanded="false" />
             <element signature="method#convertTimeBigDecimal#0;class#GUIMain#0" expanded="false" />
-            <element signature="e#15575#15576#0" expanded="true" />
-            <element signature="e#15632#15633#0" expanded="true" />
+            <element signature="e#14267#14289#0" expanded="false" />
+            <element signature="e#15063#15083#0" expanded="false" />
+            <element signature="method#updateRightScrollPane#0;class#GUIMain#0" expanded="false" />
             <element signature="method#convertTime#0;class#GUIMain#0" expanded="false" />
             <element signature="method#getTimeDivisor#0;class#GUIMain#0" expanded="false" />
             <element signature="method#setRootExpandedRecursively#0;class#GUIMain#0" expanded="false" />
             <element signature="method#getTimeShortDescription#0;class#GUIMain#0" expanded="false" />
-            <element signature="e#16938#16939#0" expanded="true" />
-            <element signature="e#16993#16994#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1422,28 +1422,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gui/GUIMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="353" column="75" selection-start-line="353" selection-start-column="75" selection-end-line="353" selection-end-column="75" />
+        <state relative-caret-position="210">
+          <caret line="192" column="52" selection-start-line="192" selection-start-column="52" selection-end-line="192" selection-end-column="52" />
           <folding>
             <element signature="method#start#0;class#GUIMain#0" expanded="false" />
+            <element signature="e#2058#2096#0" expanded="false" />
             <element signature="method#updateTreeTable#0;class#GUIMain#0" expanded="false" />
             <element signature="method#convertTimeBigDecimal#0;class#GUIMain#0" expanded="false" />
-            <element signature="e#15575#15576#0" expanded="true" />
-            <element signature="e#15632#15633#0" expanded="true" />
+            <element signature="e#14267#14289#0" expanded="false" />
+            <element signature="e#15063#15083#0" expanded="false" />
+            <element signature="method#updateRightScrollPane#0;class#GUIMain#0" expanded="false" />
             <element signature="method#convertTime#0;class#GUIMain#0" expanded="false" />
             <element signature="method#getTimeDivisor#0;class#GUIMain#0" expanded="false" />
             <element signature="method#setRootExpandedRecursively#0;class#GUIMain#0" expanded="false" />
             <element signature="method#getTimeShortDescription#0;class#GUIMain#0" expanded="false" />
-            <element signature="e#16938#16939#0" expanded="true" />
-            <element signature="e#16993#16994#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Todo.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="34" column="57" selection-start-line="34" selection-start-column="57" selection-end-line="34" selection-end-column="57" />
+        <state relative-caret-position="-168">
+          <caret line="47" column="52" selection-start-line="47" selection-start-column="52" selection-end-line="47" selection-end-column="52" />
           <folding />
         </state>
       </provider>

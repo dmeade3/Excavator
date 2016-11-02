@@ -6,6 +6,7 @@ import data_storage.DynamicMethodDataEntry;
 import data_storage.SystemConfig;
 import dynamic_analysis.RunProgramAtRunTime;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Group;
@@ -16,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Optional;
@@ -28,9 +30,9 @@ public class GUIMain extends Application
 
 	private ApplicationStat overallStat = new ApplicationStat("", 0, "0", "0");
 
-	private final TreeItem<ApplicationStat> root = new TreeItem<>(overallStat);
+	private final TreeItem<ApplicationStat> rootTreeItem = new TreeItem<>(overallStat);
 
-	private final TreeTableView<ApplicationStat> treeTableView = new TreeTableView<>(root);
+	private final TreeTableView<ApplicationStat> treeTableView = new TreeTableView<>(rootTreeItem);
 
     private final ScrollPane rightScrollPane = new ScrollPane();
 
@@ -56,11 +58,11 @@ public class GUIMain extends Application
 	    // TODO make default read in by config
 
 	    ///// Defaults /////
-        root.setExpanded(true);
+        rootTreeItem.setExpanded(true);
 	    timeSelectorComboBox.setValue("Nanosecond");
 	    treeTableView.setTableMenuButtonVisible(true);
 	    textArea.setEditable(false);
-	    resetRightScrolPane();
+	    resetRightScrollPane();
 	    bottomButtons.setHgap(5);
 	    bottomButtons.setVgap(5);
 
@@ -72,7 +74,7 @@ public class GUIMain extends Application
         treeTableView.setPrefWidth(SCENEWIDTH - SCROLLPANEWIDTH);
         treeTableView.setPrefHeight(SCENEHEIGHT - SPACEFROMBOTTOMBUTTONS);
 
-        // Right Right Scrollpane
+        // Right Right ScrollPane
         rightScrollPane.setPrefWidth(SCROLLPANEWIDTH);
         rightScrollPane.setPrefHeight(SCENEHEIGHT - SPACEFROMBOTTOMBUTTONS);
         rightScrollPane.setContent(textArea);
@@ -112,7 +114,7 @@ public class GUIMain extends Application
         ApplicationStat classApplicationStat;
         ApplicationStat methodApplicationStat;
 
-        // Add the data to root
+        // Add the data to rootTreeItem
         for (DynamicClassDataEntry dynamicClassDataEntry : DynamicData.getInstance().getData().values())
         {
             // Make the application stat
@@ -146,13 +148,13 @@ public class GUIMain extends Application
             classApplicationStat.setAverageMethodTime(convertTimeBigDecimal(totalAverageTime));
             classApplicationStat.setTotalMethodTime(convertTimeBigDecimal(totalTotalTime));
 
-	        // Add to root totals
-            root.getValue().setCallCount(root.getValue().getCallCount() + totalMethodCalls);
-            root.getValue().setAverageMethodTime(new BigDecimal(root.getValue().getAverageMethodTime()).add(new BigDecimal(convertTimeBigDecimal(totalAverageTime))).toString());
-            root.getValue().setTotalMethodTime(  new BigDecimal(root.getValue().getTotalMethodTime()).add(new BigDecimal(convertTimeBigDecimal(totalTotalTime))).toString());
+	        // Add to rootTreeItem totals
+            rootTreeItem.getValue().setCallCount(rootTreeItem.getValue().getCallCount() + totalMethodCalls);
+            rootTreeItem.getValue().setAverageMethodTime(new BigDecimal(rootTreeItem.getValue().getAverageMethodTime()).add(new BigDecimal(convertTimeBigDecimal(totalAverageTime))).toString());
+            rootTreeItem.getValue().setTotalMethodTime(  new BigDecimal(rootTreeItem.getValue().getTotalMethodTime()).add(new BigDecimal(convertTimeBigDecimal(totalTotalTime))).toString());
 
-	        // Add class to root
-            root.getChildren().add(classEntry);
+	        // Add class to rootTreeItem
+            rootTreeItem.getChildren().add(classEntry);
         }
 
 	    // Set sorting mode
@@ -187,9 +189,8 @@ public class GUIMain extends Application
     private void initBottomButtonGridPane(Group sceneRoot, BorderPane mainBorderPane)
     {
         // TODO cant press when running
-        // TODO organize this
         // TODO path is field at top that is set by button window
-        // TODO verify the path can be used
+        // TODO verify the path from the config file can be used
         // TODO if path wrong show a sample format of a path with spaces and complicated things that might have gone wrong, sample format should tak into account whether its a linux or windows machine
 
 
@@ -228,9 +229,9 @@ public class GUIMain extends Application
         {
             overallStat = new ApplicationStat(overallStat.getMethodName(), 0, "0", "0");
 
-            root.setValue(overallStat);
+            rootTreeItem.setValue(overallStat);
 
-            root.getChildren().clear();
+            rootTreeItem.getChildren().clear();
 
             updateTreeTable();
 
@@ -247,10 +248,17 @@ public class GUIMain extends Application
 	            dialog.getDialogPane().setPrefSize(DIALOGWIDTH, DIALOGHEIGHT);
 
                 Optional<String> result = dialog.showAndWait();
-                if (result.isPresent())
-                {
-                    // Validate the path can be reached TODO make validating a function and put it in a common area
-                    jarPathLabel.setText(result.get());
+                if (result.isPresent()) {
+                    // TODO check if a jar
+
+                    if (pathReachable(result.get()))
+                    {
+                        jarPathLabel.setText(result.get());
+                    }
+                    else
+                    {
+                        // TODO popup says what went wrong and how to fix
+                    }
                 }
             }
         );
@@ -267,40 +275,58 @@ public class GUIMain extends Application
                 Optional<String> result = dialog.showAndWait();
                 if (result.isPresent())
                 {
-                    // Validate the path can be reached TODO
+                    // Validate the path can be reached TODO check if it is a file or directory
                     sourcePathLabel.setText(result.get());
                 }
             }
         );
+
+        runDynamicAnalysisButton.setOnMousePressed(event -> {
+
+            dynamicStateLabel.setText("Running...");
+        });
 
         runDynamicAnalysisButton.setOnAction(event -> {
 
             // clear existing data
             DynamicData.getInstance().clear();
             overallStat = new ApplicationStat("", 0, "0", "0");
-            root.setValue(overallStat);
+            rootTreeItem.setValue(overallStat);
 
-	        // TODO make work
-	        dynamicStateLabel.setText("Running...");
+            rootTreeItem.getChildren().clear();
 
-	        long start = System.nanoTime();
-            RunProgramAtRunTime.runOutsideProgram();
-            long end = System.nanoTime();
-            OUTSIDEPROGRAMDYNAMICEXECUTIONTIME = end - start;
+            Thread t1 = new Thread(() ->
+            {
+                Platform.setImplicitExit(false);
 
-            dynamicStateLabel.setText("Done");
+                Platform.runLater(() ->
+                {
+                    long start = System.nanoTime();
+                    RunProgramAtRunTime.runOutsideProgram();
+                    long end = System.nanoTime();
+                    OUTSIDEPROGRAMDYNAMICEXECUTIONTIME = end - start;
 
-            root.getChildren().clear();
+                    updateTreeTable();
 
-            updateTreeTable();
+                    updateRightScrollPane();
 
-            updateRightScrollPane();
+                    dynamicStateLabel.setText("Done");
+                });
+            });
+
+            t1.setDaemon(true);
+            t1.start();
 
             // Set Root title
             String rootTitle = OUTSIDEPROGRAMJARPATH;
             String[] splitString = rootTitle.split("\\\\");
             rootTitle = splitString[splitString.length-1];
-            root.getValue().setMethodName(rootTitle);
+            rootTreeItem.getValue().setMethodName(rootTitle);
+        });
+
+        runStaticAnalysisButton.setOnMousePressed(event -> {
+
+            staticStateLabel.setText("Running...");
         });
 
         runStaticAnalysisButton.setOnAction(event -> {
@@ -311,20 +337,21 @@ public class GUIMain extends Application
 
             //DynamicData.getInstance().clear();
             overallStat = new ApplicationStat("", 0, "0", "0");
-            root.setValue(overallStat);
+            rootTreeItem.setValue(overallStat);
 
-            staticStateLabel.setText("Running...");
-
+            // TODO like in dynamic have in its own thread
             long start = System.nanoTime();
             //RunProgramAtRunTime.runOutsideProgram();
             long end = System.nanoTime();
             OUTSIDEPROGRAMSTATICEXECUTIONTIME = end - start;
 
+            resetRightScrollPane();
+
             appendToScrollPanel("Static Analysis Total Execution Time:\n\t" + OUTSIDEPROGRAMSTATICEXECUTIONTIME + "ns\n");
 
             staticStateLabel.setText("Done");
 
-            root.getChildren().clear();
+            rootTreeItem.getChildren().clear();
 
             //updateTreeTable();
 
@@ -335,8 +362,20 @@ public class GUIMain extends Application
             //String rootTitle = OUTSIDEPROGRAMJARPATH;
             //String[] splitString = rootTitle.split("\\\\");
             //rootTitle = splitString[splitString.length-1];
-            //root.getValue().setMethodName(rootTitle);
+            //rootTreeItem.getValue().setMethodName(rootTitle);
         });
+    }
+
+    private static boolean pathReachable(String filepath)
+    {
+        File file = new File(filepath);
+
+        if ((file.exists()) && (file.isFile()))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private void updateRightScrollPane()
@@ -345,7 +384,7 @@ public class GUIMain extends Application
         float totalExecutionTime = Float.parseFloat(convertTime(OUTSIDEPROGRAMDYNAMICEXECUTIONTIME));
         BigDecimal totalOverheadTime = new BigDecimal(convertTime(OUTSIDEPROGRAMDYNAMICEXECUTIONTIME)).subtract(new BigDecimal(overallStat.getTotalMethodTime()));
 
-        resetRightScrolPane();
+        resetRightScrollPane();
 
         appendToScrollPanel("Dynamic Analysis Total Execution Time:\n" + NUMBERFORMATER.format(totalExecutionTime) + getTimeShortDescription());
 
@@ -356,7 +395,7 @@ public class GUIMain extends Application
         appendToScrollPanel("\n");
     }
 
-    private void resetRightScrolPane()
+    private void resetRightScrollPane()
     {
         textArea.setText("Additional Results:\n");
     }
