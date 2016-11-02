@@ -5,3 +5,5 @@ Put
 in the VM options of your ide.
 
 Make sure the path to the jar file is correct
+
+Compile the target jar with javaassit

@@ -7,6 +7,18 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
+Left off refactoring here
+
+
+
+
+
+
+
+
 public class StaticAnalysis
 {
 

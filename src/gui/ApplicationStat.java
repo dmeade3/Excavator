@@ -24,7 +24,7 @@ public class ApplicationStat
     }
 
     // Getters
-    public String getmethodName()
+    public String getMethodName()
     {
         return methodName;
     }

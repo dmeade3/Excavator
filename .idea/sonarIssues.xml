@@ -8,6 +8,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/Instructions.txt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/Todo.txt">
           <value>
             <set />
@@ -38,12 +43,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/dynamic_analysis/Testing.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/gui/ApplicationStat.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/gui/GUIMain.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/static_analysis/StaticAnalysis.java">
           <value>
             <set />
           </value>

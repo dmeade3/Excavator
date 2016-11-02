@@ -12,8 +12,8 @@ public class SystemConfig
     ///// Non-Final Fields /////
 
     // TODO Needs to be a default, and if in config file it is loaded and used instead
-    public static String OUTSIDEPROGRAMSOURCEPATH = "C:\\Users\\dcmeade\\Desktop\\Intelij Workspace\\Conways Game Of Life\\src";
-    public static String OUTSIDEPROGRAMJARPATH = "C:\\Users\\dcmeade\\Desktop\\Intelij Workspace\\Hello World\\out\\artifacts\\Hello_World_jar\\Hello World.jar";
+    public static String OUTSIDEPROGRAMSOURCEPATH = "C:\\Users\\David\\Desktop\\Intelij Workspace\\Conways Game Of Life\\src";
+    public static String OUTSIDEPROGRAMJARPATH = "C:\\Users\\David\\Desktop\\Intelij Workspace\\Hello-World\\out\\artifacts\\Hello_World_jar\\Hello World.jar";
 
 
     public static float OUTSIDEPROGRAMDYNAMICEXECUTIONTIME = -1;
@@ -22,7 +22,7 @@ public class SystemConfig
 
     ///// Final Fields ///////
     public static final String PATHTOMAINSTYLESHEET = "/styleSheets/mainStyleSheet.css";
-    public static final String AGENTPATH = "C:\\Users\\dcmeade\\Desktop\\Intelij Workspace\\Excavator\\out\\artifacts\\Profiler_jar\\Profiler.jar";
+    public static final String AGENTPATH = "C:\\Users\\David\\Desktop\\Intelij Workspace\\Excavator\\out\\artifacts\\Profiler_jar\\Profiler.jar";
     public static final String AGENTCOMMAND = "-javaagent:" + AGENTPATH;
 
 
@@ -31,7 +31,7 @@ public class SystemConfig
 
 
     public static final int SPACEFROMBOTTOMBUTTONS = 200;
-    public static final int SCENEWIDTH = 1400;
+    public static final int SCENEWIDTH = 1600;
     public static final int SCENEHEIGHT = 1000;
 	public static final int DIALOGHEIGHT = 300;
 	public static final int DIALOGWIDTH = 750;

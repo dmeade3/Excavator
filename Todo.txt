@@ -30,7 +30,15 @@ Side code project:
 
             make sure label changes to running... when running
 
+            See memory usage throughout the program
+
+            Make simple as hell to use, just give the jar and go, no need to compile with javassist with the outside jar
+
+            Make scroll pane expand width wise too when scene moves
+
             when scrollpane grows scrollbar should stay in the same place
+
+            make time type an enum
 
             add in additional scrollpane results percentage of time spent in certain places
 
