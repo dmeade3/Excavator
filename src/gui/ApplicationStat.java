@@ -44,8 +44,6 @@ public class ApplicationStat
         return averageMethodTime;
     }
 
-
-
 	// Setters
     public void setStat(String methodName)
     {

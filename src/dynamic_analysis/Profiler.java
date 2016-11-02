@@ -25,8 +25,6 @@ public class Profiler implements ClassFileTransformer
 
     public Profiler(Instrumentation inst)
     {
-        // TODO come up with clever way to do this, maybe have these filters in another file
-
         if (SystemConfig.FILTEROUTNONUSERMETHODS)
         {
             filterList.add("java");
@@ -44,7 +42,7 @@ public class Profiler implements ClassFileTransformer
     {
         try
         {
-            className = className.replaceAll("/",".");
+            className = className.replaceAll("/", ".");
 
             classPool.insertClassPath(new ByteArrayClassPath(className, classfileBuffer));
             CtClass cc = classPool.get(className);
@@ -52,27 +50,23 @@ public class Profiler implements ClassFileTransformer
             CtMethod[] methods = cc.getDeclaredMethods();
             CtConstructor[] constructors = cc.getConstructors();
 
-
-            for (int k=0; k < methods.length; k++)
+            for (CtMethod method : methods)
             {
-
-                if (filter(methods[k].getLongName(), className))
+                if (filter(method.getLongName(), className))
                 {
+                    method.insertBefore("long timeStampzzzz = System.nanoTime(); System.out.println(timeStampzzzz + \" Entering " + method.getLongName() + "\");");
 
-                    methods[k].insertBefore("long timeStampzzzz = System.nanoTime(); System.out.println(timeStampzzzz + \" Entering " + methods[k].getLongName() + "\");");
-
-                    methods[k].insertAfter( "long timeStampzzzz = System.nanoTime(); System.out.println(timeStampzzzz + \" Exiting  " + methods[k].getLongName() + "\");");
+                    method.insertAfter("long timeStampzzzz = System.nanoTime(); System.out.println(timeStampzzzz + \" Exiting  " + method.getLongName() + "\");");
                 }
             }
 
-            for (int k=0; k < constructors.length; k++)
+            for (CtConstructor constructor : constructors)
             {
-                if (filter(constructors[k].getLongName(), className))
+                if (filter(constructor.getLongName(), className))
                 {
+                    constructor.insertBefore("long timeStampzzzz = System.nanoTime(); System.out.println(timeStampzzzz + \" Entering " + constructor.getLongName() + "\");");
 
-                    constructors[k].insertBefore("long timeStampzzzz = System.nanoTime(); System.out.println(timeStampzzzz + \" Entering " + constructors[k].getLongName() + "\");");
-
-                    constructors[k].insertAfter( "long timeStampzzzz = System.nanoTime(); System.out.println(timeStampzzzz + \" Exiting  " + constructors[k].getLongName() + "\");");
+                    constructor.insertAfter("long timeStampzzzz = System.nanoTime(); System.out.println(timeStampzzzz + \" Exiting  " + constructor.getLongName() + "\");");
                 }
             }
 

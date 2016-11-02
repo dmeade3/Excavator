@@ -6,10 +6,8 @@ import data_storage.DynamicMethodDataEntry;
 import data_storage.SystemConfig;
 import dynamic_analysis.RunProgramAtRunTime;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.concurrent.Task;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -18,11 +16,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static data_storage.SystemConfig.*;
 
@@ -64,7 +60,7 @@ public class GUIMain extends Application
 	    timeSelectorComboBox.setValue("Nanosecond");
 	    treeTableView.setTableMenuButtonVisible(true);
 	    textArea.setEditable(false);
-	    textArea.setText("Additional Results:");
+	    resetRightScrolPane();
 	    bottomButtons.setHgap(5);
 	    bottomButtons.setVgap(5);
 
@@ -237,6 +233,8 @@ public class GUIMain extends Application
             root.getChildren().clear();
 
             updateTreeTable();
+
+            updateRightScrollPane();
         });
 
         linkJarUpButton.setOnAction(event -> {
@@ -286,11 +284,9 @@ public class GUIMain extends Application
 	        dynamicStateLabel.setText("Running...");
 
 	        long start = System.nanoTime();
-            RunProgramAtRunTime.RunOutsideProgram();
+            RunProgramAtRunTime.runOutsideProgram();
             long end = System.nanoTime();
             OUTSIDEPROGRAMDYNAMICEXECUTIONTIME = end - start;
-
-            appendToScrollPanel("Dynamic Analysis Total Execution Time:\n" + convertTime(OUTSIDEPROGRAMDYNAMICEXECUTIONTIME) + getTimeShortDescription());
 
             dynamicStateLabel.setText("Done");
 
@@ -298,8 +294,7 @@ public class GUIMain extends Application
 
             updateTreeTable();
 
-            appendToScrollPanel("Dynamic Analysis Overhead Time:\n"  + (new BigDecimal(convertTime(OUTSIDEPROGRAMDYNAMICEXECUTIONTIME)).subtract(new BigDecimal(overallStat.getTotalMethodTime()))) + getTimeShortDescription());
-            appendToScrollPanel("\n");
+            updateRightScrollPane();
 
             // Set Root title
             String rootTitle = OUTSIDEPROGRAMJARPATH;
@@ -321,7 +316,7 @@ public class GUIMain extends Application
             staticStateLabel.setText("Running...");
 
             long start = System.nanoTime();
-            //RunProgramAtRunTime.RunOutsideProgram();
+            //RunProgramAtRunTime.runOutsideProgram();
             long end = System.nanoTime();
             OUTSIDEPROGRAMSTATICEXECUTIONTIME = end - start;
 
@@ -342,6 +337,28 @@ public class GUIMain extends Application
             //rootTitle = splitString[splitString.length-1];
             //root.getValue().setMethodName(rootTitle);
         });
+    }
+
+    private void updateRightScrollPane()
+    {
+
+        float totalExecutionTime = Float.parseFloat(convertTime(OUTSIDEPROGRAMDYNAMICEXECUTIONTIME));
+        BigDecimal totalOverheadTime = new BigDecimal(convertTime(OUTSIDEPROGRAMDYNAMICEXECUTIONTIME)).subtract(new BigDecimal(overallStat.getTotalMethodTime()));
+
+        resetRightScrolPane();
+
+        appendToScrollPanel("Dynamic Analysis Total Execution Time:\n" + NUMBERFORMATER.format(totalExecutionTime) + getTimeShortDescription());
+
+        appendToScrollPanel("Dynamic Analysis Overhead Time:\n"  + NUMBERFORMATER.format(totalOverheadTime) + getTimeShortDescription());
+
+        appendToScrollPanel("Percentage of time spent on overhead:\n"  + "%" + NUMBERFORMATER.format(totalOverheadTime.divide(BigDecimal.valueOf(totalExecutionTime), 5, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100))));
+
+        appendToScrollPanel("\n");
+    }
+
+    private void resetRightScrolPane()
+    {
+        textArea.setText("Additional Results:\n");
     }
 
     private String convertTime(float in)

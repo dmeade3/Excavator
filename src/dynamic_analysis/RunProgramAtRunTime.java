@@ -13,42 +13,53 @@ import static data_storage.SystemConfig.*;
 
 public class RunProgramAtRunTime
 {
-    public static void RunOutsideProgram()
+    private RunProgramAtRunTime()
+    {
+        throw new IllegalAccessError("Utility Class");
+    }
+
+    public static void runOutsideProgram()
     {
         try
         {
             Runtime runTime = Runtime.getRuntime();
             Process process = runTime.exec("java \"" + AGENTCOMMAND + "\" -jar \"" + OUTSIDEPROGRAMJARPATH + "\"");
-            //Process process = runTime.exec("java -jar \"" + OUTSIDEPROGRAMJARPATH + "\"");
+
+            InputStream inputStream = process.getInputStream();
+            InputStreamReader isr = new InputStreamReader(inputStream);
+
+            InputStream errorStream = process.getErrorStream();
+            InputStreamReader esr = new InputStreamReader(errorStream);
+
+            ///// Get the output of the program /////
+            int n1;
+            char[] c1 = new char[1024];
+            StringBuffer standardOutput = new StringBuffer();
+            while ((n1 = isr.read(c1)) > 0)
+            {
+                standardOutput.append(c1, 0, n1);
+            }
 
             if (SHOWOUTSIDEPROGRAMOUTPUT)
             {
-                InputStream inputStream = process.getInputStream();
-                InputStreamReader isr = new InputStreamReader(inputStream);
-                InputStream errorStream = process.getErrorStream();
-                InputStreamReader esr = new InputStreamReader(errorStream);
+                System.out.println(standardOutput.toString());
+            }
 
-                int n1;
-                char[] c1 = new char[1024];
-                StringBuffer standardOutput = new StringBuffer();
-                while ((n1 = isr.read(c1)) > 0)
-                {
-                    standardOutput.append(c1, 0, n1);
-                }
-				//System.out.println(standardOutput.toString());
-                outputAnalysis(standardOutput.toString());
+            // Analyze the output of the program
+            outputAnalysis(standardOutput.toString());
 
-                int n2;
-                char[] c2 = new char[1024];
-                StringBuffer standardError = new StringBuffer();
-                while ((n2 = esr.read(c2)) > 0)
-                {
-                    standardError.append(c2, 0, n2);
-                }
-                if (!standardError.toString().equals(""))
-                {
-                    System.out.println("Standard Error: \n" + standardError.toString());
-                }
+            int n2;
+            char[] c2 = new char[1024];
+            StringBuffer standardError = new StringBuffer();
+            while ((n2 = esr.read(c2)) > 0)
+            {
+                standardError.append(c2, 0, n2);
+            }
+
+            // If there is no error dont show anything
+            if (!standardError.toString().equals(""))
+            {
+                System.out.println("Standard Error: \n" + standardError.toString());
             }
         }
         catch (IOException e)
@@ -63,8 +74,6 @@ public class RunProgramAtRunTime
 
         for (String line : splitProgramOutput)
         {
-            //System.out.println(line);
-
             String enteringExitingOrOther;
             String className;
             String methodName;
@@ -73,11 +82,9 @@ public class RunProgramAtRunTime
 
             if(enteringExitingOrOther.equals("Entering") || enteringExitingOrOther.equals("Exiting"))
             {
+                // Get class and method name
                 className = getClassName(line);
                 methodName = getMethodName(line);
-
-                //System.out.println("Classname: " + className);
-                //System.out.println("Method Name: " + methodName);
 
                 // Add class
                 if (!DynamicData.getInstance().contains(className))
@@ -104,14 +111,11 @@ public class RunProgramAtRunTime
         }
 
         applyTimeEntries(splitProgramOutput);
-
-        //System.out.println();
-        //displayClassData();
     }
 
     private static void applyTimeEntries(String[] splitProgramOutput)
     {
-        Stack<MethodNameTime> methodTimeStack = new Stack();
+        Stack<MethodNameTime> methodTimeStack = new Stack<>();
 
         for (String line : splitProgramOutput)
         {
@@ -134,7 +138,7 @@ public class RunProgramAtRunTime
                 {
                     long startTime = methodTimeStack.pop().getTimeStamp();
 
-                    long endTime = Long.valueOf(getTimeStamp(line));
+                    long endTime = Long.parseLong(getTimeStamp(line));
 
                     DynamicData.getInstance().get(getClassName(line)).get(methodName).addTimeSpentEntry(endTime - startTime);
                 }
@@ -207,11 +211,16 @@ public class RunProgramAtRunTime
         {
             line = line.split(" ")[1];
 
-            if (line.equals("Entering")) {
+            if (line.equals("Entering"))
+            {
                 return "Entering";
-            } else if (line.equals("Exiting")) {
+            }
+            else if (line.equals("Exiting"))
+            {
                 return "Exiting";
-            } else {
+            }
+            else
+                {
                 return "Other";
             }
         }
@@ -244,18 +253,18 @@ public class RunProgramAtRunTime
         methodString = splitLine[splitLine.length - 1];
 
         line = line.replace(methodString, "");
-        line = line.substring(0, line.length()-1);
+        line = line.substring(0, line.length() - 1);
 
         return line;
     }
 
     public static void main(String[] args)
     {
-        RunOutsideProgram();
+        runOutsideProgram();
     }
 
-    private static class MethodNameTime {
-
+    private static class MethodNameTime
+    {
         private String name;
         private long timeStamp;
 

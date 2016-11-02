@@ -6,14 +6,14 @@ import java.util.List;
 
 public class DynamicMethodDataEntry
 {
+    ///// Fields /////
     private String methodName;
     private int callCount;
     private long averageTime = 0;
     private long totalTime = 0;
-
     private final List<Long> timesSpentInMethod = new ArrayList<>();
 
-
+    ///// Methods /////
     public DynamicMethodDataEntry(String methodName)
     {
         this.methodName = methodName;
@@ -22,25 +22,6 @@ public class DynamicMethodDataEntry
     public void incrementCallCount()
     {
         callCount++;
-    }
-
-    public int getCallCount() {
-        return callCount;
-    }
-
-    public String getMethodName()
-    {
-        return methodName;
-    }
-
-    public void setMethodName(String methodName)
-    {
-        this.methodName = methodName;
-    }
-
-    public List<Long> getTimesSpentInMethod()
-    {
-        return timesSpentInMethod;
     }
 
     public void addTimeSpentEntry(long entry)
@@ -59,6 +40,7 @@ public class DynamicMethodDataEntry
         timesSpentInMethod.add(entry);
     }
 
+    ///// Getters /////
     public long getAverageTime()
     {
         return averageTime;
@@ -67,5 +49,19 @@ public class DynamicMethodDataEntry
     public long getTotalTime()
     {
         return totalTime;
+    }
+
+    public int getCallCount() {
+        return callCount;
+    }
+
+    public String getMethodName()
+    {
+        return methodName;
+    }
+
+    public List<Long> getTimesSpentInMethod()
+    {
+        return timesSpentInMethod;
     }
 }

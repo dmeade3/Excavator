@@ -23,26 +23,26 @@ public class DynamicData
 
     public void put(String className, DynamicClassDataEntry dynamicFileDataEntry)
     {
-        data.put(className, dynamicFileDataEntry);
+        getInstance().data.put(className, dynamicFileDataEntry);
     }
 
     public DynamicClassDataEntry get(String className)
     {
-        return data.get(className);
+        return getInstance().data.get(className);
     }
 
     public boolean contains(String className)
     {
-        return data.containsKey(className);
+        return getInstance().data.containsKey(className);
     }
 
     public HashMap<String, DynamicClassDataEntry> getData()
     {
-        return data;
+        return getInstance().data;
     }
 
     public void clear()
     {
-        data.clear();
+        getInstance().data.clear();
     }
 }
