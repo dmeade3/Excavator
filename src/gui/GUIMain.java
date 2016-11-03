@@ -50,6 +50,10 @@ public class GUIMain extends Application
 
 	private final BorderPane mainBorderPane = new BorderPane();
 
+    private Thread updateDynamicAnalysisThread;
+
+    private Label dynamicStateLabel;
+
 	// Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void start(Stage stage)
@@ -92,7 +96,8 @@ public class GUIMain extends Application
 	    ///// Listeners for scene growth /////
 	    scene.widthProperty().addListener((observableValue, oldSceneWidth, newSceneWidth) ->
 	    {
-		    treeTableView.setPrefWidth((Double)  newSceneWidth - SCROLLPANEWIDTH);
+		    treeTableView.setPrefWidth((Double)   ((newSceneWidth.doubleValue() - oldSceneWidth.doubleValue()) / 2)  + treeTableView.getPrefWidth());
+            rightScrollPane.setPrefWidth((Double) ((newSceneWidth.doubleValue() - oldSceneWidth.doubleValue()) / 2)  + rightScrollPane.getPrefWidth());
 	    });
 
 	    scene.heightProperty().addListener((observableValue, oldSceneHeight, newSceneHeight) ->
@@ -107,6 +112,13 @@ public class GUIMain extends Application
 	    stage.setTitle("Excavator");
 	    stage.setScene(scene);
 	    stage.show();
+
+        scene.getWindow().setOnCloseRequest(ev ->
+        {
+            System.out.println("Closing");
+
+            Platform.exit();
+        });
     }
 
     private void updateTreeTable()
@@ -165,17 +177,17 @@ public class GUIMain extends Application
         methodClassNameColumn.setPrefWidth(500);
         methodClassNameColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getMethodName()));
 
-        TreeTableColumn<ApplicationStat, String> methodCallCountColumn = new TreeTableColumn<>("Call Count");
+        TreeTableColumn<ApplicationStat, FormattedNumber> methodCallCountColumn = new TreeTableColumn<>("Call Count");
         methodCallCountColumn.setPrefWidth(115);
-        methodCallCountColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, String> param) -> new SimpleObjectProperty<>(String.valueOf(NUMBERFORMATER.format(param.getValue().getValue().getCallCount()))));
+        methodCallCountColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, FormattedNumber> param) -> new SimpleObjectProperty<>(new FormattedNumber(param.getValue().getValue().getCallCount(), "")));
 
-        TreeTableColumn<ApplicationStat, String> averageTimeColumn = new TreeTableColumn<>("Average Time");
+        TreeTableColumn<ApplicationStat, FormattedNumber> averageTimeColumn = new TreeTableColumn<>("Average Time");
         averageTimeColumn.setPrefWidth(185);
-        averageTimeColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, String> param) -> new SimpleObjectProperty<>(String.valueOf(NUMBERFORMATER.format(Float.parseFloat(param.getValue().getValue().getAverageMethodTime()))) + getTimeShortDescription()));
+        averageTimeColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, FormattedNumber> param) -> new SimpleObjectProperty<>(new FormattedNumber(Float.parseFloat(param.getValue().getValue().getAverageMethodTime()), getTimeShortDescription())));
 
-        TreeTableColumn<ApplicationStat, String> totalTimeColumn = new TreeTableColumn<>("Total Time");
+        TreeTableColumn<ApplicationStat, FormattedNumber> totalTimeColumn = new TreeTableColumn<>("Total Time");
         totalTimeColumn.setPrefWidth(185);
-        totalTimeColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, String> param) -> new SimpleObjectProperty<>(String.valueOf(NUMBERFORMATER.format(Float.parseFloat(param.getValue().getValue().getTotalMethodTime()))) + getTimeShortDescription()));
+        totalTimeColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, FormattedNumber> param) -> new SimpleObjectProperty<>(new FormattedNumber(Float.parseFloat(param.getValue().getValue().getTotalMethodTime()), getTimeShortDescription())));
 
         // Add all the columns to the tree table
         treeTableView.getColumns().setAll(methodClassNameColumn, methodCallCountColumn, averageTimeColumn, totalTimeColumn);
@@ -215,7 +227,7 @@ public class GUIMain extends Application
 	    // Run static analysis button
         Button runDynamicAnalysisButton = new Button("Run Dynamic Analysis         ");
 	    bottomButtons.add(runDynamicAnalysisButton, 0, 2);
-	    Label dynamicStateLabel = new Label("");
+	    dynamicStateLabel = new Label("");
 	    bottomButtons.add(dynamicStateLabel, 1, 2);
 
         // Time selector comboBox
@@ -295,27 +307,12 @@ public class GUIMain extends Application
 
             rootTreeItem.getChildren().clear();
 
-            Thread t1 = new Thread(() ->
-            {
-                Platform.setImplicitExit(false);
+            UpdateDynamicAnalysis u1 = new UpdateDynamicAnalysis();
 
-                Platform.runLater(() ->
-                {
-                    long start = System.nanoTime();
-                    RunProgramAtRunTime.runOutsideProgram();
-                    long end = System.nanoTime();
-                    OUTSIDEPROGRAMDYNAMICEXECUTIONTIME = end - start;
+            updateDynamicAnalysisThread = new Thread(u1, "T1");
+            updateDynamicAnalysisThread.setDaemon(true);
 
-                    updateTreeTable();
-
-                    updateRightScrollPane();
-
-                    dynamicStateLabel.setText("Done");
-                });
-            });
-
-            t1.setDaemon(true);
-            t1.start();
+            updateDynamicAnalysisThread.start();
 
             // Set Root title
             String rootTitle = OUTSIDEPROGRAMJARPATH;
@@ -324,10 +321,7 @@ public class GUIMain extends Application
             rootTreeItem.getValue().setMethodName(rootTitle);
         });
 
-        runStaticAnalysisButton.setOnMousePressed(event -> {
-
-            staticStateLabel.setText("Running...");
-        });
+        runStaticAnalysisButton.setOnMousePressed(event -> staticStateLabel.setText("Running..."));
 
         runStaticAnalysisButton.setOnAction(event -> {
 
@@ -364,6 +358,33 @@ public class GUIMain extends Application
             //rootTitle = splitString[splitString.length-1];
             //rootTreeItem.getValue().setMethodName(rootTitle);
         });
+    }
+
+    class UpdateDynamicAnalysis implements Runnable
+    {
+        public void run()
+        {
+
+            Platform.setImplicitExit(false);
+
+            Platform.runLater(() ->
+            {
+                System.out.println("Starting Dynamic Analysis.....");
+
+                long start = System.nanoTime();
+                RunProgramAtRunTime.runOutsideProgram();
+                long end = System.nanoTime();
+                OUTSIDEPROGRAMDYNAMICEXECUTIONTIME = end - start;
+
+                updateTreeTable();
+
+                updateRightScrollPane();
+
+                dynamicStateLabel.setText("Done");
+
+                System.out.println("Dynamic Analysis Complete");
+            });
+        }
     }
 
     private static boolean pathReachable(String filepath)

@@ -13,8 +13,9 @@ public class SystemConfig
 
     // TODO Needs to be a default, and if in config file it is loaded and used instead
     // TODO have an on close listener that saves off the user data in GUIMain
+    // TODO make a utilities class and pull general methods from classes and things that dont belong here into it
 
-    public static String OUTSIDEPROGRAMSOURCEPATH = "C:\\Users\\David\\Desktop\\Intelij Workspace\\Conways Game Of Life\\src";
+    public static String OUTSIDEPROGRAMSOURCEPATH = "C:\\Users\\dcmeade\\Desktop\\Intelij Workspace\\Hello-World\\src";
     public static String OUTSIDEPROGRAMJARPATH = "C:\\Users\\dcmeade\\Desktop\\Intelij Workspace\\Hello-World\\out\\artifacts\\Hello_World_jar\\Hello World.jar";
 
 
@@ -44,6 +45,7 @@ public class SystemConfig
 
 
     public static final int INITIALDYNAMICDATASIZE = 100;
+    public static final int INITIALSTATICDATASIZE = 30;
 
 
     public static final ObservableList<String> TIMEOPTIONS = FXCollections.observableArrayList(
