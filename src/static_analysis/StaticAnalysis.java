@@ -75,10 +75,14 @@ public class StaticAnalysis
             // Inside Class
             for (List<String> classesString : classStrings)
             {
+                System.out.println("############################################################");
+
                 for (String classString : classesString)
                 {
-                    System.out.println("##################################################\n" + classString + "\n#################################################################");
+                    System.out.println(classString);
                 }
+
+                System.out.println("############################################################");
 
             }
 
@@ -129,14 +133,7 @@ public class StaticAnalysis
         // TODO pseudocode lay this out bellow before start
         // TODO test for multiple inner classes within inner classes
 
-        // main class start
-        // parse and see if there is another instance of the word class before the balanced parenthesis is up
-        // if yes reparse what was just parsed
-        // if no move on to the end of file or other class
-
-        // keep markers of begging of current class and end so you know
-        // once balanced parenthesis met with no other class inside move markers
-        // after balanced parens reset classStarted
+        // TODO if theres an inner class think about taking it out of the main string list so results are less confusing
 
         // mark all instances of the word class and have an array
         // then have a function that creates a class based on a starting point and goes till the parens are balaced
@@ -151,7 +148,6 @@ public class StaticAnalysis
 
             ctr++;
         }
-
 
         for (int i : classOccuranceMarkers)
         {
@@ -170,6 +166,7 @@ public class StaticAnalysis
 
             // Count the first {
             parensBalanceHolder = 1;
+            currentClass.add(splitFile[currentIndex]);
             currentIndex++;
 
             while (parensBalanceHolder != 0)
@@ -179,24 +176,47 @@ public class StaticAnalysis
 
                 if (splitFile[currentIndex].equals("{"))
                 {
-                    parensBalanceHolder--;
+                    parensBalanceHolder++;
                 }
                 else if (splitFile[currentIndex].equals("}"))
                 {
-                    parensBalanceHolder++;
+                    parensBalanceHolder--;
                 }
 
                 currentIndex++;
             }
 
-
-
             allClassList.add(currentClass);
         }
 
+        // Filters out with blank spaces in the class string list list
 
+        allClassList = filterClassList(allClassList);
 
         return allClassList;
+    }
+
+    private static List<List<String>> filterClassList(List<List<String>> allClassList)
+    {
+        List<List<String>> returnClassListList = new ArrayList<>();
+
+        for (List<String> classesString : allClassList)
+        {
+            List<String> currentStringList = new ArrayList<>();
+
+            for (String classString : classesString)
+            {
+                if(!classString.equals(""))
+                {
+                    currentStringList.add(classString);
+                }
+            }
+
+            returnClassListList.add(currentStringList);
+        }
+
+
+        return returnClassListList;
     }
 
     public static List<File> getFileNames(String directoryName)
