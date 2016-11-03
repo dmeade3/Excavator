@@ -151,8 +151,6 @@ public class StaticAnalysis
 
         for (int i : classOccuranceMarkers)
         {
-            System.out.println(i);
-
             int currentIndex = i;
             List<String> currentClass = new ArrayList<>();
 
