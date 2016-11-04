@@ -34,9 +34,13 @@ public class StaticMethodDataEntry
 
 
     ///// Methods /////
-    public StaticMethodDataEntry(String methodName)
+    public StaticMethodDataEntry(String methodName, int forLoopCount, int whileLoopCount, int complexityScore)
     {
         this.methodName = methodName;
+        this.forLoopCount = forLoopCount;
+        this.whileLoopCount = whileLoopCount;
+        this.complexityScore = complexityScore;
+
     }
 
 

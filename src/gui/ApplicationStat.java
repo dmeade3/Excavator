@@ -20,7 +20,6 @@ public class ApplicationStat
         this.callCount = callCount;
         this.averageMethodTime = averageMethodTime;
         this.totalMethodTime = totalMethodTime;
-
     }
 
     // Getters

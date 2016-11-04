@@ -72,6 +72,36 @@ public class RunProgramAtRunTime
     {
         String [] splitProgramOutput = programOutput.split("\n");
 
+        // Get all available methods
+        for (String line : splitProgramOutput)
+        {
+            String enteringExitingOrOther;
+            String className;
+
+            enteringExitingOrOther = getEnterExitStatus(line);
+
+            if(enteringExitingOrOther.equals("Entering") || enteringExitingOrOther.equals("Exiting"))
+            {
+                // Get class and method name
+                className = getClassName(line);
+
+
+                // Add class
+                if (!DynamicData.getInstance().contains(className))
+                {
+                    DynamicClassDataEntry classDataEntry = new DynamicClassDataEntry(className);
+
+                    DynamicData.getInstance().put(classDataEntry.getClassName(), classDataEntry);
+                }
+            }
+        }
+
+        for (String key : DynamicData.getInstance().getData().keySet())
+        {
+            System.out.println("Classes: " + key);
+        }
+
+        // After getting all the class names you can move on to the other operations
         for (String line : splitProgramOutput)
         {
             String enteringExitingOrOther;
@@ -85,6 +115,29 @@ public class RunProgramAtRunTime
                 // Get class and method name
                 className = getClassName(line);
                 methodName = getMethodName(line);
+
+                final String tmpMethodName = methodName.replaceAll("\\(.*", "");
+
+                for (String key : DynamicData.getInstance().getData().keySet())
+                {
+                    String classEnding;
+
+                    try
+                    {
+                        classEnding = key.substring(key.lastIndexOf(".") + 1, key.lastIndexOf(".") + tmpMethodName.length());
+                    }
+                    catch (Exception e)
+                    {
+
+                        // TODO to work, needs to make first pass to get all available classnames
+                        continue;
+                    }
+
+                    if (classEnding.trim().contains(tmpMethodName.trim()))
+                    {
+                        className = key.trim();
+                    }
+                }
 
                 // Add class
                 if (!DynamicData.getInstance().contains(className))
@@ -110,9 +163,22 @@ public class RunProgramAtRunTime
             }
         }
 
+        // TODO Delete classes with no usage entries
+        for (DynamicClassDataEntry value : DynamicData.getInstance().getData().values())
+        {
+            if (value.getData().size() == 0)
+            {
+                System.out.println("Deleting: " + value.getClassName());
+
+                DynamicData.getInstance().getData().remove(value.getClassName());
+            }
+        }
+
         applyTimeEntries(splitProgramOutput);
     }
 
+
+    // TODO see if you can simplify a little bit
     private static void applyTimeEntries(String[] splitProgramOutput)
     {
         Stack<MethodNameTime> methodTimeStack = new Stack<>();
@@ -131,7 +197,12 @@ public class RunProgramAtRunTime
             // if exiting then pop off the stack and set the time
             else if (enteringExitingOrOther.equals("Exiting"))
             {
+                // Get class and method name
+                String className = getClassName(line);
                 String methodName = getMethodName(line);
+
+                final String tmpMethodName = methodName.replaceAll("\\(.*", "");
+
 
                 // Peek looks at the top of the stack
                 if (methodTimeStack.peek().getName().equals(methodName))
@@ -140,7 +211,29 @@ public class RunProgramAtRunTime
 
                     long endTime = Long.parseLong(getTimeStamp(line));
 
-                    DynamicData.getInstance().get(getClassName(line)).get(methodName).addTimeSpentEntry(endTime - startTime);
+
+                    for (String key : DynamicData.getInstance().getData().keySet())
+                    {
+                        String classEnding;
+
+                        try
+                        {
+                            classEnding = key.substring(key.lastIndexOf(".") + 1, key.lastIndexOf(".") + tmpMethodName.length());
+                        }
+                        catch (Exception e)
+                        {
+
+                            // TODO to work, needs to make first pass to get all available classnames
+                            continue;
+                        }
+
+                        if (classEnding.trim().contains(tmpMethodName.trim()))
+                        {
+                            className = key.trim();
+                        }
+                    }
+
+                    DynamicData.getInstance().get(className).get(methodName).addTimeSpentEntry(endTime - startTime);
                 }
             }
         }
