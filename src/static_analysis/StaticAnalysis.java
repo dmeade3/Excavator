@@ -35,7 +35,7 @@ public class StaticAnalysis
 
         for (File sourceFile : sourceFiles)
         {
-            System.out.println(sourceFile);
+            //System.out.println(sourceFile);
             analyzeSourceFile(sourceFile);
         }
 
@@ -46,7 +46,8 @@ public class StaticAnalysis
     private static void analyzeSourceFile(File sourceFile)
     {
         BufferedReader in = null;
-        try {
+        try
+        {
             in = new BufferedReader(new FileReader(sourceFile));
 
             // Todo instead of whole file line by line make file into a string, if cant fit in one string have error
@@ -83,26 +84,13 @@ public class StaticAnalysis
 
 
 
-
                 // TODO Will insert methoddata into class data
                 parseMethods(classStringList, currentClassEntry);
 
 
 
-
-
-
                 System.out.println("############################################################");
-
-                // TODO remove
-                //break;
             }
-
-
-
-
-
-
 
             ///////////////////////////
 
@@ -127,14 +115,12 @@ public class StaticAnalysis
 
     private static void parseMethods(List<String> classStringList, StaticClassDataEntry currentClassEntry)
     {
-
         List<List<String>> methodStringList = new ArrayList<>();
-
 
         // Break up class into method
         for (int i = 0; i < classStringList.size(); i++)
         {
-            //System.out.println(classStringList.get(i));
+            //(classStringList.get(i));
 
             if (classStringList.get(i).contains("{"))
             {
@@ -147,7 +133,7 @@ public class StaticAnalysis
                 int complexityScore = 0;
 
                 // get the name of the method
-                if (classStringList.get(i-1).contains(")"))
+                if (classStringList.get(i-1).contains(")") || ((i > 2) && classStringList.get(i-2).contains("throws")))
                 {
 
                     int j = i;
@@ -167,12 +153,12 @@ public class StaticAnalysis
                     }
 
                     // Filter out non method names
-                    if (filterMethodName(name))
+                    if (filterMethodName(name) || name.contains("."))
                     {
                         continue;
                     }
 
-                    System.out.println("\tMethod Name: " + name);
+                    //System.out.println("\tMethod Name: " + name);
 
 /////////////////////// Get the rest of the info by iterating over the method///////////////////////////////////////////
 
@@ -220,9 +206,9 @@ public class StaticAnalysis
                     } while(parenthesisBalanceHolder != 0);
 
 
-                    System.out.println("\t\tFor loop count:   " + forLoopCount);
-                    System.out.println("\t\tWhile loop count: " + whileLoopCount);
-                    System.out.println("\t\tComplexity Score: " + complexityScore);
+                    //System.out.println("\t\tFor loop count:   " + forLoopCount);
+                    //System.out.println("\t\tWhile loop count: " + whileLoopCount);
+                    //System.out.println("\t\tComplexity Score: " + complexityScore);
 
 
                     currentClassEntry.getData().put(name, new StaticMethodDataEntry(name, forLoopCount, whileLoopCount, complexityScore));
@@ -233,18 +219,19 @@ public class StaticAnalysis
 
     private static boolean filterMethodName(String name)
     {
+        // Todo make this list more global to save time
         List<String> methodFilterList = new ArrayList<>();
 
         methodFilterList.add("switch");
         methodFilterList.add("for");
         methodFilterList.add("while");
         methodFilterList.add("if");
+        methodFilterList.add("catch");
 
         return methodFilterList.contains(name);
     }
 
-    private static List<List<String>> parseClassStrings(String stringFile)
-    {
+    private static List<List<String>> parseClassStrings(String stringFile) {
         List<List<String>> allClassList = new ArrayList<>();
 
         String[] splitFile = stringFile.split("\\s");
@@ -279,44 +266,55 @@ public class StaticAnalysis
 
         for (int i : classOccurrenceMarkers)
         {
-            int currentIndex = i;
-            List<String> currentClass = new ArrayList<>();
-
-            // Get to the first '{'
-            while(!splitFile[currentIndex].equals("{"))
+            if (splitFile[i + 2].equals("{") ||
+                    splitFile[i + 2].contains("implements") || splitFile[i + 2].contains("extends"))
             {
-                currentClass.add(splitFile[currentIndex]);
+                int currentIndex = i;
+                List<String> currentClass = new ArrayList<>();
 
-                currentIndex++;
-            }
-
-            // Count the first {
-            parensBalanceHolder = 1;
-            currentClass.add(splitFile[currentIndex]);
-            currentIndex++;
-
-            while (parensBalanceHolder != 0)
-            {
-
-                currentClass.add(splitFile[currentIndex]);
-
-                if (splitFile[currentIndex].equals("{"))
+                // Get to the first '{'
+                while (!splitFile[currentIndex].equals("{"))
                 {
-                    parensBalanceHolder++;
-                }
-                else if (splitFile[currentIndex].equals("}"))
-                {
-                    parensBalanceHolder--;
+                    currentClass.add(splitFile[currentIndex]);
+
+                    currentIndex++;
                 }
 
+                // Count the first {
+                parensBalanceHolder = 1;
+                currentClass.add(splitFile[currentIndex]);
                 currentIndex++;
-            }
 
-            allClassList.add(currentClass);
+                while (parensBalanceHolder != 0) {
+                    currentClass.add(splitFile[currentIndex]);
+
+                    if (splitFile[currentIndex].equals("{")) {
+                        parensBalanceHolder++;
+                    } else if (splitFile[currentIndex].equals("}")) {
+                        parensBalanceHolder--;
+                    }
+
+                    currentIndex++;
+                }
+
+                allClassList.add(currentClass);
+            }
         }
 
         // Filters out with blank spaces in the class string list list
         allClassList = filterClassList(allClassList);
+
+        for (List<String> list : allClassList)
+        {
+            for (String string : list)
+            {
+                System.out.println(string);
+            }
+
+            System.out.println();
+        }
+
+        // TODO when inner class is removed from the main class add the inner class back into the class list
 
         // Get rid of inner classes within larger classes
         allClassList = removeInnerClasses(allClassList);
@@ -324,6 +322,7 @@ public class StaticAnalysis
         return allClassList;
     }
 
+    // TODO does not work
     private static List<List<String>> removeInnerClasses(List<List<String>> allClassList)
     {
         // TODO remove the public private protected if it exists here, ie. has the same name of class
@@ -343,6 +342,9 @@ public class StaticAnalysis
                     // If classListComparedAgainst contains classListTest then remove it from classListCompareAgainst
                     returnClassLists.add(containsRemoves(classListComparedAgainst, classListTest));
 
+                    System.out.println(classListTest.get(1));
+
+                    returnClassLists.add(classListTest);
                     break;
                 }
             }

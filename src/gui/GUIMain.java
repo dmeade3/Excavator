@@ -16,6 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import static_analysis.StaticAnalysis;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -335,7 +336,7 @@ public class GUIMain extends Application
 
             // TODO like in dynamic have in its own thread
             long start = System.nanoTime();
-            //RunProgramAtRunTime.runOutsideProgram();
+            StaticAnalysis.runStaticAnalysis();
             long end = System.nanoTime();
             OUTSIDEPROGRAMSTATICEXECUTIONTIME = end - start;
 
@@ -382,7 +383,7 @@ public class GUIMain extends Application
 
                 dynamicStateLabel.setText("Done");
 
-                System.out.println("Dynamic Analysis Complete");
+                System.out.println("Dynamic Analysis Complete\n");
             });
         }
     }

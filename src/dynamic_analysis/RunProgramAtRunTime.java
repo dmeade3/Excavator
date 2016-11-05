@@ -7,6 +7,8 @@ import data_storage.DynamicMethodDataEntry;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import static data_storage.SystemConfig.*;
@@ -72,7 +74,8 @@ public class RunProgramAtRunTime
     {
         String [] splitProgramOutput = programOutput.split("\n");
 
-        // Get all available methods
+        // Get all available classes methods
+        // Needs to stay in from so constructors can be added to the right class
         for (String line : splitProgramOutput)
         {
             String enteringExitingOrOther;
@@ -85,7 +88,6 @@ public class RunProgramAtRunTime
                 // Get class and method name
                 className = getClassName(line);
 
-
                 // Add class
                 if (!DynamicData.getInstance().contains(className))
                 {
@@ -96,12 +98,6 @@ public class RunProgramAtRunTime
             }
         }
 
-        for (String key : DynamicData.getInstance().getData().keySet())
-        {
-            System.out.println("Classes: " + key);
-        }
-
-        // After getting all the class names you can move on to the other operations
         for (String line : splitProgramOutput)
         {
             String enteringExitingOrOther;
@@ -116,7 +112,7 @@ public class RunProgramAtRunTime
                 className = getClassName(line);
                 methodName = getMethodName(line);
 
-                final String tmpMethodName = methodName.replaceAll("\\(.*", "");
+                String tmpMethodName = methodName.replaceAll("\\(.*", "");
 
                 for (String key : DynamicData.getInstance().getData().keySet())
                 {
@@ -128,8 +124,6 @@ public class RunProgramAtRunTime
                     }
                     catch (Exception e)
                     {
-
-                        // TODO to work, needs to make first pass to get all available classnames
                         continue;
                     }
 
@@ -139,22 +133,11 @@ public class RunProgramAtRunTime
                     }
                 }
 
-                // Add class
-                if (!DynamicData.getInstance().contains(className))
-                {
-                    DynamicClassDataEntry classDataEntry = new DynamicClassDataEntry(className);
-
-                    DynamicData.getInstance().put(classDataEntry.getClassName(), classDataEntry);
-                }
-
-                // Add method
-                if (!DynamicData.getInstance().get(className).contains(methodName))
+                if (!DynamicData.getInstance().getData().get(className).contains(methodName))
                 {
                     DynamicMethodDataEntry methodDataEntry = new DynamicMethodDataEntry(methodName);
-
-                    DynamicData.getInstance().get(className).put(methodDataEntry.getMethodName(), methodDataEntry);
+                    DynamicData.getInstance().get(className).getData().put(methodName, methodDataEntry);
                 }
-
                 // Increment Call Count
                 if(enteringExitingOrOther.equals("Entering"))
                 {
@@ -163,15 +146,28 @@ public class RunProgramAtRunTime
             }
         }
 
-        // TODO Delete classes with no usage entries
+        List<String> classesToDelete = new ArrayList<>();
+
+        // Find classes to delete
         for (DynamicClassDataEntry value : DynamicData.getInstance().getData().values())
         {
-            if (value.getData().size() == 0)
-            {
-                System.out.println("Deleting: " + value.getClassName());
+            int totalCallCount = 0;
 
-                DynamicData.getInstance().getData().remove(value.getClassName());
+            for (DynamicMethodDataEntry methodEntry : value.getData().values())
+            {
+                totalCallCount += methodEntry.getCallCount();
             }
+
+            if (totalCallCount == 0)
+            {
+                classesToDelete.add(value.getClassName());
+            }
+        }
+
+        // Delete the classes
+        for (String classToDelete: classesToDelete)
+        {
+            DynamicData.getInstance().getData().remove(classToDelete);
         }
 
         applyTimeEntries(splitProgramOutput);
@@ -222,8 +218,6 @@ public class RunProgramAtRunTime
                         }
                         catch (Exception e)
                         {
-
-                            // TODO to work, needs to make first pass to get all available classnames
                             continue;
                         }
 
@@ -232,6 +226,9 @@ public class RunProgramAtRunTime
                             className = key.trim();
                         }
                     }
+
+                    //System.out.println("Classname: " + className);
+                    //System.out.println("Methodname: " + methodName);
 
                     DynamicData.getInstance().get(className).get(methodName).addTimeSpentEntry(endTime - startTime);
                 }
