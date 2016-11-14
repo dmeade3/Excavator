@@ -15,7 +15,7 @@ public class SystemConfig
     // TODO have an on close listener that saves off the user data in GUIMain
     // TODO make a utilities class and pull general methods from classes and things that dont belong here into it
 
-    public static String OUTSIDEPROGRAMSOURCEPATH = "C:\\Users\\dcmeade\\Desktop\\Intelij Workspace\\Excavator\\src\\dynamic_analysis";
+    public static String OUTSIDEPROGRAMSOURCEPATH = "C:\\Users\\dcmeade\\Desktop\\Intelij Workspace\\Hello-World\\src";
     public static String OUTSIDEPROGRAMJARPATH = "C:\\Users\\dcmeade\\Desktop\\Intelij Workspace\\Hello-World\\out\\artifacts\\Hello_World_jar\\Hello World.jar";
 
 

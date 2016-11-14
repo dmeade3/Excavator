@@ -142,6 +142,8 @@ public class StaticAnalysis
                         j--;
                     }
 
+                    //System.out.println("method line: " + classStringList.get(j));
+
                     name = classStringList.get(j).replaceAll("\\(.*", "");
 
                     methodIndexStart = j;
@@ -158,7 +160,7 @@ public class StaticAnalysis
                         continue;
                     }
 
-                    //System.out.println("\tMethod Name: " + name);
+                    System.out.println("\tMethod Name: " + name);
 
 /////////////////////// Get the rest of the info by iterating over the method///////////////////////////////////////////
 
@@ -266,6 +268,8 @@ public class StaticAnalysis
 
         for (int i : classOccurrenceMarkers)
         {
+            //System.out.println("marker: " + i);
+
             if (splitFile[i + 2].equals("{") ||
                     splitFile[i + 2].contains("implements") || splitFile[i + 2].contains("extends"))
             {
@@ -297,12 +301,20 @@ public class StaticAnalysis
                     currentIndex++;
                 }
 
+                //System.out.println(currentClass.get(1));
+
                 allClassList.add(currentClass);
             }
         }
 
         // Filters out with blank spaces in the class string list list
         allClassList = filterClassList(allClassList);
+
+
+        // TODO when inner class is removed from the main class add the inner class back into the class list
+
+        // Get rid of inner classes within larger classes
+        allClassList = removeInnerClasses(allClassList);
 
         for (List<String> list : allClassList)
         {
@@ -311,13 +323,8 @@ public class StaticAnalysis
                 System.out.println(string);
             }
 
-            System.out.println();
+            System.out.println("\n\n\n");
         }
-
-        // TODO when inner class is removed from the main class add the inner class back into the class list
-
-        // Get rid of inner classes within larger classes
-        allClassList = removeInnerClasses(allClassList);
 
         return allClassList;
     }
@@ -342,15 +349,16 @@ public class StaticAnalysis
                     // If classListComparedAgainst contains classListTest then remove it from classListCompareAgainst
                     returnClassLists.add(containsRemoves(classListComparedAgainst, classListTest));
 
-                    System.out.println(classListTest.get(1));
+                    //System.out.println(classListTest.get(1));
 
-                    returnClassLists.add(classListTest);
+                    //System.out.println(classListComparedAgainst.get(1));
+
                     break;
                 }
             }
         }
 
-        if (returnClassLists.size() != 0)
+        if (!returnClassLists.isEmpty())
         {
             return returnClassLists;
         }
@@ -401,11 +409,14 @@ public class StaticAnalysis
                 {
                     if (!classListComparedAgainst.get(j).equals(classListTest.get(j - i)))
                     {
+                        //System.out.println(classListComparedAgainst.get(j) + "!=" + classListTest.get(j - i));
+
                         matchResult = false;
+
                     }
                 }
 
-                //System.out.println(matchResult);
+                System.out.println(matchResult);
 
                 // if complete match start back at i and only add into the return list the items not included in the match range
                 if (matchResult)
