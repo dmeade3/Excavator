@@ -1,7 +1,7 @@
 package dynamic_analysis;
 
 
-import data_storage.SystemConfig;
+import Util.SystemConfig;
 import javassist.*;
 
 import java.lang.instrument.ClassFileTransformer;
@@ -10,6 +10,10 @@ import java.lang.instrument.Instrumentation;
 import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.List;
+
+import static Util.SystemConfig.ENTERING;
+import static Util.SystemConfig.EXITING;
+import static Util.SystemConfig.TIMESTAMP_VARIABLE;
 
 public class Profiler implements ClassFileTransformer
 {
@@ -20,12 +24,19 @@ public class Profiler implements ClassFileTransformer
     public static void premain(String agentArgs, Instrumentation inst)
     {
         System.out.println("Profile Agent Started...");
-        Profiler profiler = new Profiler(inst);
+
+        // Start the profiler
+        Profiler.run(inst);
+    }
+
+    private static void run(Instrumentation inst)
+    {
+        new Profiler(inst);
     }
 
     public Profiler(Instrumentation inst)
     {
-        if (SystemConfig.FILTEROUTNONUSERMETHODS)
+        if (SystemConfig.FILTER_OUT_NON_USER_METHODS)
         {
             filterList.add("java");
             filterList.add("sun");
@@ -54,9 +65,9 @@ public class Profiler implements ClassFileTransformer
             {
                 if (filter(method.getLongName(), className))
                 {
-                    method.insertBefore("long timeStampzzzz = System.nanoTime(); System.out.println(timeStampzzzz + \" Entering " + method.getLongName() + "\");");
+                    method.insertBefore("long " + TIMESTAMP_VARIABLE + " = System.nanoTime(); System.out.println(" + TIMESTAMP_VARIABLE + " + \" " + ENTERING + " " + method.getLongName() + "\");");
 
-                    method.insertAfter("long timeStampzzzz = System.nanoTime(); System.out.println(timeStampzzzz + \" Exiting  " + method.getLongName() + "\");");
+                    method.insertAfter("long " + TIMESTAMP_VARIABLE + " = System.nanoTime(); System.out.println(" + TIMESTAMP_VARIABLE + " + \" " + EXITING + " " + method.getLongName() + "\");");
                 }
             }
 
@@ -64,9 +75,9 @@ public class Profiler implements ClassFileTransformer
             {
                 if (filter(constructor.getLongName(), className))
                 {
-                    constructor.insertBefore("long timeStampzzzz = System.nanoTime(); System.out.println(timeStampzzzz + \" Entering " + constructor.getLongName() + "\");");
+                    constructor.insertBefore("long " + TIMESTAMP_VARIABLE + " = System.nanoTime(); System.out.println(" + TIMESTAMP_VARIABLE + " + \" " + ENTERING + " " + constructor.getLongName() + "\");");
 
-                    constructor.insertAfter("long timeStampzzzz = System.nanoTime(); System.out.println(timeStampzzzz + \" Exiting  " + constructor.getLongName() + "\");");
+                    constructor.insertAfter("long " + TIMESTAMP_VARIABLE + " = System.nanoTime(); System.out.println(" + TIMESTAMP_VARIABLE + " + \" " + EXITING + " " + constructor.getLongName() + "\");");
                 }
             }
 

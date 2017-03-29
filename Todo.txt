@@ -1,81 +1,39 @@
 Side code project:
     Code analysis:
 
-        Design:
-            Principles:
-                Basic:
-                    you can save results them or not
-
-            Once root directory added and confirmed correct
-                scan files for complexity info and other info
-
-        look up common java performance pitfalls so my program can look for them
+        -do the TODO's
+        -make compiling the source with javassaist my problem not the users
+        -graph data in a pie graph
+            -time and calls
+                -make 2 graphs
+        -see if you can get garbage collecting stats
+        -needs to have glossary where it explains certain things
+            -what exactly overhead is
+        -investigate the time issue when all method calls are allowed
+        -in millisecond and second the format of the number should be shorter
+        - i think average call should be completely redone and named average time per call / make the numbers reflect the name
+        - i think the timing everywhere could be redone smarter to account for any number of posibilities
+            -threading
 
         General:
 
             make easier to use on other projects for profiling
-                write down process of making the project able to be profiled
-
-            See memory usage throughout the program
-
-            when scrollpane grows scrollbar should stay in the same place
+                write down process of making the project able to be profiled / try to whitle this down all i can so the process is very small
 
             make time type an enum
-
-            add in additional scrollpane results percentage of time spent in certain places
-                   -first __ worst performing methods, not all
 
             on close save settings
 
             Index out program so it can refer to other classes:
                 -each class has its own object containing all its stats
 
-            Keeps track of line numbers and filename for user feedback for static
-
             make multithreaded:
                 create a thread for each file / directory whichever is faster:
                     unless performance isn't an issue
 
-            format additional results better
-
-            Make the interface a gui
-                -highlighting rules like that of excel green good red bad all in a range 0 -> largest number all rated by the worst info in column
-
             be able to save results
                 -think about whether it should automatically save the results to disk though
                     -leaning towards no
-
-            Main things to look for:
-                -Object creation
-                    -especially inside a loop
-                for loops
-                while loops
-                    -while(true)
-
-            Each method should have a complexity score:
-                -these methods are represented by objects that hold stats
-                    -stats have creating new objects count
-                    -loop complexity
-                    -recursively goes down into other methods that are called
-                    -file count
-                    -method count
-                    -class count
-                        -can be different than filecount
-                    -for loop count
-                    -while loop count
-
-
-        Static:
-            have a "Potential Hotspot" detector
-            give interesting stats on each file
-            line count
-            total method complexity
-            individual method complexity
-            for loop count
-            while loop count
-
-            popup that says possible problems
-
 
         Dynamic:
             if theres an error a popup box with only the abilty to close it should come up and display the error message

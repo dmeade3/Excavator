@@ -3,13 +3,13 @@ package data_storage;
 
 import java.util.HashMap;
 
-import static data_storage.SystemConfig.INITIALDYNAMICDATASIZE;
+import static Util.SystemConfig.INITIAL_DYNAMIC_DATA_SIZE;
 
 public class DynamicData
 {
     private static DynamicData instance = null;
 
-    private final HashMap<String, DynamicClassDataEntry> data = new HashMap<>(INITIALDYNAMICDATASIZE);
+    private final HashMap<String, DynamicClassDataEntry> data = new HashMap<>(INITIAL_DYNAMIC_DATA_SIZE);
 
     public static DynamicData getInstance()
     {

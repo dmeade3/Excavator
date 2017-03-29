@@ -3,6 +3,11 @@ package dynamic_analysis;
 import data_storage.DynamicClassDataEntry;
 import data_storage.DynamicData;
 import data_storage.DynamicMethodDataEntry;
+import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import static data_storage.SystemConfig.*;
+import static Util.SystemConfig.*;
 
 public class RunProgramAtRunTime
 {
@@ -25,7 +30,18 @@ public class RunProgramAtRunTime
         try
         {
             Runtime runTime = Runtime.getRuntime();
-            Process process = runTime.exec("java \"" + AGENTCOMMAND + "\" -jar \"" + OUTSIDEPROGRAMJARPATH + "\"");
+            Process process= runTime.exec("java \"" + AGENT_COMMAND + "\" -jar \"" + OUTSIDE_PROGRAM_JAR_PATH + "\"");
+
+
+            while (true)
+            {
+                System.out.println(process.waitFor());
+
+                if ((process.waitFor() == 1) || (process.waitFor() == 0))
+                {
+                    break;
+                }
+            }
 
             InputStream inputStream = process.getInputStream();
             InputStreamReader isr = new InputStreamReader(inputStream);
@@ -42,7 +58,7 @@ public class RunProgramAtRunTime
                 standardOutput.append(c1, 0, n1);
             }
 
-            if (SHOWOUTSIDEPROGRAMOUTPUT)
+            if (SHOW_OUTSIDE_PROGRAM_OUTPUT)
             {
                 System.out.println(standardOutput.toString());
             }
@@ -61,13 +77,47 @@ public class RunProgramAtRunTime
             // If there is no error dont show anything
             if (!standardError.toString().equals(""))
             {
-                System.out.println("Standard Error: \n" + standardError.toString());
+                // Filter out the non-useful errors
+                List<String> errorList = new ArrayList<>();
+                List<String> restrictedErrorList = new ArrayList<>();
+                restrictedErrorList.add("no method body");
+
+                for (String error : standardError.toString().split("\n"))
+                {
+                    //Restrict the errors that come though
+                    if (!restrictedErrorList.contains(error.trim()))
+                    {
+                        errorList.add(error);
+                    }
+                }
+
+                if (errorList.isEmpty())
+                {
+                    System.out.println("Standard Error:");
+
+                    for (String error : standardError.toString().split("\n"))
+                    {
+                        System.out.println("\t" + error);
+                    }
+
+                    final Stage errorPopupStage = new Stage();
+                    errorPopupStage.initModality(Modality.APPLICATION_MODAL);
+                    errorPopupStage.setTitle("External Program Error");
+                    ScrollPane scrollPane = new ScrollPane();
+                    TextArea textArea = new TextArea(standardError.toString());
+                    scrollPane.setContent(textArea);
+                    Scene dialogScene = new Scene(scrollPane, DIALOG_HEIGHT, DIALOG_WIDTH);
+                    errorPopupStage.setScene(dialogScene);
+                    errorPopupStage.show();
+                }
             }
         }
-        catch (IOException e)
+        catch (IOException | InterruptedException e)
         {
             e.printStackTrace();
         }
+
+
     }
 
     private static void outputAnalysis(String programOutput)
@@ -83,7 +133,7 @@ public class RunProgramAtRunTime
 
             enteringExitingOrOther = getEnterExitStatus(line);
 
-            if(enteringExitingOrOther.equals("Entering") || enteringExitingOrOther.equals("Exiting"))
+            if(enteringExitingOrOther.equals(ENTERING) || enteringExitingOrOther.equals(EXITING))
             {
                 // Get class and method name
                 className = getClassName(line);
@@ -106,7 +156,7 @@ public class RunProgramAtRunTime
 
             enteringExitingOrOther = getEnterExitStatus(line);
 
-            if(enteringExitingOrOther.equals("Entering") || enteringExitingOrOther.equals("Exiting"))
+            if(enteringExitingOrOther.equals(ENTERING) || enteringExitingOrOther.equals(EXITING))
             {
                 // Get class and method name
                 className = getClassName(line);
@@ -139,7 +189,7 @@ public class RunProgramAtRunTime
                     DynamicData.getInstance().get(className).getData().put(methodName, methodDataEntry);
                 }
                 // Increment Call Count
-                if(enteringExitingOrOther.equals("Entering"))
+                if(enteringExitingOrOther.equals(ENTERING))
                 {
                     DynamicData.getInstance().get(className).get(methodName).incrementCallCount();
                 }
@@ -173,8 +223,6 @@ public class RunProgramAtRunTime
         applyTimeEntries(splitProgramOutput);
     }
 
-
-    // TODO see if you can simplify a little bit
     private static void applyTimeEntries(String[] splitProgramOutput)
     {
         Stack<MethodNameTime> methodTimeStack = new Stack<>();
@@ -184,14 +232,14 @@ public class RunProgramAtRunTime
             String enteringExitingOrOther = getEnterExitStatus(line);
 
             // If entering push to stack
-            if(enteringExitingOrOther.equals("Entering"))
+            if(enteringExitingOrOther.equals(ENTERING))
             {
                 MethodNameTime methodNameTime = new MethodNameTime(getMethodName(line), Long.valueOf(getTimeStamp(line)));
 
                 methodTimeStack.push(methodNameTime);
             }
             // if exiting then pop off the stack and set the time
-            else if (enteringExitingOrOther.equals("Exiting"))
+            else if (enteringExitingOrOther.equals(EXITING))
             {
                 // Get class and method name
                 String className = getClassName(line);
@@ -199,14 +247,12 @@ public class RunProgramAtRunTime
 
                 final String tmpMethodName = methodName.replaceAll("\\(.*", "");
 
-
                 // Peek looks at the top of the stack
                 if (methodTimeStack.peek().getName().equals(methodName))
                 {
                     long startTime = methodTimeStack.pop().getTimeStamp();
 
                     long endTime = Long.parseLong(getTimeStamp(line));
-
 
                     for (String key : DynamicData.getInstance().getData().keySet())
                     {
@@ -229,7 +275,6 @@ public class RunProgramAtRunTime
 
                     //System.out.println("Classname: " + className);
                     //System.out.println("Methodname: " + methodName);
-
                     DynamicData.getInstance().get(className).get(methodName).addTimeSpentEntry(endTime - startTime);
                 }
             }
@@ -301,13 +346,13 @@ public class RunProgramAtRunTime
         {
             line = line.split(" ")[1];
 
-            if (line.equals("Entering"))
+            if (line.equals(ENTERING))
             {
-                return "Entering";
+                return ENTERING;
             }
-            else if (line.equals("Exiting"))
+            else if (line.equals(EXITING))
             {
-                return "Exiting";
+                return EXITING;
             }
             else
                 {
@@ -348,11 +393,6 @@ public class RunProgramAtRunTime
         return line;
     }
 
-    public static void main(String[] args)
-    {
-        runOutsideProgram();
-    }
-
     private static class MethodNameTime
     {
         private String name;
@@ -383,5 +423,12 @@ public class RunProgramAtRunTime
         {
             this.timeStamp = timeStamp;
         }
+    }
+
+    public static void main(String[] args)
+    {
+        System.out.println("Executing RunProgramAtRunTime.main");
+
+        runOutsideProgram();
     }
 }

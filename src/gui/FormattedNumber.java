@@ -1,7 +1,7 @@
 package gui;
 
 
-import data_storage.SystemConfig;
+import Util.SystemConfig;
 
 public class FormattedNumber implements Comparable
 {
@@ -48,6 +48,6 @@ public class FormattedNumber implements Comparable
     @Override
     public String toString()
     {
-        return SystemConfig.NUMBERFORMATER.format(number) + units;
+        return SystemConfig.NUMBER_FORMATTER_NANO.format(number) + units;
     }
 }

@@ -1,9 +1,10 @@
 package gui;
 
+import Util.CurrentProgramState;
 import data_storage.DynamicClassDataEntry;
 import data_storage.DynamicData;
 import data_storage.DynamicMethodDataEntry;
-import data_storage.SystemConfig;
+import Util.SystemConfig;
 import dynamic_analysis.RunProgramAtRunTime;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -15,50 +16,41 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import static_analysis.StaticAnalysis;
 
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Optional;
 
-import static data_storage.SystemConfig.*;
+import static Util.SystemConfig.*;
 
 public class GUIMain extends Application
 {
     // Fields //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	private ApplicationStat overallStat = new ApplicationStat("", 0, "0", "0");
-
 	private final TreeItem<ApplicationStat> rootTreeItem = new TreeItem<>(overallStat);
-
 	private final TreeTableView<ApplicationStat> treeTableView = new TreeTableView<>(rootTreeItem);
-
     private final ScrollPane rightScrollPane = new ScrollPane();
-
-	private final TextArea textArea = TextAreaBuilder.create().prefWidth(SCENEHEIGHT - SPACEFROMBOTTOMBUTTONS).prefHeight(SCENEHEIGHT - SPACEFROMBOTTOMBUTTONS - 2).wrapText(true).build();
-
+	private final TextArea textArea = TextAreaBuilder.create().prefWidth(SCENE_HEIGHT - SPACE_FROM_BOTTOM_BUTTONS).prefHeight(SCENE_HEIGHT - SPACE_FROM_BOTTOM_BUTTONS - 2).wrapText(true).build();
     private final GridPane bottomButtons = new GridPane();
-
-    private final ComboBox<String> timeSelectorComboBox = new ComboBox<>(SystemConfig.TIMEOPTIONS);
-
+    private final ComboBox<String> timeSelectorComboBox = new ComboBox<>(SystemConfig.TIME_OPTIONS);
 	private final Color backgroundColor = new Color(.225, .228, .203, .5);
-
-	private final Scene scene = new Scene(new Group(), SCENEWIDTH, SCENEHEIGHT);
-
+	private final Scene scene = new Scene(new Group(), SCENE_WIDTH, SCENE_HEIGHT);
 	private final Group sceneRoot = (Group) scene.getRoot();
-
 	private final BorderPane mainBorderPane = new BorderPane();
-
     private Thread updateDynamicAnalysisThread;
-
     private Label dynamicStateLabel;
+    private Stage stage;
+    private Button runDynamicAnalysisButton;
 
 	// Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void start(Stage stage)
     {
+        // TODO break this function up
+        this.stage = stage;
 
 	    // TODO make default read in by config
 
@@ -72,16 +64,16 @@ public class GUIMain extends Application
 	    bottomButtons.setVgap(5);
 
 	    // Set up scene
-        scene.getStylesheets().add(SystemConfig.PATHTOMAINSTYLESHEET);
+        scene.getStylesheets().add(SystemConfig.PATH_TO_MAIN_STYLESHEET);
         scene.setFill(backgroundColor);
 
         // Tree table size adjusting
-        treeTableView.setPrefWidth(SCENEWIDTH - SCROLLPANEWIDTH);
-        treeTableView.setPrefHeight(SCENEHEIGHT - SPACEFROMBOTTOMBUTTONS);
+        treeTableView.setPrefWidth(SCENE_WIDTH - SCROLL_PANE_WIDTH);
+        treeTableView.setPrefHeight(SCENE_HEIGHT - SPACE_FROM_BOTTOM_BUTTONS);
 
         // Right Right ScrollPane
-        rightScrollPane.setPrefWidth(SCROLLPANEWIDTH);
-        rightScrollPane.setPrefHeight(SCENEHEIGHT - SPACEFROMBOTTOMBUTTONS);
+        rightScrollPane.setPrefWidth(SCROLL_PANE_WIDTH);
+        rightScrollPane.setPrefHeight(SCENE_HEIGHT - SPACE_FROM_BOTTOM_BUTTONS);
         rightScrollPane.setContent(textArea);
         rightScrollPane.setFitToWidth(true);
 
@@ -104,9 +96,9 @@ public class GUIMain extends Application
 	    scene.heightProperty().addListener((observableValue, oldSceneHeight, newSceneHeight) ->
 	    {
 		    // -2 is buffer space for the textArea fits nicely in the scrollPane
-		    treeTableView.setPrefHeight((Double) newSceneHeight - SPACEFROMBOTTOMBUTTONS);
-		    textArea.setPrefHeight((Double) newSceneHeight - SPACEFROMBOTTOMBUTTONS - 2);
-		    rightScrollPane.setPrefHeight((Double) newSceneHeight - SPACEFROMBOTTOMBUTTONS - 2);
+		    treeTableView.setPrefHeight((Double) newSceneHeight - SPACE_FROM_BOTTOM_BUTTONS);
+		    textArea.setPrefHeight((Double) newSceneHeight - SPACE_FROM_BOTTOM_BUTTONS - 2);
+		    rightScrollPane.setPrefHeight((Double) newSceneHeight - SPACE_FROM_BOTTOM_BUTTONS - 2);
 	    });
 
 	    ///// Setup / Show Stage /////
@@ -209,27 +201,19 @@ public class GUIMain extends Application
 
 	    // Outside jar button label group
         Button linkJarUpButton = new Button("Select / Change Jar File Path");
-        Label jarPathLabel = new Label(OUTSIDEPROGRAMJARPATH);
+        Label jarPathLabel = new Label(OUTSIDE_PROGRAM_JAR_PATH);
         bottomButtons.add(linkJarUpButton, 0, 0);
         bottomButtons.add(jarPathLabel, 1, 0);
 
 	    // Outside source button label group
-        Button linkSourceUpButton = new Button("Select / Change Source Path");
-        Label sourcePathLabel = new Label(OUTSIDEPROGRAMSOURCEPATH);
-        bottomButtons.add(linkSourceUpButton, 0, 1);
-        bottomButtons.add(sourcePathLabel, 1, 1);
+        Button graphResults = new Button("Graph Results");
+        bottomButtons.add(graphResults, 0, 2);
 
 	    // Run dynamic analysis button
-        Button runStaticAnalysisButton  = new Button("Run Static Analysis             ");
-	    Label staticStateLabel = new Label("");
-	    bottomButtons.add(runStaticAnalysisButton, 0, 3);
-		bottomButtons.add(staticStateLabel, 1, 3);
-
-	    // Run static analysis button
-        Button runDynamicAnalysisButton = new Button("Run Dynamic Analysis         ");
-	    bottomButtons.add(runDynamicAnalysisButton, 0, 2);
+        runDynamicAnalysisButton = new Button("Run Dynamic Analysis         ");
+	    bottomButtons.add(runDynamicAnalysisButton, 0, 1);
 	    dynamicStateLabel = new Label("");
-	    bottomButtons.add(dynamicStateLabel, 1, 2);
+	    bottomButtons.add(dynamicStateLabel, 1, 1);
 
         // Time selector comboBox
         bottomButtons.add(timeSelectorComboBox, 0, 4);
@@ -251,14 +235,21 @@ public class GUIMain extends Application
             updateRightScrollPane();
         });
 
-        linkJarUpButton.setOnAction(event -> {
+        linkJarUpButton.setOnAction(event ->
+            {
+                FileChooser fileChooser = new FileChooser();
 
-                // TODO path from last time goes here in label also come up with a default if the old path is not here");
-                TextInputDialog dialog = new TextInputDialog(SystemConfig.OUTSIDEPROGRAMJARPATH);
+
+                // TODO do something with the returned val
+                fileChooser.showOpenDialog(stage);
+
+                
+
+                /*TextInputDialog dialog = new TextInputDialog(SystemConfig.OUTSIDE_PROGRAM_JAR_PATH);
                 dialog.setTitle("Select / Change Jar File Path");
                 dialog.setHeaderText("Select / Change Jar File Path");
 	            dialog.setResizable(true);
-	            dialog.getDialogPane().setPrefSize(DIALOGWIDTH, DIALOGHEIGHT);
+	            dialog.getDialogPane().setPrefSize(DIALOG_WIDTH, DIALOG_HEIGHT);
 
                 Optional<String> result = dialog.showAndWait();
                 if (result.isPresent()) {
@@ -272,34 +263,15 @@ public class GUIMain extends Application
                     {
                         // TODO popup says what went wrong and how to fix
                     }
-                }
+                }*/
             }
         );
 
-        linkSourceUpButton.setOnAction(event -> {
+        runDynamicAnalysisButton.setOnMousePressed(event ->
+        {
+            CurrentProgramState.EXTERNAL_PROGRMAM_RUNNING = true;
 
-                 // TODO path from last time goes here in label also come up with a default if the old path is not here");
-                TextInputDialog dialog = new TextInputDialog(SystemConfig.OUTSIDEPROGRAMSOURCEPATH);
-                dialog.setTitle("Select / Change Source Path");
-                dialog.setHeaderText("Select / Change Source Path");
-	            dialog.setResizable(true);
-	            dialog.getDialogPane().setPrefSize(DIALOGWIDTH, DIALOGHEIGHT);
-
-                Optional<String> result = dialog.showAndWait();
-                if (result.isPresent())
-                {
-                    // Validate the path can be reached TODO check if it is a file or directory
-                    sourcePathLabel.setText(result.get());
-                }
-            }
-        );
-
-        runDynamicAnalysisButton.setOnMousePressed(event -> {
-
-            dynamicStateLabel.setText("Running...");
-        });
-
-        runDynamicAnalysisButton.setOnAction(event -> {
+            runDynamicAnalysisButton.setDisable(true);
 
             // clear existing data
             DynamicData.getInstance().clear();
@@ -316,49 +288,40 @@ public class GUIMain extends Application
             updateDynamicAnalysisThread.start();
 
             // Set Root title
-            String rootTitle = OUTSIDEPROGRAMJARPATH;
+            String rootTitle = OUTSIDE_PROGRAM_JAR_PATH;
             String[] splitString = rootTitle.split("\\\\");
             rootTitle = splitString[splitString.length-1];
             rootTreeItem.getValue().setMethodName(rootTitle);
         });
 
-        runStaticAnalysisButton.setOnMousePressed(event -> staticStateLabel.setText("Running..."));
+        /*runDynamicAnalysisButton.setOnAction(event ->
+        {
+            CurrentProgramState.EXTERNAL_PROGRMAM_RUNNING = true;
 
-        runStaticAnalysisButton.setOnAction(event -> {
+            runDynamicAnalysisButton.setDisable(true);
+
+            dynamicStateLabel.setText("Running...");
 
             // clear existing data
-
-            // TODO fil out commented out likes from dynamic to be for static
-
-            //DynamicData.getInstance().clear();
+            DynamicData.getInstance().clear();
             overallStat = new ApplicationStat("", 0, "0", "0");
             rootTreeItem.setValue(overallStat);
 
-            // TODO like in dynamic have in its own thread
-            long start = System.nanoTime();
-            StaticAnalysis.runStaticAnalysis();
-            long end = System.nanoTime();
-            OUTSIDEPROGRAMSTATICEXECUTIONTIME = end - start;
-
-            resetRightScrollPane();
-
-            appendToScrollPanel("Static Analysis Total Execution Time:\n\t" + OUTSIDEPROGRAMSTATICEXECUTIONTIME + "ns\n");
-
-            staticStateLabel.setText("Done");
-
             rootTreeItem.getChildren().clear();
 
-            //updateTreeTable();
+            UpdateDynamicAnalysis u1 = new UpdateDynamicAnalysis();
 
-            //appendToScrollPanel("Dynamic Analysis Overhead Time:\n\t"  + (SystemConfig.OUTSIDEPROGRAMEXECUTIONTIME - overallStat.getTotalMethodTime()));
-            //appendToScrollPanel("\n");
+            updateDynamicAnalysisThread = new Thread(u1, "T1");
+            updateDynamicAnalysisThread.setDaemon(true);
+
+            updateDynamicAnalysisThread.start();
 
             // Set Root title
-            //String rootTitle = OUTSIDEPROGRAMJARPATH;
-            //String[] splitString = rootTitle.split("\\\\");
-            //rootTitle = splitString[splitString.length-1];
-            //rootTreeItem.getValue().setMethodName(rootTitle);
-        });
+            String rootTitle = OUTSIDE_PROGRAM_JAR_PATH;
+            String[] splitString = rootTitle.split("\\\\");
+            rootTitle = splitString[splitString.length-1];
+            rootTreeItem.getValue().setMethodName(rootTitle);
+        });*/
     }
 
     class UpdateDynamicAnalysis implements Runnable
@@ -370,18 +333,23 @@ public class GUIMain extends Application
 
             Platform.runLater(() ->
             {
+                dynamicStateLabel.setText("Running...");
                 System.out.println("Starting Dynamic Analysis.....");
 
                 long start = System.nanoTime();
                 RunProgramAtRunTime.runOutsideProgram();
                 long end = System.nanoTime();
-                OUTSIDEPROGRAMDYNAMICEXECUTIONTIME = end - start;
+                OUTSIDE_PROGRAM_DYNAMIC_EXECUTION_TIME = end - start;
 
                 updateTreeTable();
 
                 updateRightScrollPane();
 
                 dynamicStateLabel.setText("Done");
+
+                CurrentProgramState.EXTERNAL_PROGRMAM_RUNNING = false;
+
+                runDynamicAnalysisButton.setDisable(false);
 
                 System.out.println("Dynamic Analysis Complete\n");
             });
@@ -403,16 +371,16 @@ public class GUIMain extends Application
     private void updateRightScrollPane()
     {
 
-        float totalExecutionTime = Float.parseFloat(convertTime(OUTSIDEPROGRAMDYNAMICEXECUTIONTIME));
-        BigDecimal totalOverheadTime = new BigDecimal(convertTime(OUTSIDEPROGRAMDYNAMICEXECUTIONTIME)).subtract(new BigDecimal(overallStat.getTotalMethodTime()));
+        float totalExecutionTime = Float.parseFloat(convertTime(OUTSIDE_PROGRAM_DYNAMIC_EXECUTION_TIME));
+        BigDecimal totalOverheadTime = new BigDecimal(convertTime(OUTSIDE_PROGRAM_DYNAMIC_EXECUTION_TIME)).subtract(new BigDecimal(overallStat.getTotalMethodTime()));
 
         resetRightScrollPane();
 
-        appendToScrollPanel("Dynamic Analysis Total Execution Time:\n" + NUMBERFORMATER.format(totalExecutionTime) + getTimeShortDescription());
+        appendToScrollPanel("Dynamic Analysis Total Execution Time:\n" + NUMBER_FORMATTER_NANO.format(totalExecutionTime) + getTimeShortDescription());
 
-        appendToScrollPanel("Dynamic Analysis Overhead Time:\n"  + NUMBERFORMATER.format(totalOverheadTime) + getTimeShortDescription());
+        appendToScrollPanel("Dynamic Analysis Overhead Time:\n"  + NUMBER_FORMATTER_NANO.format(totalOverheadTime) + getTimeShortDescription());
 
-        appendToScrollPanel("Percentage of time spent on overhead:\n"  + "%" + NUMBERFORMATER.format(totalOverheadTime.divide(BigDecimal.valueOf(totalExecutionTime), 5, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100))));
+        appendToScrollPanel("Percentage of time spent on overhead:\n"  + "%" + NUMBER_FORMATTER_NANO.format(totalOverheadTime.divide(BigDecimal.valueOf(totalExecutionTime), 5, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100))));
 
         appendToScrollPanel("\n");
     }
