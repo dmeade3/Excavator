@@ -29,11 +29,20 @@ public class RunProgramAtRunTime
     {
         try
         {
-            Runtime runTime = Runtime.getRuntime();
-            Process process= runTime.exec("java \"" + AGENT_COMMAND + "\" -jar \"" + OUTSIDE_PROGRAM_JAR_PATH + "\"");
+	        //System.out.println("java \"" + AGENT_COMMAND + "\" -jar \"" + OUTSIDE_PROGRAM_JAR_PATH + "\"");
+	        //System.out.println("java -jar \"C:\\Users\\David\\Desktop\\Intelij Workspace\\Hello-World\\out\\artifacts\\Hello_World_jar\\Hello World.jar\"");
 
 
-            while (true)
+            Process process= Runtime.getRuntime().exec("java \"" + AGENT_COMMAND + "\" -jar \"" + OUTSIDE_PROGRAM_JAR_PATH + "\"");
+
+
+	        process.waitFor();
+
+
+
+
+
+            /*while (true)
             {
                 System.out.println(process.waitFor());
 
@@ -41,7 +50,15 @@ public class RunProgramAtRunTime
                 {
                     break;
                 }
-            }
+            }*/
+
+
+
+
+
+
+
+
 
             InputStream inputStream = process.getInputStream();
             InputStreamReader isr = new InputStreamReader(inputStream);

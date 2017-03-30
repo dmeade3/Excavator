@@ -1,6 +1,7 @@
 Side code project:
     Code analysis:
 
+        -need functionality to recompile the jar with javac -d  option
         -do the TODO's
         -make compiling the source with javassaist my problem not the users
         -graph data in a pie graph

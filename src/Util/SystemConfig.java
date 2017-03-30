@@ -18,7 +18,7 @@ public class SystemConfig
 
     public static final String PROJECT_DIR = System.getProperty("user.dir");
 
-    public static String OUTSIDE_PROGRAM_JAR_PATH = "C:\\Users\\dcmeade\\Desktop\\Intelij Workspace\\Hello-World\\out\\artifacts\\Hello_World_jar\\Hello World.jar";
+    public static String OUTSIDE_PROGRAM_JAR_PATH = "C:\\Users\\David\\Desktop\\Intelij Workspace\\Hello-World\\out\\artifacts\\Hello_World_jar\\Hello World.jar";
 
 
     // TODO rethink this location / the first val / it shouldnt be in config it should be in some kind of data store or the source

@@ -48,12 +48,20 @@ public class Profiler implements ClassFileTransformer
         instrumentation.addTransformer(this);
     }
 
+	// TODO look at the efficiency
     @Override
     public byte[] transform(ClassLoader loader, String className, Class classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException
     {
-        try
-        {
-            className = className.replaceAll("/", ".");
+        //try
+        //{
+
+	        //System.out.println("Class Loader: " + loader + "  classname: " + className + "   Class being redifined: " + classBeingRedefined );
+
+	        System.out.println("Protection domain: " + protectionDomain);
+
+
+
+            /*className = className.replaceAll("/", ".");
 
             classPool.insertClassPath(new ByteArrayClassPath(className, classfileBuffer));
             CtClass cc = classPool.get(className);
@@ -83,12 +91,12 @@ public class Profiler implements ClassFileTransformer
 
             // return the new bytecode array:
             byte[] newClassfileBuffer = cc.toBytecode();
-            return newClassfileBuffer;
-        }
+            return newClassfileBuffer;*/
+        /*}
         catch (Exception e)
         {
             System.err.println(e.getMessage());
-        }
+        }*/
 
         return null;
     }
