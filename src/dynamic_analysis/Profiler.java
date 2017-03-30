@@ -1,9 +1,8 @@
 package dynamic_analysis;
 
-
-import Util.SystemConfig;
 import javassist.*;
 
+import java.io.IOException;
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
 import java.lang.instrument.Instrumentation;
@@ -11,15 +10,17 @@ import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Util.SystemConfig.ENTERING;
-import static Util.SystemConfig.EXITING;
-import static Util.SystemConfig.TIMESTAMP_VARIABLE;
+import static Util.SystemConfig.*;
 
 public class Profiler implements ClassFileTransformer
 {
     private Instrumentation instrumentation = null;
     private ClassPool classPool;
     private List<String> filterList = new ArrayList<>(10);
+
+    public static long callCount = 0;
+    public static long methodCallCount = 0;
+    public static long classCallCount = 0;
 
     public static void premain(String agentArgs, Instrumentation inst)
     {
@@ -36,11 +37,16 @@ public class Profiler implements ClassFileTransformer
 
     public Profiler(Instrumentation inst)
     {
-        if (SystemConfig.FILTER_OUT_NON_USER_METHODS)
+        if (FILTER_OUT_NON_USER_METHODS)
         {
             filterList.add("java");
             filterList.add("sun");
             filterList.add("com.intellij.");
+            filterList.add("com.javafx.");
+            filterList.add("com.sun.javafx.");
+            filterList.add("com.sun.glass.");
+            filterList.add("com.sun.prism.");
+            filterList.add("com.sun.scenario.");
         }
 
         instrumentation = inst;
@@ -48,20 +54,19 @@ public class Profiler implements ClassFileTransformer
         instrumentation.addTransformer(this);
     }
 
-	// TODO look at the efficiency
+	// TODO look at the efficiency for this whole class
     @Override
     public byte[] transform(ClassLoader loader, String className, Class classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException
     {
-        //try
-        //{
+        try
+        {
+            if (FILTER_OUT_NON_USER_METHODS && loader == null)
+            {
+                return classfileBuffer;
+            }
 
-	        //System.out.println("Class Loader: " + loader + "  classname: " + className + "   Class being redifined: " + classBeingRedefined );
 
-	        System.out.println("Protection domain: " + protectionDomain);
-
-
-
-            /*className = className.replaceAll("/", ".");
+            className = className.replaceAll("/", ".");
 
             classPool.insertClassPath(new ByteArrayClassPath(className, classfileBuffer));
             CtClass cc = classPool.get(className);
@@ -71,6 +76,7 @@ public class Profiler implements ClassFileTransformer
 
             for (CtMethod method : methods)
             {
+                // See if you can filter outside this loop
                 if (filter(method.getLongName(), className))
                 {
                     method.insertBefore("long " + TIMESTAMP_VARIABLE + " = System.nanoTime(); System.out.println(" + TIMESTAMP_VARIABLE + " + \" " + ENTERING + " " + method.getLongName() + "\");");
@@ -81,6 +87,7 @@ public class Profiler implements ClassFileTransformer
 
             for (CtConstructor constructor : constructors)
             {
+                // See if you can filter outside this loop
                 if (filter(constructor.getLongName(), className))
                 {
                     constructor.insertBefore("long " + TIMESTAMP_VARIABLE + " = System.nanoTime(); System.out.println(" + TIMESTAMP_VARIABLE + " + \" " + ENTERING + " " + constructor.getLongName() + "\");");
@@ -90,15 +97,14 @@ public class Profiler implements ClassFileTransformer
             }
 
             // return the new bytecode array:
-            byte[] newClassfileBuffer = cc.toBytecode();
-            return newClassfileBuffer;*/
-        /*}
-        catch (Exception e)
+            return cc.toBytecode();
+        }
+        catch (IOException | CannotCompileException | NotFoundException e)
         {
-            System.err.println(e.getMessage());
-        }*/
+            e.printStackTrace();
+        }
 
-        return null;
+        return classfileBuffer;
     }
 
     private boolean filter(String longName, String className)

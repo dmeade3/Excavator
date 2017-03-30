@@ -1,10 +1,10 @@
 package gui;
 
-import Util.CurrentProgramState;
+import Util.SystemConfig;
+import Util.Time;
 import data_storage.DynamicClassDataEntry;
 import data_storage.DynamicData;
 import data_storage.DynamicMethodDataEntry;
-import Util.SystemConfig;
 import dynamic_analysis.RunProgramAtRunTime;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -19,11 +19,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import static Util.SystemConfig.*;
+import static Util.Time.NANOSECOND;
 
 public class GUIMain extends Application
 {
@@ -35,7 +35,7 @@ public class GUIMain extends Application
     private final ScrollPane rightScrollPane = new ScrollPane();
 	private final TextArea textArea = TextAreaBuilder.create().prefWidth(SCENE_HEIGHT - SPACE_FROM_BOTTOM_BUTTONS).prefHeight(SCENE_HEIGHT - SPACE_FROM_BOTTOM_BUTTONS - 2).wrapText(true).build();
     private final GridPane bottomButtons = new GridPane();
-    private final ComboBox<String> timeSelectorComboBox = new ComboBox<>(SystemConfig.TIME_OPTIONS);
+    private final ComboBox<Time> timeSelectorComboBox = new ComboBox<Time>(SystemConfig.TIME_OPTIONS);
 	private final Color backgroundColor = new Color(.225, .228, .203, .5);
 	private final Scene scene = new Scene(new Group(), SCENE_WIDTH, SCENE_HEIGHT);
 	private final Group sceneRoot = (Group) scene.getRoot();
@@ -56,7 +56,7 @@ public class GUIMain extends Application
 
 	    ///// Defaults /////
         rootTreeItem.setExpanded(true);
-	    timeSelectorComboBox.setValue("Nanosecond");
+	    timeSelectorComboBox.setValue(NANOSECOND);
 	    treeTableView.setTableMenuButtonVisible(true);
 	    textArea.setEditable(false);
 	    resetRightScrollPane();
@@ -188,12 +188,11 @@ public class GUIMain extends Application
 
     private String convertTimeBigDecimal(BigDecimal in)
     {
-        return in.divide(new BigDecimal(String.valueOf(getTimeDivisor(String.valueOf(timeSelectorComboBox.getValue()))))).toString();
+        return in.divide(new BigDecimal(String.valueOf(timeSelectorComboBox.getSelectionModel().getSelectedItem().divisor))).toString();
     }
 
     private void initBottomButtonGridPane(Group sceneRoot, BorderPane mainBorderPane)
     {
-        // TODO cant press when running
         // TODO path is field at top that is set by button window
         // TODO verify the path from the config file can be used
         // TODO if path wrong show a sample format of a path with spaces and complicated things that might have gone wrong, sample format should tak into account whether its a linux or windows machine
@@ -243,8 +242,6 @@ public class GUIMain extends Application
                 // TODO do something with the returned val
                 fileChooser.showOpenDialog(stage);
 
-                
-
                 /*TextInputDialog dialog = new TextInputDialog(SystemConfig.OUTSIDE_PROGRAM_JAR_PATH);
                 dialog.setTitle("Select / Change Jar File Path");
                 dialog.setHeaderText("Select / Change Jar File Path");
@@ -269,9 +266,24 @@ public class GUIMain extends Application
 
         runDynamicAnalysisButton.setOnMousePressed(event ->
         {
-            CurrentProgramState.EXTERNAL_PROGRMAM_RUNNING = true;
+            // Needs to be in its own Thread to make sure it happens exactly when it is clicked
+            Thread t = new Thread(() -> runDynamicAnalysisButton.setDisable(true));
+            t.start();
 
-            runDynamicAnalysisButton.setDisable(true);
+            // Needs to be before the thread so it updates correctly
+            dynamicStateLabel.setText("Running...");
+
+            // What for button to gray out
+            while (!runDynamicAnalysisButton.isDisabled())
+            {
+                try
+                {
+                    Thread.sleep(100);
+                }
+                catch (InterruptedException e)
+                {
+                }
+            }
 
             // clear existing data
             DynamicData.getInstance().clear();
@@ -282,7 +294,8 @@ public class GUIMain extends Application
 
             UpdateDynamicAnalysis u1 = new UpdateDynamicAnalysis();
 
-            updateDynamicAnalysisThread = new Thread(u1, "T1");
+            updateDynamicAnalysisThread = new Thread(u1, "Update Dynamic Analysis Thread");
+
             updateDynamicAnalysisThread.setDaemon(true);
 
             updateDynamicAnalysisThread.start();
@@ -293,47 +306,17 @@ public class GUIMain extends Application
             rootTitle = splitString[splitString.length-1];
             rootTreeItem.getValue().setMethodName(rootTitle);
         });
-
-        /*runDynamicAnalysisButton.setOnAction(event ->
-        {
-            CurrentProgramState.EXTERNAL_PROGRMAM_RUNNING = true;
-
-            runDynamicAnalysisButton.setDisable(true);
-
-            dynamicStateLabel.setText("Running...");
-
-            // clear existing data
-            DynamicData.getInstance().clear();
-            overallStat = new ApplicationStat("", 0, "0", "0");
-            rootTreeItem.setValue(overallStat);
-
-            rootTreeItem.getChildren().clear();
-
-            UpdateDynamicAnalysis u1 = new UpdateDynamicAnalysis();
-
-            updateDynamicAnalysisThread = new Thread(u1, "T1");
-            updateDynamicAnalysisThread.setDaemon(true);
-
-            updateDynamicAnalysisThread.start();
-
-            // Set Root title
-            String rootTitle = OUTSIDE_PROGRAM_JAR_PATH;
-            String[] splitString = rootTitle.split("\\\\");
-            rootTitle = splitString[splitString.length-1];
-            rootTreeItem.getValue().setMethodName(rootTitle);
-        });*/
     }
 
     class UpdateDynamicAnalysis implements Runnable
     {
+        @Override
         public void run()
         {
-
             Platform.setImplicitExit(false);
 
             Platform.runLater(() ->
             {
-                dynamicStateLabel.setText("Running...");
                 System.out.println("Starting Dynamic Analysis.....");
 
                 long start = System.nanoTime();
@@ -347,8 +330,6 @@ public class GUIMain extends Application
 
                 dynamicStateLabel.setText("Done");
 
-                CurrentProgramState.EXTERNAL_PROGRMAM_RUNNING = false;
-
                 runDynamicAnalysisButton.setDisable(false);
 
                 System.out.println("Dynamic Analysis Complete\n");
@@ -356,21 +337,8 @@ public class GUIMain extends Application
         }
     }
 
-    private static boolean pathReachable(String filepath)
-    {
-        File file = new File(filepath);
-
-        if ((file.exists()) && (file.isFile()))
-        {
-            return true;
-        }
-
-        return false;
-    }
-
     private void updateRightScrollPane()
     {
-
         float totalExecutionTime = Float.parseFloat(convertTime(OUTSIDE_PROGRAM_DYNAMIC_EXECUTION_TIME));
         BigDecimal totalOverheadTime = new BigDecimal(convertTime(OUTSIDE_PROGRAM_DYNAMIC_EXECUTION_TIME)).subtract(new BigDecimal(overallStat.getTotalMethodTime()));
 
@@ -385,36 +353,20 @@ public class GUIMain extends Application
         appendToScrollPanel("\n");
     }
 
-    private void resetRightScrollPane()
-    {
-        textArea.setText("Additional Results:\n");
-    }
-
     private String convertTime(float in)
     {
         if (String.valueOf(timeSelectorComboBox.getValue()).equals("Nanosecond"))
         {
-            return String.valueOf((long)(in / getTimeDivisor(String.valueOf(timeSelectorComboBox.getValue()))));
+            return String.valueOf((long)(in / timeSelectorComboBox.getSelectionModel().getSelectedItem().divisor));
         }
 
-        return String.valueOf(in / getTimeDivisor(String.valueOf(timeSelectorComboBox.getValue())));
+        return String.valueOf(in / timeSelectorComboBox.getSelectionModel().getSelectedItem().divisor);
     }
 
-    private long getTimeDivisor(String s)
+    private void resetRightScrollPane()
     {
-        switch(s)
-        {
-            case"Millisecond":
-                return 1000000;
-
-            case"Second":
-                return 1000000000;
-
-	        // nanosecond case
-            default:
-	            return 1;
-        }
-	}
+        textArea.setText("Additional Results:\n");
+    }
 
     private void appendToScrollPanel(String input)
     {
@@ -430,20 +382,7 @@ public class GUIMain extends Application
 
 	public String getTimeShortDescription()
 	{
-		switch(timeSelectorComboBox.getValue())
-		{
-			case "Nanosecond":
-				return "ns";
-
-			case"Millisecond":
-				return "ms";
-
-			case"Second":
-				return "s";
-		}
-
-		// nanosecond case
-		return "error in getTimeShortDescription()";
+        return timeSelectorComboBox.getSelectionModel().getSelectedItem().abbreviation;
 	}
 
     public static void main(String[] args)

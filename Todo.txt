@@ -3,11 +3,18 @@ Side code project:
 
         -need functionality to recompile the jar with javac -d  option
         -do the TODO's
+
+        - need to store the output data in increments
+            -either files or emptying the datastruct when full then refilling
+
         -make compiling the source with javassaist my problem not the users
         -graph data in a pie graph
             -time and calls
                 -make 2 graphs
         -see if you can get garbage collecting stats
+        -need to organize the tree of method calls better
+            com.company.main should be under com.company
+
         -needs to have glossary where it explains certain things
             -what exactly overhead is
         -investigate the time issue when all method calls are allowed
@@ -19,7 +26,7 @@ Side code project:
         General:
 
             make easier to use on other projects for profiling
-                write down process of making the project able to be profiled / try to whitle this down all i can so the process is very small
+                write down process of making the project able to be profiled / try to whitle this down all i can so the process inputStream very small
 
             make time type an enum
 
@@ -29,7 +36,7 @@ Side code project:
                 -each class has its own object containing all its stats
 
             make multithreaded:
-                create a thread for each file / directory whichever is faster:
+                create a thread for each file / directory whichever inputStream faster:
                     unless performance isn't an issue
 
             be able to save results

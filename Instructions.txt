@@ -4,6 +4,6 @@ Put
 
 in the VM options of your ide.
 
-Make sure the path to the jar file is correct
+Make sure the path to the jar file inputStream correct
 
 Compile the target jar with javaassit

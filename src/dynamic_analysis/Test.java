@@ -1,28 +1,12 @@
 package dynamic_analysis;
 
-import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
-
-import static Util.SystemConfig.*;
-import static Util.SystemConfig.DIALOG_WIDTH;
-
 /**
  * Project: Excavator
  * File Name: Test.java
  * <p>
  * Created by David on 3/29/2017.
  */
-public class Test
+/*public class Test
 {
 	public static void main(String... args)
 	{
@@ -30,16 +14,16 @@ public class Test
 		try
 		{
 			// Execute command
-
-			Process process = Runtime.getRuntime().exec("java \"-javaagent:C:\\Users\\David\\Desktop\\Intelij Workspace\\Excavator\\out\\artifacts\\Profiler_jar\\Profiler.jar\" -jar \"C:\\Users\\David\\Desktop\\Intelij Workspace\\Hello-World\\out\\artifacts\\Hello_World_jar\\Hello World.jar\"");
-
+			Process process = Runtime.getRuntime().exec("java \"" + AGENT_COMMAND + "\" -jar \"" + OUTSIDE_PROGRAM_JAR_PATH + "\"");
 
 
+			System.out.println("Waiting");
 			process.waitFor();
+			System.out.println("Done");
 
 			/**
 			 *
-			 * output is too fast to process
+			 * output inputStream too fast to process
 			 *
 			 */
 
@@ -50,7 +34,7 @@ public class Test
 
 
 
-
+/*
 			InputStream inputStream = process.getInputStream();
 			InputStreamReader isr = new InputStreamReader(inputStream);
 
@@ -88,6 +72,96 @@ public class Test
 		catch (InterruptedException e)
 		{
 			e.printStackTrace();
+		}
+	}
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import static Util.SystemConfig.AGENT_COMMAND;
+import static Util.SystemConfig.OUTSIDE_PROGRAM_JAR_PATH;
+
+
+public class Test
+{
+	public static void main(String... args)
+	{
+		args = new String[3];
+
+		args[0] = "java \"" + AGENT_COMMAND + "\" -jar \"" + OUTSIDE_PROGRAM_JAR_PATH + "\"";
+
+		try {
+			String osName = System.getProperty("os.name");
+
+			System.out.println(osName);
+
+			String[] cmd = new String[3];
+
+			switch (osName)
+			{
+				case "Windows 95":
+					cmd[0] = "command.com";
+					cmd[1] = "/C";
+					cmd[2] = args[0];
+					break;
+
+				case "Windows 10":
+
+					cmd[0] = "cmd.exe";
+					cmd[1] = "/C";
+					cmd[2] = args[0];
+					break;
+
+				default:
+					System.err.println("Operation system: \"" + osName + "\" not handled in this program");
+					System.exit(1);
+			}
+
+			Runtime rt = Runtime.getRuntime();
+			System.out.println("Executing " + cmd[0] + " " + cmd[1] + " " + cmd[2]);
+			Process proc = rt.exec(cmd);
+
+			// any error message?
+			StreamProcessor errorGobbler = new StreamProcessor(proc.getErrorStream(), "ERROR", true);
+
+			// any output?
+			StreamProcessor outputGobbler = new StreamProcessor(proc.getInputStream(), "OUTPUT", true);
+
+			// kick them off
+			errorGobbler.start();
+			outputGobbler.start();
+
+			// any error???
+			int exitVal = proc.waitFor();
+			System.out.println("ExitValue: " + exitVal);
+
+		}
+		catch (Throwable t)
+		{
+			t.printStackTrace();
 		}
 	}
 }

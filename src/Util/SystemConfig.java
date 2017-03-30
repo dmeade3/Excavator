@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SystemConfig
 {
@@ -18,7 +20,9 @@ public class SystemConfig
 
     public static final String PROJECT_DIR = System.getProperty("user.dir");
 
-    public static String OUTSIDE_PROGRAM_JAR_PATH = "C:\\Users\\David\\Desktop\\Intelij Workspace\\Hello-World\\out\\artifacts\\Hello_World_jar\\Hello World.jar";
+    public static final String USER_NAME = System.getProperty("user.name");
+
+    public static String OUTSIDE_PROGRAM_JAR_PATH = "C:\\Users\\" + USER_NAME + "\\Desktop\\Intelij Workspace\\Hello-World\\out\\artifacts\\Hello_World_jar\\Hello World.jar";
 
 
     // TODO rethink this location / the first val / it shouldnt be in config it should be in some kind of data store or the source
@@ -31,14 +35,14 @@ public class SystemConfig
     public static final String AGENT_COMMAND = "-javaagent:" + AGENT_PATH;
 
 
-    public static final String ENTERING = "_1_2_3_4_5_6_&_8_9_Entering_0987dfh";
-    public static final String EXITING  = "_1__2_3_4_5_6_4_7_6_8_9_Exiting_2345dfouhy";
+    public static final String ENTERING = "_1_2_3_4_5_6_&_8_9_Entering_____";
+    public static final String EXITING  = "_1__2_3_4_5_6_4_7_6_8_9_Exiting_";
 
     public static final String TIMESTAMP_VARIABLE = "_123234345_timestamp129387346587_";
 
 
     public static final boolean SHOW_OUTSIDE_PROGRAM_OUTPUT = false;
-    public static final boolean FILTER_OUT_NON_USER_METHODS = false; // Times get inacurate when timing outside the programs main methods
+    public static final boolean FILTER_OUT_NON_USER_METHODS = true; // Running a gui will be much easier for no with this as true, much faster in general
 
 
     public static final int SPACE_FROM_BOTTOM_BUTTONS = 200;
@@ -55,12 +59,20 @@ public class SystemConfig
     public static final int INITIAL_DYNAMIC_DATA_SIZE = 100;
 
 
-    public static final ObservableList<String> TIME_OPTIONS = FXCollections.observableArrayList( // make time options an enum
-                    "Nanosecond",
-                    "Millisecond",
-                    "Second"
-            );
+    public static final ObservableList<Time> TIME_OPTIONS = getTimes();
 
+
+    private static ObservableList<Time> getTimes()
+    {
+        List timesList = new ArrayList();
+
+        for (Time time : Time.values())
+        {
+            timesList.add(time);
+        }
+        
+        return FXCollections.observableArrayList(timesList);
+    }
 
     // TODO make all these read in by config maybe make this a static block so it doesnt have to be called if that is a thing
     public void readInConfigFile()

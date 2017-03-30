@@ -18,6 +18,7 @@ import java.util.Stack;
 
 import static Util.SystemConfig.*;
 
+// Refactor some of the executing code
 public class RunProgramAtRunTime
 {
     private RunProgramAtRunTime()
@@ -27,58 +28,85 @@ public class RunProgramAtRunTime
 
     public static void runOutsideProgram()
     {
+        // Move this to its own class
+        String[] args = new String[3];
+
+        args[0] = "java \"" + AGENT_COMMAND + "\" -jar \"" + OUTSIDE_PROGRAM_JAR_PATH + "\"";
+
         try
         {
-	        //System.out.println("java \"" + AGENT_COMMAND + "\" -jar \"" + OUTSIDE_PROGRAM_JAR_PATH + "\"");
-	        //System.out.println("java -jar \"C:\\Users\\David\\Desktop\\Intelij Workspace\\Hello-World\\out\\artifacts\\Hello_World_jar\\Hello World.jar\"");
+            String osName = System.getProperty("os.name");
 
+            String[] cmd = new String[3];
 
-            Process process= Runtime.getRuntime().exec("java \"" + AGENT_COMMAND + "\" -jar \"" + OUTSIDE_PROGRAM_JAR_PATH + "\"");
-
-
-	        process.waitFor();
-
-
-
-
-
-            /*while (true)
+            switch (osName)
             {
-                System.out.println(process.waitFor());
-
-                if ((process.waitFor() == 1) || (process.waitFor() == 0))
-                {
+                case "Windows 95":
+                    cmd[0] = "command.com";
+                    cmd[1] = "/C";
+                    cmd[2] = args[0];
                     break;
+
+                case "Windows 10":
+
+                    cmd[0] = "cmd.exe";
+                    cmd[1] = "/C";
+                    cmd[2] = args[0];
+                    break;
+
+                default:
+                    System.err.println("Operation system: \"" + osName + "\" not handled in this program");
+                    System.exit(1);
+            }
+
+            Runtime rt = Runtime.getRuntime();
+            System.out.println("Executing " + cmd[0] + " " + cmd[1] + " " + cmd[2]);
+            Process proc = rt.exec(cmd);
+
+            StreamProcessor errorProcessor = new StreamProcessor(proc.getErrorStream(), "", SHOW_OUTSIDE_PROGRAM_OUTPUT);
+            StreamProcessor outputProcessor = new StreamProcessor(proc.getInputStream(), "", SHOW_OUTSIDE_PROGRAM_OUTPUT);
+
+            // Start Stream Processor Threads
+            errorProcessor.start();
+            outputProcessor.start();
+
+            // any error???
+            int exitVal = proc.waitFor();
+            System.out.println("Outside Program ExitValue: " + exitVal);
+
+            outputAnalysis(outputProcessor.getOutputList());
+
+            if (!errorProcessor.getOutputList().isEmpty())
+            {
+                System.out.println("Standard Error:");
+
+                for (String error : errorProcessor.getOutputList())
+                {
+                    System.out.println("\t" + error);
                 }
-            }*/
+
+                final Stage errorPopupStage = new Stage();
+                errorPopupStage.initModality(Modality.APPLICATION_MODAL);
+                errorPopupStage.setTitle("External Program Error");
+                ScrollPane scrollPane = new ScrollPane();
+
+                //TODO need to make the list into a sting with newlines
+                //TextArea textArea = new TextArea((errorProcessor.getOutputList());
+                //scrollPane.setContent(textArea);
+                Scene dialogScene = new Scene(scrollPane, DIALOG_HEIGHT, DIALOG_WIDTH);
+                errorPopupStage.setScene(dialogScene);
+                errorPopupStage.show();
+            }
+        }
+        catch (Throwable t)
+        {
+            t.printStackTrace();
+        }
 
 
-
-
-
-
-
-
-
-            InputStream inputStream = process.getInputStream();
-            InputStreamReader isr = new InputStreamReader(inputStream);
-
-            InputStream errorStream = process.getErrorStream();
-            InputStreamReader esr = new InputStreamReader(errorStream);
-
+        /*
             ///// Get the output of the program /////
-            int n1;
-            char[] c1 = new char[1024];
-            StringBuffer standardOutput = new StringBuffer();
-            while ((n1 = isr.read(c1)) > 0)
-            {
-                standardOutput.append(c1, 0, n1);
-            }
 
-            if (SHOW_OUTSIDE_PROGRAM_OUTPUT)
-            {
-                System.out.println(standardOutput.toString());
-            }
 
             // Analyze the output of the program
             outputAnalysis(standardOutput.toString());
@@ -91,7 +119,7 @@ public class RunProgramAtRunTime
                 standardError.append(c2, 0, n2);
             }
 
-            // If there is no error dont show anything
+            // If there inputStream no error dont show anything
             if (!standardError.toString().equals(""))
             {
                 // Filter out the non-useful errors
@@ -132,18 +160,16 @@ public class RunProgramAtRunTime
         catch (IOException | InterruptedException e)
         {
             e.printStackTrace();
-        }
+        }*/
 
 
     }
 
-    private static void outputAnalysis(String programOutput)
+    private static void outputAnalysis(List<String> programOutput)
     {
-        String [] splitProgramOutput = programOutput.split("\n");
-
         // Get all available classes methods
         // Needs to stay in from so constructors can be added to the right class
-        for (String line : splitProgramOutput)
+        for (String line : programOutput)
         {
             String enteringExitingOrOther;
             String className;
@@ -165,7 +191,7 @@ public class RunProgramAtRunTime
             }
         }
 
-        for (String line : splitProgramOutput)
+        for (String line : programOutput)
         {
             String enteringExitingOrOther;
             String className;
@@ -237,10 +263,10 @@ public class RunProgramAtRunTime
             DynamicData.getInstance().getData().remove(classToDelete);
         }
 
-        applyTimeEntries(splitProgramOutput);
+        applyTimeEntries(programOutput);
     }
 
-    private static void applyTimeEntries(String[] splitProgramOutput)
+    private static void applyTimeEntries(List<String> splitProgramOutput)
     {
         Stack<MethodNameTime> methodTimeStack = new Stack<>();
 
