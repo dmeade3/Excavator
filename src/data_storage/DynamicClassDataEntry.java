@@ -1,12 +1,13 @@
 package data_storage;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class DynamicClassDataEntry
 {
     ///// Fields /////
     private String className;
-    private final HashMap<String, DynamicMethodDataEntry> methodStore = new HashMap<>();
+    private final Map<String, DynamicMethodDataEntry> methodStore = new HashMap<>();
 
     ///// Methods /////
     public DynamicClassDataEntry(String className)
@@ -19,7 +20,7 @@ public class DynamicClassDataEntry
         methodStore.put(methodName, dynamicFileDataEntry);
     }
 
-    public HashMap<String, DynamicMethodDataEntry> getData()
+    public Map<String, DynamicMethodDataEntry> getData()
     {
         return methodStore;
     }

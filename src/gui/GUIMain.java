@@ -1,7 +1,5 @@
 package gui;
 
-import Util.SystemConfig;
-import Util.Time;
 import data_storage.DynamicClassDataEntry;
 import data_storage.DynamicData;
 import data_storage.DynamicMethodDataEntry;
@@ -18,24 +16,25 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import util.SystemConfig;
+import util.TimeUnit;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import static Util.SystemConfig.*;
-import static Util.Time.NANOSECOND;
+import static util.SystemConfig.*;
+import static util.TimeUnit.NANOSECOND;
 
 public class GUIMain extends Application
 {
     // Fields //////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 	private ApplicationStat overallStat = new ApplicationStat("", 0, "0", "0");
 	private final TreeItem<ApplicationStat> rootTreeItem = new TreeItem<>(overallStat);
 	private final TreeTableView<ApplicationStat> treeTableView = new TreeTableView<>(rootTreeItem);
     private final ScrollPane rightScrollPane = new ScrollPane();
 	private final TextArea textArea = TextAreaBuilder.create().prefWidth(SCENE_HEIGHT - SPACE_FROM_BOTTOM_BUTTONS).prefHeight(SCENE_HEIGHT - SPACE_FROM_BOTTOM_BUTTONS - 2).wrapText(true).build();
     private final GridPane bottomButtons = new GridPane();
-    private final ComboBox<Time> timeSelectorComboBox = new ComboBox<Time>(SystemConfig.TIME_OPTIONS);
+    private final ComboBox<TimeUnit> timeSelectorComboBox = new ComboBox<>(SystemConfig.TIME_UNIT_OPTIONS);
 	private final Color backgroundColor = new Color(.225, .228, .203, .5);
 	private final Scene scene = new Scene(new Group(), SCENE_WIDTH, SCENE_HEIGHT);
 	private final Group sceneRoot = (Group) scene.getRoot();
@@ -44,6 +43,7 @@ public class GUIMain extends Application
     private Label dynamicStateLabel;
     private Stage stage;
     private Button runDynamicAnalysisButton;
+    private Button expandCollapseButton;
 
 	// Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
@@ -64,7 +64,7 @@ public class GUIMain extends Application
 	    bottomButtons.setVgap(5);
 
 	    // Set up scene
-        scene.getStylesheets().add(SystemConfig.PATH_TO_MAIN_STYLESHEET);
+        scene.getStylesheets().add(SystemConfig.NAME_OF_MAIN_STYLESHEET);
         scene.setFill(backgroundColor);
 
         // Tree table size adjusting
@@ -79,11 +79,8 @@ public class GUIMain extends Application
 
 		// Fill in tree table
         updateTreeTable();
-
 	    initBottomButtonGridPane(sceneRoot, mainBorderPane);
-
 	    mainBorderPane.setCenter(treeTableView);
-
         mainBorderPane.setRight(rightScrollPane);
 
 	    ///// Listeners for scene growth /////
@@ -140,9 +137,12 @@ public class GUIMain extends Application
                 totalAverageTime = totalAverageTime.add(BigDecimal.valueOf(dynamicMethodDataEntry.getAverageTime()));
                 totalTotalTime   = totalTotalTime.add(BigDecimal.valueOf(dynamicMethodDataEntry.getTotalTime()));
 
-                methodApplicationStat = new ApplicationStat(dynamicMethodDataEntry.getMethodName(), dynamicMethodDataEntry.getCallCount(),
+                methodApplicationStat = new ApplicationStat(
+                        dynamicMethodDataEntry.getMethodName(),
+                        dynamicMethodDataEntry.getCallCount(),
 		                getCurrentTimeSelection().convertTimeLongToString(dynamicMethodDataEntry.getAverageTime()),
-		                getCurrentTimeSelection().convertTimeLongToString(dynamicMethodDataEntry.getTotalTime()));
+		                getCurrentTimeSelection().convertTimeLongToString(dynamicMethodDataEntry.getTotalTime())
+                );
 
                 TreeItem<ApplicationStat> methodEntry = new TreeItem<>(methodApplicationStat);
 
@@ -152,12 +152,14 @@ public class GUIMain extends Application
 	        // Add to class totals
             classApplicationStat.setCallCount(totalMethodCalls);
             classApplicationStat.setAverageMethodTime(getCurrentTimeSelection().convertTimeBigDecimal(totalAverageTime).toString());
-            classApplicationStat.setTotalMethodTime(getCurrentTimeSelection().convertTimeBigDecimal(totalAverageTime).toString());
+            classApplicationStat.setTotalMethodTime(getCurrentTimeSelection().convertTimeBigDecimal(totalTotalTime).toString());
 
 	        // Add to rootTreeItem totals
             rootTreeItem.getValue().setCallCount(rootTreeItem.getValue().getCallCount() + totalMethodCalls);
-            rootTreeItem.getValue().setAverageMethodTime(new BigDecimal(rootTreeItem.getValue().getAverageMethodTime()).add(getCurrentTimeSelection().convertTimeBigDecimal(totalAverageTime)).toString());
-            rootTreeItem.getValue().setTotalMethodTime(  new BigDecimal(rootTreeItem.getValue().getTotalMethodTime()).add(getCurrentTimeSelection().convertTimeBigDecimal(totalAverageTime)).toString());
+
+            rootTreeItem.getValue().setAverageMethodTime(new BigDecimal(rootTreeItem.getValue().getTotalMethodTime()).divide((new BigDecimal(rootTreeItem.getValue().getCallCount())), TIME_PRECISION_PLACES, RoundingMode.HALF_UP).toString());
+
+            rootTreeItem.getValue().setTotalMethodTime(  new BigDecimal(rootTreeItem.getValue().getTotalMethodTime()).add(getCurrentTimeSelection().convertTimeBigDecimal(totalTotalTime)).toString());
 
 	        // Add class to rootTreeItem
             rootTreeItem.getChildren().add(classEntry);
@@ -177,18 +179,17 @@ public class GUIMain extends Application
 
         TreeTableColumn<ApplicationStat, FormattedNumber> averageTimeColumn = new TreeTableColumn<>("Average Time");
         averageTimeColumn.setPrefWidth(185);
-        averageTimeColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, FormattedNumber> param) -> new SimpleObjectProperty<>(new FormattedNumber(Float.parseFloat(param.getValue().getValue().getAverageMethodTime()), getTimeShortDescription())));
+        averageTimeColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, FormattedNumber> param) -> new SimpleObjectProperty<>(new FormattedNumber(Float.parseFloat(param.getValue().getValue().getAverageMethodTime()), getTimeAbbreviation())));
 
         TreeTableColumn<ApplicationStat, FormattedNumber> totalTimeColumn = new TreeTableColumn<>("Total Time");
         totalTimeColumn.setPrefWidth(185);
-        totalTimeColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, FormattedNumber> param) -> new SimpleObjectProperty<>(new FormattedNumber(Float.parseFloat(param.getValue().getValue().getTotalMethodTime()), getTimeShortDescription())));
+        totalTimeColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, FormattedNumber> param) -> new SimpleObjectProperty<>(new FormattedNumber(Float.parseFloat(param.getValue().getValue().getTotalMethodTime()), getTimeAbbreviation())));
 
         // Add all the columns to the tree table
         treeTableView.getColumns().setAll(methodClassNameColumn, methodCallCountColumn, averageTimeColumn, totalTimeColumn);
     }
 
-	// TODO replace a lot of places with this
-	public Time getCurrentTimeSelection()
+	public TimeUnit getCurrentTimeSelection()
 	{
 		return timeSelectorComboBox.getSelectionModel().getSelectedItem();
 	}
@@ -216,6 +217,10 @@ public class GUIMain extends Application
 	    dynamicStateLabel = new Label("");
 	    bottomButtons.add(dynamicStateLabel, 1, 1);
 
+        // Expand Collapse button
+        expandCollapseButton = new Button("Expand / Collapse All");
+        bottomButtons.add(expandCollapseButton, 0, 5);
+
         // Time selector comboBox
         bottomButtons.add(timeSelectorComboBox, 0, 4);
 
@@ -223,6 +228,11 @@ public class GUIMain extends Application
         sceneRoot.getChildren().add(mainBorderPane);
 
         ///// Listeners /////
+        expandCollapseButton.setOnAction(event ->
+        {
+            setRootExpandedCollapsed(rootTreeItem);
+        });
+
         timeSelectorComboBox.setOnAction(event ->
         {
             overallStat = new ApplicationStat(overallStat.getMethodName(), 0, "0", "0");
@@ -237,34 +247,20 @@ public class GUIMain extends Application
         });
 
         linkJarUpButton.setOnAction(event ->
-            {
-                FileChooser fileChooser = new FileChooser();
+        {
+            FileChooser fileChooser = new FileChooser();
 
+            // Filter out all but jar file
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Jar Files (*.jar)", "*.jar");
 
-                // TODO do something with the returned val
-                fileChooser.showOpenDialog(stage);
+            fileChooser.getExtensionFilters().add(extFilter);
 
-                /*TextInputDialog dialog = new TextInputDialog(SystemConfig.OUTSIDE_PROGRAM_JAR_PATH);
-                dialog.setTitle("Select / Change Jar File Path");
-                dialog.setHeaderText("Select / Change Jar File Path");
-	            dialog.setResizable(true);
-	            dialog.getDialogPane().setPrefSize(DIALOG_WIDTH, DIALOG_HEIGHT);
+            String newChosenPath = fileChooser.showOpenDialog(stage).getAbsolutePath();
 
-                Optional<String> result = dialog.showAndWait();
-                if (result.isPresent()) {
-                    // TODO check if a jar
+            jarPathLabel.setText(newChosenPath);
 
-                    if (pathReachable(result.get()))
-                    {
-                        jarPathLabel.setText(result.get());
-                    }
-                    else
-                    {
-                        // TODO popup says what went wrong and how to fix
-                    }
-                }*/
-            }
-        );
+            OUTSIDE_PROGRAM_JAR_PATH = newChosenPath;
+        });
 
         runDynamicAnalysisButton.setOnMousePressed(event ->
         {
@@ -324,7 +320,7 @@ public class GUIMain extends Application
                 long start = System.nanoTime();
                 RunProgramAtRunTime.runOutsideProgram();
                 long end = System.nanoTime();
-                OUTSIDE_PROGRAM_DYNAMIC_EXECUTION_TIME = end - start;
+                TimeUnit.OUTSIDE_PROGRAM_DYNAMIC_EXECUTION_TIME = end - start;
 
                 updateTreeTable();
 
@@ -341,16 +337,16 @@ public class GUIMain extends Application
 
     private void updateRightScrollPane()
     {
-        float totalExecutionTime = Float.parseFloat(  getCurrentTimeSelection().convertTimeLongToString(OUTSIDE_PROGRAM_DYNAMIC_EXECUTION_TIME));
-        BigDecimal totalOverheadTime = new BigDecimal(getCurrentTimeSelection().convertTimeLongToString(OUTSIDE_PROGRAM_DYNAMIC_EXECUTION_TIME)).subtract(new BigDecimal(overallStat.getTotalMethodTime()));
+        float totalExecutionTime = Float.parseFloat(  getCurrentTimeSelection().convertTimeLongToString(TimeUnit.OUTSIDE_PROGRAM_DYNAMIC_EXECUTION_TIME));
+        BigDecimal totalOverheadTime = new BigDecimal(getCurrentTimeSelection().convertTimeLongToString(TimeUnit.OUTSIDE_PROGRAM_DYNAMIC_EXECUTION_TIME)).subtract(new BigDecimal(overallStat.getTotalMethodTime()));
 
         resetRightScrollPane();
 
-        appendToScrollPanel("Dynamic Analysis Total Execution Time:\n" + NUMBER_FORMATTER_NANO.format(totalExecutionTime) + getTimeShortDescription());
+        appendToScrollPanel("Dynamic Analysis Total Execution Time:\n" + FORMATTER_NANO.format(totalExecutionTime) + getTimeAbbreviation());
 
-        appendToScrollPanel("Dynamic Analysis Overhead Time:\n"  + NUMBER_FORMATTER_NANO.format(totalOverheadTime) + getTimeShortDescription());
+        appendToScrollPanel("Dynamic Analysis Overhead Time:\n"  + FORMATTER_NANO.format(totalOverheadTime) + getTimeAbbreviation());
 
-        appendToScrollPanel("Percentage of time spent on overhead:\n"  + "%" + NUMBER_FORMATTER_NANO.format(totalOverheadTime.divide(BigDecimal.valueOf(totalExecutionTime), 5, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100))));
+        appendToScrollPanel("Percentage of time spent on overhead:\n"  + "%" + FORMATTER_NANO.format(totalOverheadTime.divide(BigDecimal.valueOf(totalExecutionTime), 5, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100))));
 
         appendToScrollPanel("\n");
     }
@@ -365,14 +361,33 @@ public class GUIMain extends Application
         textArea.setText(textArea.getText() + "\n" + input);
     }
 
-    private void setRootExpandedRecursively(TreeItem<ApplicationStat> root)
+    private void setRootExpandedCollapsed(TreeItem<ApplicationStat> root)
     {
-        root.getChildren().forEach(this::setRootExpandedRecursively);
+        if (!MAIN_TREE_EXPANDED)
+        {
+            root.setExpanded(true);
 
-        root.setExpanded(true);
+            for(TreeItem child : root.getChildren())
+            {
+                child.setExpanded(true);
+            }
+
+            MAIN_TREE_EXPANDED = true;
+        }
+        else
+        {
+            root.setExpanded(true);
+
+            for(TreeItem child : root.getChildren())
+            {
+                child.setExpanded(false);
+            }
+
+            MAIN_TREE_EXPANDED = false;
+        }
     }
 
-	public String getTimeShortDescription()
+	public String getTimeAbbreviation()
 	{
         return getCurrentTimeSelection().abbreviation;
 	}

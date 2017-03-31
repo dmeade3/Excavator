@@ -32,7 +32,7 @@ class StreamProcessor extends Thread
             String line = null;
             while ( (line = br.readLine()) != null)
             {
-                if (printOutput) System.out.println(type + ">" + line);
+                if (printOutput) System.out.println(type + " " + line);
 
                 outputList.add(line);
             }

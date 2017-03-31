@@ -3,3 +3,8 @@
 Todo.txt,8\b\8b348689598435e7951c9dc82455ee74e6368fc6
 @
 Instructions.txt,9\b\9b5c73c139c2387257ccb83ebe5f9efcbce83927
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
+>
+.gitattributes,2\4\24139dae656713ba861751fb2c2ac38839349a7a

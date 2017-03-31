@@ -2,14 +2,15 @@ package data_storage;
 
 
 import java.util.HashMap;
+import java.util.Map;
 
-import static Util.SystemConfig.INITIAL_DYNAMIC_DATA_SIZE;
+import static util.SystemConfig.INITIAL_DYNAMIC_DATA_SIZE;
 
 public class DynamicData
 {
     private static DynamicData instance = null;
 
-    private final HashMap<String, DynamicClassDataEntry> data = new HashMap<>(INITIAL_DYNAMIC_DATA_SIZE);
+    private final Map<String, DynamicClassDataEntry> data = new HashMap<>(INITIAL_DYNAMIC_DATA_SIZE);
 
     public static DynamicData getInstance()
     {
@@ -36,7 +37,7 @@ public class DynamicData
         return getInstance().data.containsKey(className);
     }
 
-    public HashMap<String, DynamicClassDataEntry> getData()
+    public Map<String, DynamicClassDataEntry> getData()
     {
         return getInstance().data;
     }

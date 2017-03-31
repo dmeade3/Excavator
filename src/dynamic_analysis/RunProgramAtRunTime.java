@@ -5,18 +5,14 @@ import data_storage.DynamicData;
 import data_storage.DynamicMethodDataEntry;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import static Util.SystemConfig.*;
+import static util.SystemConfig.*;
 
 // Refactor some of the executing code
 public class RunProgramAtRunTime
@@ -102,67 +98,6 @@ public class RunProgramAtRunTime
         {
             t.printStackTrace();
         }
-
-
-        /*
-            ///// Get the output of the program /////
-
-
-            // Analyze the output of the program
-            outputAnalysis(standardOutput.toString());
-
-            int n2;
-            char[] c2 = new char[1024];
-            StringBuffer standardError = new StringBuffer();
-            while ((n2 = esr.read(c2)) > 0)
-            {
-                standardError.append(c2, 0, n2);
-            }
-
-            // If there inputStream no error dont show anything
-            if (!standardError.toString().equals(""))
-            {
-                // Filter out the non-useful errors
-                List<String> errorList = new ArrayList<>();
-                List<String> restrictedErrorList = new ArrayList<>();
-                restrictedErrorList.add("no method body");
-
-                for (String error : standardError.toString().split("\n"))
-                {
-                    //Restrict the errors that come though
-                    if (!restrictedErrorList.contains(error.trim()))
-                    {
-                        errorList.add(error);
-                    }
-                }
-
-                if (errorList.isEmpty())
-                {
-                    System.out.println("Standard Error:");
-
-                    for (String error : standardError.toString().split("\n"))
-                    {
-                        System.out.println("\t" + error);
-                    }
-
-                    final Stage errorPopupStage = new Stage();
-                    errorPopupStage.initModality(Modality.APPLICATION_MODAL);
-                    errorPopupStage.setTitle("External Program Error");
-                    ScrollPane scrollPane = new ScrollPane();
-                    TextArea textArea = new TextArea(standardError.toString());
-                    scrollPane.setContent(textArea);
-                    Scene dialogScene = new Scene(scrollPane, DIALOG_HEIGHT, DIALOG_WIDTH);
-                    errorPopupStage.setScene(dialogScene);
-                    errorPopupStage.show();
-                }
-            }
-        }
-        catch (IOException | InterruptedException e)
-        {
-            e.printStackTrace();
-        }*/
-
-
     }
 
     private static void outputAnalysis(List<String> programOutput)
@@ -229,7 +164,7 @@ public class RunProgramAtRunTime
                 if (!DynamicData.getInstance().getData().get(className).contains(methodName))
                 {
                     DynamicMethodDataEntry methodDataEntry = new DynamicMethodDataEntry(methodName);
-                    DynamicData.getInstance().get(className).getData().put(methodName, methodDataEntry);
+                    DynamicData.getInstance().get(className).put(methodName, methodDataEntry);
                 }
                 // Increment Call Count
                 if(enteringExitingOrOther.equals(ENTERING))
@@ -473,5 +408,7 @@ public class RunProgramAtRunTime
         System.out.println("Executing RunProgramAtRunTime.main");
 
         runOutsideProgram();
+
+        displayClassData();
     }
 }

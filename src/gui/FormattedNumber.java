@@ -1,7 +1,7 @@
 package gui;
 
 
-import Util.SystemConfig;
+import util.SystemConfig;
 
 public class FormattedNumber implements Comparable
 {
@@ -36,7 +36,29 @@ public class FormattedNumber implements Comparable
         this.units = units;
     }
 
+
+
     ///// Override Methods /////
+    @Override
+    public boolean equals(Object obj)
+    {
+        FormattedNumber in;
+
+        try
+        {
+            in = (FormattedNumber) obj;
+        }
+        catch (NullPointerException e)
+        {
+            System.out.println(e);
+
+            return false;
+        }
+
+
+        return ((in.getNumber() == this.number) && (in.getUnits() == this.units));
+    }
+
     @Override
     public int compareTo(Object o)
     {
@@ -48,6 +70,6 @@ public class FormattedNumber implements Comparable
     @Override
     public String toString()
     {
-        return SystemConfig.NUMBER_FORMATTER_NANO.format(number) + units;
+        return SystemConfig.FORMATTER_NANO.format(number) + units;
     }
 }

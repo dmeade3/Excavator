@@ -10,7 +10,7 @@ import java.security.ProtectionDomain;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Util.SystemConfig.*;
+import static util.SystemConfig.*;
 
 public class Profiler implements ClassFileTransformer
 {
@@ -49,6 +49,12 @@ public class Profiler implements ClassFileTransformer
             filterList.add("com.sun.scenario.");
         }
 
+        // No method body classes (can cause errors with javassist)
+        if (FILTER_OUT_ERROR_CAUSING_METHODS)
+        {
+            filterList.add("java.lang.Shutdown$Lock");
+        }
+
         instrumentation = inst;
         classPool = ClassPool.getDefault();
         instrumentation.addTransformer(this);
@@ -60,11 +66,10 @@ public class Profiler implements ClassFileTransformer
     {
         try
         {
-            if (FILTER_OUT_NON_USER_METHODS && loader == null)
+            /*if (FILTER_OUT_NON_USER_METHODS && loader == null)
             {
                 return classfileBuffer;
-            }
-
+            }*/
 
             className = className.replaceAll("/", ".");
 
@@ -99,9 +104,13 @@ public class Profiler implements ClassFileTransformer
             // return the new bytecode array:
             return cc.toBytecode();
         }
-        catch (IOException | CannotCompileException | NotFoundException e)
+        catch (IOException | NotFoundException e)
         {
             e.printStackTrace();
+        }
+        catch (CannotCompileException e)
+        {
+            System.out.println("Cannot Compile: " + e.toString());
         }
 
         return classfileBuffer;

@@ -2,10 +2,11 @@ Side code project:
     Code analysis:
 
         -need functionality to recompile the jar with javac -d  option
-        -do the TODO's
-
         - need to store the output data in increments
             -either files or emptying the datastruct when full then refilling
+
+        -have a program start message
+        -have in the info helper protion say that total - overall time may look wrong because the mltithreading of the jvm might thread things to make them faster
 
         -make compiling the source with javassaist my problem not the users
         -graph data in a pie graph
@@ -19,9 +20,8 @@ Side code project:
             -what exactly overhead is
         -investigate the time issue when all method calls are allowed
         -break up big classes if possible
-        -in millisecond and second the format of the number should be shorter
         - i think average call should be completely redone and named average time per call / make the numbers reflect the name
-        - i think the timing everywhere could be redone smarter to account for any number of posibilities
+        - i think the timing everywhere could be redone smarter to account for any number of possibilities
             -threading
 
         General:
@@ -29,20 +29,8 @@ Side code project:
             make easier to use on other projects for profiling
                 write down process of making the project able to be profiled / try to whitle this down all i can so the process inputStream very small
 
-            make time type an enum
-
             on close save settings
 
-            Index out program so it can refer to other classes:
-                -each class has its own object containing all its stats
-
-            make multithreaded:
-                create a thread for each file / directory whichever inputStream faster:
-                    unless performance isn't an issue
-
-            be able to save results
-                -think about whether it should automatically save the results to disk though
-                    -leaning towards no
 
         Dynamic:
             if theres an error a popup box with only the abilty to close it should come up and display the error message
