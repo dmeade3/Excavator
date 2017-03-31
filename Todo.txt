@@ -18,6 +18,7 @@ Side code project:
         -needs to have glossary where it explains certain things
             -what exactly overhead is
         -investigate the time issue when all method calls are allowed
+        -break up big classes if possible
         -in millisecond and second the format of the number should be shorter
         - i think average call should be completely redone and named average time per call / make the numbers reflect the name
         - i think the timing everywhere could be redone smarter to account for any number of posibilities

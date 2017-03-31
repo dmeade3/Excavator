@@ -141,7 +141,8 @@ public class GUIMain extends Application
                 totalTotalTime   = totalTotalTime.add(BigDecimal.valueOf(dynamicMethodDataEntry.getTotalTime()));
 
                 methodApplicationStat = new ApplicationStat(dynamicMethodDataEntry.getMethodName(), dynamicMethodDataEntry.getCallCount(),
-                                                            convertTime(dynamicMethodDataEntry.getAverageTime()), convertTime(dynamicMethodDataEntry.getTotalTime()));
+		                getCurrentTimeSelection().convertTimeLongToString(dynamicMethodDataEntry.getAverageTime()),
+		                getCurrentTimeSelection().convertTimeLongToString(dynamicMethodDataEntry.getTotalTime()));
 
                 TreeItem<ApplicationStat> methodEntry = new TreeItem<>(methodApplicationStat);
 
@@ -150,13 +151,13 @@ public class GUIMain extends Application
 
 	        // Add to class totals
             classApplicationStat.setCallCount(totalMethodCalls);
-            classApplicationStat.setAverageMethodTime(convertTimeBigDecimal(totalAverageTime));
-            classApplicationStat.setTotalMethodTime(convertTimeBigDecimal(totalTotalTime));
+            classApplicationStat.setAverageMethodTime(getCurrentTimeSelection().convertTimeBigDecimal(totalAverageTime).toString());
+            classApplicationStat.setTotalMethodTime(getCurrentTimeSelection().convertTimeBigDecimal(totalAverageTime).toString());
 
 	        // Add to rootTreeItem totals
             rootTreeItem.getValue().setCallCount(rootTreeItem.getValue().getCallCount() + totalMethodCalls);
-            rootTreeItem.getValue().setAverageMethodTime(new BigDecimal(rootTreeItem.getValue().getAverageMethodTime()).add(new BigDecimal(convertTimeBigDecimal(totalAverageTime))).toString());
-            rootTreeItem.getValue().setTotalMethodTime(  new BigDecimal(rootTreeItem.getValue().getTotalMethodTime()).add(new BigDecimal(convertTimeBigDecimal(totalTotalTime))).toString());
+            rootTreeItem.getValue().setAverageMethodTime(new BigDecimal(rootTreeItem.getValue().getAverageMethodTime()).add(getCurrentTimeSelection().convertTimeBigDecimal(totalAverageTime)).toString());
+            rootTreeItem.getValue().setTotalMethodTime(  new BigDecimal(rootTreeItem.getValue().getTotalMethodTime()).add(getCurrentTimeSelection().convertTimeBigDecimal(totalAverageTime)).toString());
 
 	        // Add class to rootTreeItem
             rootTreeItem.getChildren().add(classEntry);
@@ -186,10 +187,11 @@ public class GUIMain extends Application
         treeTableView.getColumns().setAll(methodClassNameColumn, methodCallCountColumn, averageTimeColumn, totalTimeColumn);
     }
 
-    private String convertTimeBigDecimal(BigDecimal in)
-    {
-        return in.divide(new BigDecimal(String.valueOf(timeSelectorComboBox.getSelectionModel().getSelectedItem().divisor))).toString();
-    }
+	// TODO replace a lot of places with this
+	public Time getCurrentTimeSelection()
+	{
+		return timeSelectorComboBox.getSelectionModel().getSelectedItem();
+	}
 
     private void initBottomButtonGridPane(Group sceneRoot, BorderPane mainBorderPane)
     {
@@ -339,8 +341,8 @@ public class GUIMain extends Application
 
     private void updateRightScrollPane()
     {
-        float totalExecutionTime = Float.parseFloat(convertTime(OUTSIDE_PROGRAM_DYNAMIC_EXECUTION_TIME));
-        BigDecimal totalOverheadTime = new BigDecimal(convertTime(OUTSIDE_PROGRAM_DYNAMIC_EXECUTION_TIME)).subtract(new BigDecimal(overallStat.getTotalMethodTime()));
+        float totalExecutionTime = Float.parseFloat(  getCurrentTimeSelection().convertTimeLongToString(OUTSIDE_PROGRAM_DYNAMIC_EXECUTION_TIME));
+        BigDecimal totalOverheadTime = new BigDecimal(getCurrentTimeSelection().convertTimeLongToString(OUTSIDE_PROGRAM_DYNAMIC_EXECUTION_TIME)).subtract(new BigDecimal(overallStat.getTotalMethodTime()));
 
         resetRightScrollPane();
 
@@ -351,16 +353,6 @@ public class GUIMain extends Application
         appendToScrollPanel("Percentage of time spent on overhead:\n"  + "%" + NUMBER_FORMATTER_NANO.format(totalOverheadTime.divide(BigDecimal.valueOf(totalExecutionTime), 5, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100))));
 
         appendToScrollPanel("\n");
-    }
-
-    private String convertTime(float in)
-    {
-        if (String.valueOf(timeSelectorComboBox.getValue()).equals("Nanosecond"))
-        {
-            return String.valueOf((long)(in / timeSelectorComboBox.getSelectionModel().getSelectedItem().divisor));
-        }
-
-        return String.valueOf(in / timeSelectorComboBox.getSelectionModel().getSelectedItem().divisor);
     }
 
     private void resetRightScrollPane()
@@ -382,7 +374,7 @@ public class GUIMain extends Application
 
 	public String getTimeShortDescription()
 	{
-        return timeSelectorComboBox.getSelectionModel().getSelectedItem().abbreviation;
+        return getCurrentTimeSelection().abbreviation;
 	}
 
     public static void main(String[] args)

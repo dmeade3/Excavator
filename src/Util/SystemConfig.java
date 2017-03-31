@@ -35,6 +35,8 @@ public class SystemConfig
     public static final String AGENT_COMMAND = "-javaagent:" + AGENT_PATH;
 
 
+	public static final int TIME_PRECISION_PLACES = 5;
+
     public static final String ENTERING = "_1_2_3_4_5_6_&_8_9_Entering_____";
     public static final String EXITING  = "_1__2_3_4_5_6_4_7_6_8_9_Exiting_";
 
