@@ -1,5 +1,6 @@
 package dynamic_analysis;
 
+import execute_jar.ExecuteJarUtil;
 import javassist.*;
 
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class Profiler implements ClassFileTransformer
 
     public Profiler(Instrumentation inst)
     {
-        if (FILTER_OUT_NON_USER_METHODS)
+        if (ExecuteJarUtil.FILTER_OUT_NON_USER_METHODS)
         {
             filterList.add("java");
             filterList.add("sun");
@@ -50,7 +51,7 @@ public class Profiler implements ClassFileTransformer
         }
 
         // No method body classes (can cause errors with javassist)
-        if (FILTER_OUT_ERROR_CAUSING_METHODS)
+        if (ExecuteJarUtil.FILTER_OUT_ERROR_CAUSING_METHODS)
         {
             filterList.add("java.lang.Shutdown$Lock");
         }

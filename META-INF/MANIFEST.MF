@@ -1,3 +1,5 @@
 Manifest-Version: 1.0
 Premain-Class: dynamic_analysis.Profiler
-Main-Class: dynamic_analysis.RunProgramAtRunTime
+Class-Path: javassist.jar
+Main-Class: dynamic_analysis.ProcessJarOutput
+

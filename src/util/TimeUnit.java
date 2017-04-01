@@ -1,5 +1,7 @@
 package util;
 
+import execute_jar.ExecuteJarUtil;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
@@ -37,7 +39,7 @@ public enum TimeUnit
 
 		for (Integer divisor : divisorList)
 		{
-			out = out.divide(new BigDecimal(divisor), SystemConfig.TIME_PRECISION_PLACES, RoundingMode.HALF_UP);
+			out = out.divide(new BigDecimal(divisor), ExecuteJarUtil.TIME_PRECISION_PLACES, RoundingMode.HALF_UP);
 		}
 
 		return out;
@@ -49,7 +51,7 @@ public enum TimeUnit
 
 		for (Integer divisor : divisorList)
 		{
-			out = out.divide(new BigDecimal(divisor), SystemConfig.TIME_PRECISION_PLACES, RoundingMode.HALF_UP);
+			out = out.divide(new BigDecimal(divisor), ExecuteJarUtil.TIME_PRECISION_PLACES, RoundingMode.HALF_UP);
 		}
 
 		return out.toString();

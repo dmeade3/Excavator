@@ -13,6 +13,7 @@ Side code project:
             -time and calls
                 -make 2 graphs
         -see if you can get garbage collecting stats
+        -when an independan app might need to manually set the classpath
         -need to organize the tree of method calls better
             com.company.main should be under com.company
 

@@ -3,6 +3,8 @@ package dynamic_analysis;
 import data_storage.DynamicClassDataEntry;
 import data_storage.DynamicData;
 import data_storage.DynamicMethodDataEntry;
+import execute_jar.ExecuteJar;
+import execute_jar.ExecuteJarUtil;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.stage.Modality;
@@ -15,92 +17,14 @@ import java.util.Stack;
 import static util.SystemConfig.*;
 
 // Refactor some of the executing code
-public class RunProgramAtRunTime
+public class ProcessJarOutput
 {
-    private RunProgramAtRunTime()
+    private ProcessJarOutput()
     {
-        throw new IllegalAccessError("Utility Class");
+	    throw new IllegalAccessError("Utility Class");
     }
 
-    public static void runOutsideProgram()
-    {
-        // Move this to its own class
-        String[] args = new String[3];
-
-        args[0] = "java \"" + AGENT_COMMAND + "\" -jar \"" + OUTSIDE_PROGRAM_JAR_PATH + "\"";
-
-        try
-        {
-            String osName = System.getProperty("os.name");
-
-            String[] cmd = new String[3];
-
-            switch (osName)
-            {
-                case "Windows 95":
-                    cmd[0] = "command.com";
-                    cmd[1] = "/C";
-                    cmd[2] = args[0];
-                    break;
-
-                case "Windows 10":
-
-                    cmd[0] = "cmd.exe";
-                    cmd[1] = "/C";
-                    cmd[2] = args[0];
-                    break;
-
-                default:
-                    System.err.println("Operation system: \"" + osName + "\" not handled in this program");
-                    System.exit(1);
-            }
-
-            Runtime rt = Runtime.getRuntime();
-            System.out.println("Executing " + cmd[0] + " " + cmd[1] + " " + cmd[2]);
-            Process proc = rt.exec(cmd);
-
-            StreamProcessor errorProcessor = new StreamProcessor(proc.getErrorStream(), "", SHOW_OUTSIDE_PROGRAM_OUTPUT);
-            StreamProcessor outputProcessor = new StreamProcessor(proc.getInputStream(), "", SHOW_OUTSIDE_PROGRAM_OUTPUT);
-
-            // Start Stream Processor Threads
-            errorProcessor.start();
-            outputProcessor.start();
-
-            // any error???
-            int exitVal = proc.waitFor();
-            System.out.println("Outside Program ExitValue: " + exitVal);
-
-            outputAnalysis(outputProcessor.getOutputList());
-
-            if (!errorProcessor.getOutputList().isEmpty())
-            {
-                System.out.println("Standard Error:");
-
-                for (String error : errorProcessor.getOutputList())
-                {
-                    System.out.println("\t" + error);
-                }
-
-                final Stage errorPopupStage = new Stage();
-                errorPopupStage.initModality(Modality.APPLICATION_MODAL);
-                errorPopupStage.setTitle("External Program Error");
-                ScrollPane scrollPane = new ScrollPane();
-
-                //TODO need to make the list into a sting with newlines
-                //TextArea textArea = new TextArea((errorProcessor.getOutputList());
-                //scrollPane.setContent(textArea);
-                Scene dialogScene = new Scene(scrollPane, DIALOG_HEIGHT, DIALOG_WIDTH);
-                errorPopupStage.setScene(dialogScene);
-                errorPopupStage.show();
-            }
-        }
-        catch (Throwable t)
-        {
-            t.printStackTrace();
-        }
-    }
-
-    private static void outputAnalysis(List<String> programOutput)
+    public static void processOutput(List<String> programOutput)
     {
         // Get all available classes methods
         // Needs to stay in from so constructors can be added to the right class
@@ -405,10 +329,12 @@ public class RunProgramAtRunTime
 
     public static void main(String[] args)
     {
-        System.out.println("Executing RunProgramAtRunTime.main");
+        System.out.println("Executing ProcessJarOutput.main");
 
-        runOutsideProgram();
+	    ExecuteJar executeJar = new ExecuteJar(ExecuteJarUtil.OUTSIDE_PROGRAM_COMMAND);
 
-        displayClassData();
+        executeJar.runJar();
+
+        //displayClassData();
     }
 }

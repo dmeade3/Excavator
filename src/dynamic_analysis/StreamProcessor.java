@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-class StreamProcessor extends Thread
+public class StreamProcessor extends Thread
 {
     private InputStream inputStream;
     private String type;
@@ -15,7 +15,7 @@ class StreamProcessor extends Thread
 
     List<String> outputList = new ArrayList<>();
 
-    StreamProcessor(InputStream inputStream, String type, boolean printOutput)
+    public StreamProcessor(InputStream inputStream, String type, boolean printOutput)
     {
         this.inputStream = inputStream;
         this.type = type;

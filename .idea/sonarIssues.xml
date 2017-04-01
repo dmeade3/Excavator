@@ -8,12 +8,27 @@
             <set />
           </value>
         </entry>
+        <entry key="/fragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/Instructions.txt">
           <value>
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/META-INF/MANIFEST.MF">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/Todo.txt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/CompileAndExecJar.java">
           <value>
             <set />
           </value>
@@ -24,6 +39,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/Util/Time.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/compile_run/CompileAndExecJar.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/compile_run/CompileJar.java">
           <value>
             <set />
           </value>
@@ -48,6 +73,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/dynamic_analysis/ProcessJarOutput.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/dynamic_analysis/Profiler.java">
           <value>
             <set />
@@ -58,12 +88,37 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/dynamic_analysis/StreamProcessor.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/dynamic_analysis/Test.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/dynamic_analysis/Testing.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/execute_jar/CompileJar.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/execute_jar/ExecuteCommand.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/execute_jar/ExecuteJar.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/execute_jar/ExecuteJarUtil.java">
           <value>
             <set />
           </value>
@@ -79,6 +134,26 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/static_analysis/StaticAnalysis.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/util/SystemConfig.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/util/TimeUnit.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/styleSheets/mainStyleSheet.css">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Hello-World/out/artifacts/Hello_World_jar/tmp.txt">
           <value>
             <set />
           </value>

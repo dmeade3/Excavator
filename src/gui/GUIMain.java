@@ -3,7 +3,7 @@ package gui;
 import data_storage.DynamicClassDataEntry;
 import data_storage.DynamicData;
 import data_storage.DynamicMethodDataEntry;
-import dynamic_analysis.RunProgramAtRunTime;
+import dynamic_analysis.ProcessJarOutput;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -17,6 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import util.SystemConfig;
+import execute_jar.ExecuteJarUtil;
 import util.TimeUnit;
 
 import java.math.BigDecimal;
@@ -49,6 +50,8 @@ public class GUIMain extends Application
     @Override
     public void start(Stage stage)
     {
+	    System.out.println("Starting Excavator");
+
         // TODO break this function up
         this.stage = stage;
 
@@ -157,7 +160,7 @@ public class GUIMain extends Application
 	        // Add to rootTreeItem totals
             rootTreeItem.getValue().setCallCount(rootTreeItem.getValue().getCallCount() + totalMethodCalls);
 
-            rootTreeItem.getValue().setAverageMethodTime(new BigDecimal(rootTreeItem.getValue().getTotalMethodTime()).divide((new BigDecimal(rootTreeItem.getValue().getCallCount())), TIME_PRECISION_PLACES, RoundingMode.HALF_UP).toString());
+            rootTreeItem.getValue().setAverageMethodTime(new BigDecimal(rootTreeItem.getValue().getTotalMethodTime()).divide((new BigDecimal(rootTreeItem.getValue().getCallCount())), ExecuteJarUtil.TIME_PRECISION_PLACES, RoundingMode.HALF_UP).toString());
 
             rootTreeItem.getValue().setTotalMethodTime(  new BigDecimal(rootTreeItem.getValue().getTotalMethodTime()).add(getCurrentTimeSelection().convertTimeBigDecimal(totalTotalTime)).toString());
 
@@ -203,7 +206,7 @@ public class GUIMain extends Application
 
 	    // Outside jar button label group
         Button linkJarUpButton = new Button("Select / Change Jar File Path");
-        Label jarPathLabel = new Label(OUTSIDE_PROGRAM_JAR_PATH);
+        Label jarPathLabel = new Label(ExecuteJarUtil.OUTSIDE_PROGRAM_JAR_PATH);
         bottomButtons.add(linkJarUpButton, 0, 0);
         bottomButtons.add(jarPathLabel, 1, 0);
 
@@ -259,7 +262,7 @@ public class GUIMain extends Application
 
             jarPathLabel.setText(newChosenPath);
 
-            OUTSIDE_PROGRAM_JAR_PATH = newChosenPath;
+	        ExecuteJarUtil.OUTSIDE_PROGRAM_JAR_PATH = newChosenPath;
         });
 
         runDynamicAnalysisButton.setOnMousePressed(event ->
@@ -299,7 +302,7 @@ public class GUIMain extends Application
             updateDynamicAnalysisThread.start();
 
             // Set Root title
-            String rootTitle = OUTSIDE_PROGRAM_JAR_PATH;
+            String rootTitle = ExecuteJarUtil.OUTSIDE_PROGRAM_JAR_PATH;
             String[] splitString = rootTitle.split("\\\\");
             rootTitle = splitString[splitString.length-1];
             rootTreeItem.getValue().setMethodName(rootTitle);
@@ -318,8 +321,11 @@ public class GUIMain extends Application
                 System.out.println("Starting Dynamic Analysis.....");
 
                 long start = System.nanoTime();
-                RunProgramAtRunTime.runOutsideProgram();
-                long end = System.nanoTime();
+
+	            // TODO ProcessJarOutput.();
+
+
+	            long end = System.nanoTime();
                 TimeUnit.OUTSIDE_PROGRAM_DYNAMIC_EXECUTION_TIME = end - start;
 
                 updateTreeTable();

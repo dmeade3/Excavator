@@ -11,25 +11,13 @@ public class SystemConfig
     // TODO Needs to be a default, and if in config file it is loaded and used instead
     // TODO have an on close listener that saves off the user data in GUIMain
 
-    ////// PATHS - PATH HELPERS //////
-    public static final String PROJECT_DIR = System.getProperty("user.dir");
-    public static final String USER_NAME = System.getProperty("user.name");
-    public static String OUTSIDE_PROGRAM_JAR_PATH = "C:\\Users\\" + USER_NAME + "\\Desktop\\Intelij Workspace\\Hello-World\\out\\artifacts\\Hello_World_jar\\Hello World.jar";
-    public static final String AGENT_PATH = PROJECT_DIR + "\\out\\artifacts\\Profiler_jar\\Profiler.jar";
-    public static final String AGENT_COMMAND = "-javaagent:" + AGENT_PATH;
-
-
     ////// VARIABLE IDENTIFIERS //////
     public static final String ENTERING = "_1_2_3_4_5_6_&_8_9_Entering_____";
     public static final String EXITING  = "_1__2_3_4_5_6_4_7_6_8_9_Exiting_";
     public static final String TIMESTAMP_VARIABLE = "_123234345_timestamp129387346587_";
 
 
-    ////// RUN OPTIONS //////
-    public static final boolean SHOW_OUTSIDE_PROGRAM_OUTPUT = false;
-    public static final boolean FILTER_OUT_NON_USER_METHODS = true; // Running a gui will be much easier for no with this as true, much faster in general
-    public static final boolean FILTER_OUT_ERROR_CAUSING_METHODS = true;
-    public static final int TIME_PRECISION_PLACES = 5;
+
 
 
     ////// GUI DIMENSIONS OPTIONS //////
