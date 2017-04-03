@@ -1,19 +1,27 @@
 Side code project:
     Code analysis:
 
-        -need functionality to recompile the jar with javac -d  option
+
+
+        -graphing and displaying the data is the next big step
+
+        -also verfieing if the tims are right is a big step too
+
+
+        -make graphs in a tabbed window that you can navigate like a browser
+
+
+
+
         - need to store the output data in increments
             -either files or emptying the datastruct when full then refilling
 
-        -have a program start message
         -have in the info helper protion say that total - overall time may look wrong because the mltithreading of the jvm might thread things to make them faster
 
-        -make compiling the source with javassaist my problem not the users
         -graph data in a pie graph
             -time and calls
                 -make 2 graphs
         -see if you can get garbage collecting stats
-        -when an independan app might need to manually set the classpath
         -need to organize the tree of method calls better
             com.company.main should be under com.company
 
@@ -26,12 +34,4 @@ Side code project:
             -threading
 
         General:
-
-            make easier to use on other projects for profiling
-                write down process of making the project able to be profiled / try to whitle this down all i can so the process inputStream very small
-
             on close save settings
-
-
-        Dynamic:
-            if theres an error a popup box with only the abilty to close it should come up and display the error message

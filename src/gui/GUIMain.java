@@ -4,6 +4,7 @@ import data_storage.DynamicClassDataEntry;
 import data_storage.DynamicData;
 import data_storage.DynamicMethodDataEntry;
 import dynamic_analysis.ProcessJarOutput;
+import execute_jar.ExecuteJar;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -22,6 +23,7 @@ import util.TimeUnit;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.nio.file.Paths;
 
 import static util.SystemConfig.*;
 import static util.TimeUnit.NANOSECOND;
@@ -206,7 +208,7 @@ public class GUIMain extends Application
 
 	    // Outside jar button label group
         Button linkJarUpButton = new Button("Select / Change Jar File Path");
-        Label jarPathLabel = new Label(ExecuteJarUtil.OUTSIDE_PROGRAM_JAR_PATH);
+        Label jarPathLabel = new Label(ExecuteJarUtil.OUTSIDE_PROGRAM_JAR_PATH.toString());
         bottomButtons.add(linkJarUpButton, 0, 0);
         bottomButtons.add(jarPathLabel, 1, 0);
 
@@ -302,7 +304,7 @@ public class GUIMain extends Application
             updateDynamicAnalysisThread.start();
 
             // Set Root title
-            String rootTitle = ExecuteJarUtil.OUTSIDE_PROGRAM_JAR_PATH;
+            String rootTitle = ExecuteJarUtil.OUTSIDE_PROGRAM_JAR_PATH.toString();
             String[] splitString = rootTitle.split("\\\\");
             rootTitle = splitString[splitString.length-1];
             rootTreeItem.getValue().setMethodName(rootTitle);
@@ -322,11 +324,19 @@ public class GUIMain extends Application
 
                 long start = System.nanoTime();
 
-	            // TODO ProcessJarOutput.();
-
+	            // Run the outside jar
+	            ExecuteJar executeJar = new ExecuteJar(ExecuteJarUtil.OUTSIDE_PROGRAM_COMMAND);
+	            executeJar.runJar();
 
 	            long end = System.nanoTime();
                 TimeUnit.OUTSIDE_PROGRAM_DYNAMIC_EXECUTION_TIME = end - start;
+
+	            for (String s : executeJar.outputProcessor.getOutputList())
+	            {
+		            System.out.println(s);
+	            }
+
+	            ProcessJarOutput.processOutput(executeJar.outputProcessor.getOutputList());
 
                 updateTreeTable();
 
@@ -352,7 +362,8 @@ public class GUIMain extends Application
 
         appendToScrollPanel("Dynamic Analysis Overhead Time:\n"  + FORMATTER_NANO.format(totalOverheadTime) + getTimeAbbreviation());
 
-        appendToScrollPanel("Percentage of time spent on overhead:\n"  + "%" + FORMATTER_NANO.format(totalOverheadTime.divide(BigDecimal.valueOf(totalExecutionTime), 5, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100))));
+        // TODO check for the divisor to not be zero
+	    appendToScrollPanel("Percentage of time spent on overhead:\n"  + "%" + FORMATTER_NANO.format(totalOverheadTime.divide(BigDecimal.valueOf(totalExecutionTime), 5, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100))));
 
         appendToScrollPanel("\n");
     }

@@ -17,11 +17,7 @@ public class Profiler implements ClassFileTransformer
 {
     private Instrumentation instrumentation = null;
     private ClassPool classPool;
-    private List<String> filterList = new ArrayList<>(10);
-
-    public static long callCount = 0;
-    public static long methodCallCount = 0;
-    public static long classCallCount = 0;
+    private List<String> filterList = new ArrayList<>(15);
 
     public static void premain(String agentArgs, Instrumentation inst)
     {

@@ -123,6 +123,26 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/graphing/GRAPH_DATA_OPTION.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/graphing/GraphUtil.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/graphing/LineGraph.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/graphing/PieChart.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/gui/ApplicationStat.java">
           <value>
             <set />
@@ -169,6 +189,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../Hello-World/src/com/company/Walmart.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Workout-Tracker/src/graphing/LineGraph.java">
           <value>
             <set />
           </value>

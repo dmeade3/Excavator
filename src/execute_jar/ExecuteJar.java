@@ -21,6 +21,10 @@ public class ExecuteJar
 	private int exitVal;
 	private String[] command;
 
+	public StreamProcessor errorProcessor;
+	public StreamProcessor outputProcessor;
+
+
 	public ExecuteJar(String jarCommand)
 	{
 		String osName = System.getProperty("os.name");
@@ -55,8 +59,8 @@ public class ExecuteJar
 			System.out.println("Executing " + command[0] + " " + command[1] + " " + command[2]);
 			Process proc = Runtime.getRuntime().exec(command);
 
-			StreamProcessor errorProcessor  = new StreamProcessor(proc.getErrorStream(), "", ExecuteJarUtil.SHOW_OUTSIDE_PROGRAM_OUTPUT);
-			StreamProcessor outputProcessor = new StreamProcessor(proc.getInputStream(), "", ExecuteJarUtil.SHOW_OUTSIDE_PROGRAM_OUTPUT);
+			errorProcessor  = new StreamProcessor(proc.getErrorStream(), "", ExecuteJarUtil.SHOW_OUTSIDE_PROGRAM_OUTPUT);
+			outputProcessor = new StreamProcessor(proc.getInputStream(), "", ExecuteJarUtil.SHOW_OUTSIDE_PROGRAM_OUTPUT);
 
 			// Start Stream Processor Threads
 			errorProcessor.start();
@@ -68,7 +72,7 @@ public class ExecuteJar
 
 			ProcessJarOutput.processOutput(outputProcessor.getOutputList());
 
-			// Print out the error
+			// Show out the error in a popup
 			if (!errorProcessor.getOutputList().isEmpty())
 			{
 				StringBuilder stringBuilderError = new StringBuilder();
