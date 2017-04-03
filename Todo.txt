@@ -11,6 +11,10 @@ Side code project:
         -make graphs in a tabbed window that you can navigate like a browser
 
 
+        Graphs:
+            pie chart
+                -tool tip should tell parent
+                -
 
 
         - need to store the output data in increments

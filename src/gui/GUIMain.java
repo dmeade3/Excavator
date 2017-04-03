@@ -1,10 +1,12 @@
 package gui;
 
+
 import data_storage.DynamicClassDataEntry;
 import data_storage.DynamicData;
 import data_storage.DynamicMethodDataEntry;
 import dynamic_analysis.ProcessJarOutput;
 import execute_jar.ExecuteJar;
+import execute_jar.ExecuteJarUtil;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -18,12 +20,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import util.SystemConfig;
-import execute_jar.ExecuteJarUtil;
 import util.TimeUnit;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
 import static util.SystemConfig.*;
 import static util.TimeUnit.NANOSECOND;
@@ -47,6 +49,7 @@ public class GUIMain extends Application
     private Stage stage;
     private Button runDynamicAnalysisButton;
     private Button expandCollapseButton;
+    private Map<String, Double> chartDataHolderCallCount = new HashMap<>();
 
 	// Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
@@ -199,6 +202,24 @@ public class GUIMain extends Application
 		return timeSelectorComboBox.getSelectionModel().getSelectedItem();
 	}
 
+    private void populateTreeDataForChartCallCount(TreeItem<ApplicationStat> rooti)
+    {
+        //System.out.println("Current Parent :" + rooti.getValue());
+        for(TreeItem<ApplicationStat> child: rooti.getChildren())
+        {
+            if(child.getChildren().isEmpty())
+            {
+                System.out.println(child.getValue());
+
+                chartDataHolderCallCount.put(child.getValue().getMethodName(), (double) child.getValue().getCallCount());
+            }
+            else
+            {
+                populateTreeDataForChartCallCount(child);
+            }
+        }
+    }
+
     private void initBottomButtonGridPane(Group sceneRoot, BorderPane mainBorderPane)
     {
         // TODO path is field at top that is set by button window
@@ -213,8 +234,8 @@ public class GUIMain extends Application
         bottomButtons.add(jarPathLabel, 1, 0);
 
 	    // Outside source button label group
-        Button graphResults = new Button("Graph Results");
-        bottomButtons.add(graphResults, 0, 2);
+        Button graphResultsButton = new Button("Graph Results");
+        bottomButtons.add(graphResultsButton, 0, 2);
 
 	    // Run dynamic analysis button
         runDynamicAnalysisButton = new Button("Run Dynamic Analysis         ");
@@ -232,11 +253,47 @@ public class GUIMain extends Application
         mainBorderPane.setBottom(bottomButtons);
         sceneRoot.getChildren().add(mainBorderPane);
 
+
+
+
+
+
         ///// Listeners /////
-        expandCollapseButton.setOnAction(event ->
+        graphResultsButton.setOnAction(event ->
         {
-            setRootExpandedCollapsed(rootTreeItem);
+            // todo temp to figure out how to get all tree data
+
+
+            // todo refactor
+            populateTreeDataForChartCallCount(rootTreeItem);
+
+
+
+            Map<String, Double> data = new HashMap<>();
+
+            // TODO submit the call count data and the time spent data
+            data.put("jdk.internal.org.objectweb.asm.ClassWriter,int,java.lang.String,java.lang.String,java.lang.String,java.lang.Object)",     134545.8);
+            data.put("SamSung Grand", 23450.2452345);
+            data.put("MotoG",         400000.23452345);
+            data.put("Nokia Lumia",   13400.345345);
+
+
+            // TODO Refactor all things related to the charts, should
+
+
+
+            TabbedGraphInfo tabbedGraphInfo = new TabbedGraphInfo(chartDataHolderCallCount, data);
+
+            Stage stage = new Stage();
+            Scene scene = new Scene(tabbedGraphInfo, 450, 450);
+
+            // Todo better name for the window
+            stage.setTitle("My New Stage Title");
+            stage.setScene(scene);
+            stage.show();
         });
+
+        expandCollapseButton.setOnAction(event -> setRootExpandedCollapsed(rootTreeItem));
 
         timeSelectorComboBox.setOnAction(event ->
         {

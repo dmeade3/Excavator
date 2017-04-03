@@ -1,9 +1,12 @@
 package graphing;
 
 
-import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.general.PieDataset;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,15 +27,17 @@ public class GraphUtil
     // Util methods ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-	public static PieDataset createPieDataset(Map<String, Number> dataMap)
+	public static ObservableList<PieChart.Data> createPieDataset(Map<String, Double> dataMap)
 	{
-		DefaultPieDataset dataset = new DefaultPieDataset();
+		List<PieChart.Data> dataList = new ArrayList<>();
 
-		for (Map.Entry<String, Number> entry : dataMap.entrySet())
+		for (Map.Entry<String, Double> entry : dataMap.entrySet())
 		{
-			dataset.setValue(entry.getKey(), entry.getValue());
+			dataList.add(new PieChart.Data(entry.getKey(), entry.getValue().doubleValue()));
+
+			System.out.println("key: " + entry.getKey() + "  value: " + entry.getValue());
 		}
 
-		return dataset;
+		return FXCollections.observableArrayList(dataList);
 	}
 }

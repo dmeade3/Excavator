@@ -1,8 +1,5 @@
 package execute_jar;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 /**
  * Project: Excavator
  * File Name: ExecuteJarUtil.java
@@ -18,11 +15,11 @@ public class ExecuteJarUtil
 	////// PATHS - PATH HELPERS //////
 	public static final String USER_NAME = System.getProperty("user.name");
 	public static final String PROJECT_DIR        = System.getProperty("user.dir");
-	public static String OUTSIDE_PROGRAM_JAR_PATH = "C:\\Users\\David\\Desktop\\Intelij Workspace\\Hello-World\\out\\artifacts\\Hello_World_jar\\Hello World.jar";
+	public static String OUTSIDE_PROGRAM_JAR_PATH = "C:\\Users\\dcmeade\\Desktop\\Intelij Workspace\\Hello-World\\out\\artifacts\\Hello_World_jar\\Hello World.jar";
 	public static final String AGENT_PATH         = PROJECT_DIR + "\\out\\artifacts\\Profiler_jar\\Profiler.jar";
 
 	public static final String AGENT_COMMAND = "-javaagent:" + "\"" + AGENT_PATH + "\"";
-	public static final String CLASSPATH_COMMAND = "-classpath \";C:\\Users\\David\\Desktop\\Intelij Workspace\\Excavator\\lib\\javassist.jar;\"";     // + PROJECT_DIR + "\\lib\\javassist.jar\"";
+	public static final String CLASSPATH_COMMAND = "-classpath \";C:\\Users\\dcmeade\\Desktop\\Intelij Workspace\\Excavator\\lib\\javassist.jar;\"";     // + PROJECT_DIR + "\\lib\\javassist.jar\"";
 
 	public static String OUTSIDE_PROGRAM_COMMAND = "java " + CLASSPATH_COMMAND + " " + AGENT_COMMAND + " -jar \"" + OUTSIDE_PROGRAM_JAR_PATH + "\"";
 

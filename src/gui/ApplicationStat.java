@@ -68,4 +68,15 @@ public class ApplicationStat
 	{
 		this.methodName = methodName;
 	}
+
+    @Override
+    public String toString()
+    {
+        return "ApplicationStat{" +
+                "methodName='" + methodName + '\'' +
+                ", callCount=" + callCount +
+                ", averageMethodTime='" + averageMethodTime + '\'' +
+                ", totalMethodTime='" + totalMethodTime + '\'' +
+                '}';
+    }
 }
