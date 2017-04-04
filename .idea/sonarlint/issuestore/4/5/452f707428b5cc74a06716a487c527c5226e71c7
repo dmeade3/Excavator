@@ -1,0 +1,8 @@
+
+wsquid:S3008"]Rename this field "MAIN_TREE_EXPANDED" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ææ©„üÿÿÿÿ
+Rsquid:S1444"8Make this "public static MAIN_TREE_EXPANDED" field final(ææ©„üÿÿÿÿ
+Gsquid:S1135"2Complete the task associated to this TODO comment.(Î­•
+"squid:ClassVariableVisibilityCheck"^Make MAIN_TREE_EXPANDED a static final constant or non-public and provide accessors if needed.(ææ©„üÿÿÿÿ
+Lsquid:S1135"2Complete the task associated to this TODO comment.(²è®Öúÿÿÿÿ
+–squid:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ˆ¶áë
+Lsquid:S1135"2Complete the task associated to this TODO comment.(„Âú“ÿÿÿÿÿ

@@ -1,0 +1,15 @@
+
+=squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+~squid:S1192"jDefine a constant instead of duplicating this literal " = System.nanoTime(); System.out.println(" 4 times.(°Ñ€4
+:squid:S1166"%Either log or rethrow this exception.(†Æ
+Zsquid:S1192"FDefine a constant instead of duplicating this literal "long " 4 times.(°Ñ€4
+msquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(Çê³›
+[squid:S1192"GDefine a constant instead of duplicating this literal " + \" " 4 times.(°Ñ€4
+Jsquid:S1172"0Remove this unused method parameter "agentArgs".(û»ö¹ùÿÿÿÿ
+O
+squid:S106";Replace this usage of System.out or System.err by a logger.(‹åÛ€
+Usquid:S1213";Move this constructor to comply with Java Code Conventions.(•æ²ıÿÿÿÿ
+O
+squid:S106";Replace this usage of System.out or System.err by a logger.(‰Ôù«
+:squid:S1166"%Either log or rethrow this exception.(¨…Î¾
+`squid:S1226"FIntroduce a new variable instead of reusing the parameter "className".(©öğÛşÿÿÿÿ

@@ -1,0 +1,31 @@
+
+Wsquid:S2696"6Make the enclosing method "static" or remove this set.(ë¬–’øÿÿÿÿ8ß„”Ó³+
+V
+squid:S106";Replace this usage of System.out or System.err by a logger.(›õ±ë8ß„”Ó³+
+Nsquid:S1135"2Complete the task associated to this TODO comment.(üˆÿà8ß„”Ó³+
+[
+squid:S106";Replace this usage of System.out or System.err by a logger.(ëƒ¤²úÿÿÿÿ8ß„”Ó³+
+}squid:S1450"cRemove the "expandCollapseButton" field and declare it as a local variable in the relevant methods.(×à‚æùÿÿÿÿ
+V
+squid:S106";Replace this usage of System.out or System.err by a logger.(Àß8ß„”Ó³+
+Ssquid:S1135"2Complete the task associated to this TODO comment.(‡•€ªÿÿÿÿÿ8ñ°ãÈ³+
+[
+squid:S106";Replace this usage of System.out or System.err by a logger.(Å­Ëİúÿÿÿÿ8ß„”Ó³+
+Wsquid:S2696"6Make the enclosing method "static" or remove this set.(†‘±ûıÿÿÿÿ8ß„”Ó³+
+esquid:HiddenFieldCheck"9Rename "scene" which hides the field declared at line 46.(ú¬øÿÿÿÿ8ß„”Ó³+
+Ksquid:S00108")Either remove or fill this block of code.(ÒÌâ–øÿÿÿÿ8ß„”Ó³+
+Lsquid:S1135"2Complete the task associated to this TODO comment.(òÏ±¤şÿÿÿÿ
+Rsquid:S2696"6Make the enclosing method "static" or remove this set.(ºİ˜Ã8ß„”Ó³+
+gsquid:S2142"FEither re-interrupt this method or rethrow the "InterruptedException".(ÇâŞáøÿÿÿÿ8ß„”Ó³+
+Tsquid:UselessParenthesesCheck"!Remove those useless parentheses.(Ø™ÎÊûÿÿÿÿ8ß„”Ó³+
+Nsquid:S1135"2Complete the task associated to this TODO comment.(àáÖ¡8ß„”Ó³+
+fsquid:S2184"ECast one of the operands of this substraction operation to a "float".(†‘±ûıÿÿÿÿ8ß„”Ó³+
+Gsquid:S1135"2Complete the task associated to this TODO comment.(Í“ˆˆ
+O
+squid:S106";Replace this usage of System.out or System.err by a logger.(¯“ŞÁ
+Gsquid:S1135"2Complete the task associated to this TODO comment.(ÿ€Èå
+|squid:S1858"["OUTSIDE_PROGRAM_JAR_PATH" is already a string, there's no need to call "toString()" on it.(ò‡ó¤ÿÿÿÿÿ8ß„”Ó³+
+Wsquid:S2696"6Make the enclosing method "static" or remove this set.(„¬Ö—ùÿÿÿÿ8ß„”Ó³+
+_squid:S1188"DReduce this lambda expression number of lines from 28 to at most 20.(…úÎ~8ß„”Ó³+
+esquid:HiddenFieldCheck"9Rename "stage" which hides the field declared at line 51.(ƒÑÀ·ùÿÿÿÿ8ğá‚É³+
+Ssquid:S1135"2Complete the task associated to this TODO comment.(¤çİùÿÿÿÿÿ8ß„”Ó³+
