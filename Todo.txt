@@ -1,41 +1,32 @@
 Side code project:
     Code analysis:
 
+        -verify if the times are right is a big step too
+            -see if there are ways to detect multithreading in the program
 
 
-        -graphing and displaying the data is the next big step
+        -make the parents of the tree table bold
 
-        -also verfieing if the tims are right is a big step too
-
-
-        -make graphs in a tabbed window that you can navigate like a browser
+        -handle exit with no selection from jar selector better
 
 
-        Graphs:
-            pie chart
-                -tool tip should tell parent
-                -
 
-
-        - need to store the output data in increments
+        -if i need to store the output data in increments
             -either files or emptying the datastruct when full then refilling
 
-        -have in the info helper protion say that total - overall time may look wrong because the mltithreading of the jvm might thread things to make them faster
-
-        -graph data in a pie graph
-            -time and calls
-                -make 2 graphs
         -see if you can get garbage collecting stats
         -need to organize the tree of method calls better
             com.company.main should be under com.company
 
         -needs to have glossary where it explains certain things
             -what exactly overhead is
+            -have in the info helper portion say that total - overall time may look wrong because the mltithreading of the jvm might thread things to make them faster
+
         -investigate the time issue when all method calls are allowed
         -break up big classes if possible
         - i think average call should be completely redone and named average time per call / make the numbers reflect the name
         - i think the timing everywhere could be redone smarter to account for any number of possibilities
             -threading
 
-        General:
-            on close save settings
+
+        -on close save settings

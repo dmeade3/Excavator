@@ -27,6 +27,8 @@ import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 
+import static graphing.GraphUtil.CHART_WINDOW_HEIGHT;
+import static graphing.GraphUtil.CHART_WINDOW_WIDTH;
 import static util.SystemConfig.*;
 import static util.TimeUnit.NANOSECOND;
 
@@ -49,7 +51,8 @@ public class GUIMain extends Application
     private Stage stage;
     private Button runDynamicAnalysisButton;
     private Button expandCollapseButton;
-    private Map<String, Double> chartDataHolderCallCount = new HashMap<>();
+    private Map<String, Double> chartDataHolderCallCount;
+    private Map<String, Double> chartDataHolderTimeSpent;
 
 	// Methods /////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
@@ -60,7 +63,7 @@ public class GUIMain extends Application
         // TODO break this function up
         this.stage = stage;
 
-	    // TODO make default read in by config
+	    // TODO make default read in by config here
 
 	    ///// Defaults /////
         rootTreeItem.setExpanded(true);
@@ -70,6 +73,7 @@ public class GUIMain extends Application
 	    resetRightScrollPane();
 	    bottomButtons.setHgap(5);
 	    bottomButtons.setVgap(5);
+        
 
 	    // Set up scene
         scene.getStylesheets().add(SystemConfig.NAME_OF_MAIN_STYLESHEET);
@@ -204,18 +208,40 @@ public class GUIMain extends Application
 
     private void populateTreeDataForChartCallCount(TreeItem<ApplicationStat> rooti)
     {
-        //System.out.println("Current Parent :" + rooti.getValue());
+        if (chartDataHolderCallCount == null)
+        {
+            chartDataHolderCallCount = new HashMap<>();
+        }
+
         for(TreeItem<ApplicationStat> child: rooti.getChildren())
         {
             if(child.getChildren().isEmpty())
             {
-                System.out.println(child.getValue());
-
                 chartDataHolderCallCount.put(child.getValue().getMethodName(), (double) child.getValue().getCallCount());
             }
             else
             {
                 populateTreeDataForChartCallCount(child);
+            }
+        }
+    }
+
+    private void populateTreeDataForChartTimeSpent(TreeItem<ApplicationStat> rooti)
+    {
+        if (chartDataHolderTimeSpent == null)
+        {
+            chartDataHolderTimeSpent = new HashMap<>();
+        }
+
+        for(TreeItem<ApplicationStat> child: rooti.getChildren())
+        {
+            if(child.getChildren().isEmpty())
+            {
+                chartDataHolderTimeSpent.put(child.getValue().getMethodName(), Double.valueOf(child.getValue().getTotalMethodTime()));
+            }
+            else
+            {
+                populateTreeDataForChartTimeSpent(child);
             }
         }
     }
@@ -229,7 +255,7 @@ public class GUIMain extends Application
 
 	    // Outside jar button label group
         Button linkJarUpButton = new Button("Select / Change Jar File Path");
-        Label jarPathLabel = new Label(ExecuteJarUtil.OUTSIDE_PROGRAM_JAR_PATH.toString());
+        Label jarPathLabel = new Label(ExecuteJarUtil.OUTSIDE_PROGRAM_JAR_PATH);
         bottomButtons.add(linkJarUpButton, 0, 0);
         bottomButtons.add(jarPathLabel, 1, 0);
 
@@ -254,41 +280,21 @@ public class GUIMain extends Application
         sceneRoot.getChildren().add(mainBorderPane);
 
 
-
-
-
-
         ///// Listeners /////
         graphResultsButton.setOnAction(event ->
         {
-            // todo temp to figure out how to get all tree data
-
-
-            // todo refactor
+            // Get the tree data
             populateTreeDataForChartCallCount(rootTreeItem);
+            populateTreeDataForChartTimeSpent(rootTreeItem);
 
-
-
-            Map<String, Double> data = new HashMap<>();
-
-            // TODO submit the call count data and the time spent data
-            data.put("jdk.internal.org.objectweb.asm.ClassWriter,int,java.lang.String,java.lang.String,java.lang.String,java.lang.Object)",     134545.8);
-            data.put("SamSung Grand", 23450.2452345);
-            data.put("MotoG",         400000.23452345);
-            data.put("Nokia Lumia",   13400.345345);
-
-
-            // TODO Refactor all things related to the charts, should
-
-
-
-            TabbedGraphInfo tabbedGraphInfo = new TabbedGraphInfo(chartDataHolderCallCount, data);
+            // TODO Refactor all things related to the charts
+            TabbedGraphInfoPane tabbedGraphInfoPane = new TabbedGraphInfoPane(chartDataHolderCallCount, chartDataHolderTimeSpent, getCurrentTimeSelection());
 
             Stage stage = new Stage();
-            Scene scene = new Scene(tabbedGraphInfo, 450, 450);
+            Scene scene = new Scene(tabbedGraphInfoPane, CHART_WINDOW_WIDTH, CHART_WINDOW_HEIGHT);
 
-            // Todo better name for the window
-            stage.setTitle("My New Stage Title");
+            scene.getStylesheets().add(CHART_STYLESHEET);
+            stage.setTitle("Graphed Results");
             stage.setScene(scene);
             stage.show();
         });

@@ -16,10 +16,6 @@ public class SystemConfig
     public static final String EXITING  = "_1__2_3_4_5_6_4_7_6_8_9_Exiting_";
     public static final String TIMESTAMP_VARIABLE = "_123234345_timestamp129387346587_";
 
-
-
-
-
     ////// GUI DIMENSIONS OPTIONS //////
     public static final int SPACE_FROM_BOTTOM_BUTTONS = 200;
     public static final int SCENE_WIDTH = 1600;
@@ -28,14 +24,13 @@ public class SystemConfig
     public static final int DIALOG_WIDTH = 400;
     public static final int SCROLL_PANE_WIDTH = 400;
 
-
     ////// GUI STYLESHEETS //////
     public static final String NAME_OF_MAIN_STYLESHEET = "mainStyleSheet.css";
-
+    public static final String CHART_STYLESHEET = "chart.css";
+    public static final String BOLD_NON_LEAF_STYLESHEET = "bold-non-leaf-nodes.css";
 
     ////// NUMBER FORMATTER'S //////
     public static final DecimalFormat FORMATTER_NANO = new DecimalFormat("#,###.#####");
-    
 
     ////// MISC_OPTIONS //////
     public static final int INITIAL_DYNAMIC_DATA_SIZE = 100;

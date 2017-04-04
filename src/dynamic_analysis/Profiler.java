@@ -57,17 +57,11 @@ public class Profiler implements ClassFileTransformer
         instrumentation.addTransformer(this);
     }
 
-	// TODO look at the efficiency for this whole class
     @Override
     public byte[] transform(ClassLoader loader, String className, Class classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException
     {
         try
         {
-            /*if (FILTER_OUT_NON_USER_METHODS && loader == null)
-            {
-                return classfileBuffer;
-            }*/
-
             className = className.replaceAll("/", ".");
 
             classPool.insertClassPath(new ByteArrayClassPath(className, classfileBuffer));

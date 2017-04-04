@@ -15,13 +15,11 @@ import java.util.Map;
 public class GraphUtil
 {
     // Constants ///////////////////////////////////////////////////////////////////////////////////////////////////////
-    public static final boolean SHOW_GRAPH_LENGEND = true;
-    public static final boolean SHOW_GRAPH_TOOLTIP = true;
-    public static final boolean SHOW_GRAPH_URL = false;
+    public static final int CHART_WINDOW_HEIGHT = 700;
 
-    public static final int LINECHART_WINDOW_HEIGHT = 500;
+    public static final int CHART_WINDOW_WIDTH = 700;
 
-    public static final int LINECHART_WINDOW_WIDTH = 500;
+    public static final int TOOLTIP_DELAY = 50;
 
 
     // Util methods ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -33,9 +31,7 @@ public class GraphUtil
 
 		for (Map.Entry<String, Double> entry : dataMap.entrySet())
 		{
-			dataList.add(new PieChart.Data(entry.getKey(), entry.getValue().doubleValue()));
-
-			System.out.println("key: " + entry.getKey() + "  value: " + entry.getValue());
+			dataList.add(new PieChart.Data(entry.getKey(), entry.getValue()));
 		}
 
 		return FXCollections.observableArrayList(dataList);
