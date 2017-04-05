@@ -137,6 +137,9 @@ public class GUIMain extends Application
 	        // Create an application entry for the current class
             TreeItem<ApplicationStat> classEntry = new TreeItem<>(classApplicationStat);
 
+            // TODO here make the class entries bold
+            //classEntry.
+
             long totalMethodCalls = 0;
             BigDecimal totalAverageTime = new BigDecimal("0");
             BigDecimal totalTotalTime = new BigDecimal("0");
@@ -171,7 +174,7 @@ public class GUIMain extends Application
 
             rootTreeItem.getValue().setAverageMethodTime(new BigDecimal(rootTreeItem.getValue().getTotalMethodTime()).divide((new BigDecimal(rootTreeItem.getValue().getCallCount())), ExecuteJarUtil.TIME_PRECISION_PLACES, RoundingMode.HALF_UP).toString());
 
-            rootTreeItem.getValue().setTotalMethodTime(  new BigDecimal(rootTreeItem.getValue().getTotalMethodTime()).add(getCurrentTimeSelection().convertTimeBigDecimal(totalTotalTime)).toString());
+            rootTreeItem.getValue().setTotalMethodTime( new BigDecimal(rootTreeItem.getValue().getTotalMethodTime()).add(getCurrentTimeSelection().convertTimeBigDecimal(totalTotalTime)).toString());
 
 	        // Add class to rootTreeItem
             rootTreeItem.getChildren().add(classEntry);
@@ -181,24 +184,33 @@ public class GUIMain extends Application
         treeTableView.setSortMode(TreeSortMode.ALL_DESCENDANTS);
 
 	    // Create the columns
-        TreeTableColumn<ApplicationStat, String> methodClassNameColumn = new TreeTableColumn<>("");
+        TreeTableColumn<ApplicationStat, String> methodClassNameColumn = new TreeTableColumn<>("Class / Method Names");
         methodClassNameColumn.setPrefWidth(500);
-        methodClassNameColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getMethodName()));
+        methodClassNameColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<ApplicationStat, String> param) -> new ReadOnlyStringWrapper(param.getValue().getValue().getMethodName()));
 
         TreeTableColumn<ApplicationStat, FormattedNumber> methodCallCountColumn = new TreeTableColumn<>("Call Count");
         methodCallCountColumn.setPrefWidth(115);
-        methodCallCountColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, FormattedNumber> param) -> new SimpleObjectProperty<>(new FormattedNumber(param.getValue().getValue().getCallCount(), "")));
+        methodCallCountColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<ApplicationStat, FormattedNumber> param) -> new SimpleObjectProperty<>(new FormattedNumber(param.getValue().getValue().getCallCount(), "")));
 
         TreeTableColumn<ApplicationStat, FormattedNumber> averageTimeColumn = new TreeTableColumn<>("Average Time");
         averageTimeColumn.setPrefWidth(185);
-        averageTimeColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, FormattedNumber> param) -> new SimpleObjectProperty<>(new FormattedNumber(Float.parseFloat(param.getValue().getValue().getAverageMethodTime()), getTimeAbbreviation())));
+        averageTimeColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<ApplicationStat, FormattedNumber> param) -> new SimpleObjectProperty<>(new FormattedNumber(Float.parseFloat(param.getValue().getValue().getAverageMethodTime()), getTimeAbbreviation())));
 
         TreeTableColumn<ApplicationStat, FormattedNumber> totalTimeColumn = new TreeTableColumn<>("Total Time");
         totalTimeColumn.setPrefWidth(185);
-        totalTimeColumn.setCellValueFactory( (TreeTableColumn.CellDataFeatures<ApplicationStat, FormattedNumber> param) -> new SimpleObjectProperty<>(new FormattedNumber(Float.parseFloat(param.getValue().getValue().getTotalMethodTime()), getTimeAbbreviation())));
+        totalTimeColumn.setCellValueFactory((TreeTableColumn.CellDataFeatures<ApplicationStat, FormattedNumber> param) -> new SimpleObjectProperty<>(new FormattedNumber(Float.parseFloat(param.getValue().getValue().getTotalMethodTime()), getTimeAbbreviation())));
+
+
+        TreeTableColumn<ApplicationStat, String> appStatsRootColumn = new TreeTableColumn<>("Application Stats");
+
+        // Add sub columns
+        appStatsRootColumn.getColumns().addAll(methodCallCountColumn, averageTimeColumn, totalTimeColumn);
+
+
+
 
         // Add all the columns to the tree table
-        treeTableView.getColumns().setAll(methodClassNameColumn, methodCallCountColumn, averageTimeColumn, totalTimeColumn);
+        treeTableView.getColumns().setAll(methodClassNameColumn, appStatsRootColumn);
     }
 
 	public TimeUnit getCurrentTimeSelection()
@@ -256,6 +268,9 @@ public class GUIMain extends Application
 	    // Outside jar button label group
         Button linkJarUpButton = new Button("Select / Change Jar File Path");
         Label jarPathLabel = new Label(ExecuteJarUtil.OUTSIDE_PROGRAM_JAR_PATH);
+
+        jarPathLabel.setTextFill(Color.BLACK);
+
         bottomButtons.add(linkJarUpButton, 0, 0);
         bottomButtons.add(jarPathLabel, 1, 0);
 

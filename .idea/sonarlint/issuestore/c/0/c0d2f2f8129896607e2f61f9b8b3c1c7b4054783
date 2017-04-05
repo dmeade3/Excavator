@@ -1,14 +1,14 @@
 
-O
-squid:S106";Replace this usage of System.out or System.err by a logger.(‡¤±ð
-‡"squid:ClassVariableVisibilityCheck"[Make outputProcessor a static final constant or non-public and provide accessors if needed.(ÆÆ¤ð
-Gsquid:S1135"2Complete the task associated to this TODO comment.(÷¥Ðå
-:squid:S1166"%Either log or rethrow this exception.(Ñž´¯
-=squid:S1148"#Use a logger to log this exception.(¯Óí‘úÿÿÿÿ
-:squid:S1181"%Catch Exception instead of Throwable.(Ñž´¯
-msquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(èá§’
-T
-squid:S106";Replace this usage of System.out or System.err by a logger.(¹ïÙŒÿÿÿÿÿ
 ‹"squid:ClassVariableVisibilityCheck"ZMake errorProcessor a static final constant or non-public and provide accessors if needed.(¸š§‚ÿÿÿÿÿ
+:squid:S1181"%Catch Exception instead of Throwable.(Ñž´¯
+Gsquid:S1135"2Complete the task associated to this TODO comment.(÷¥Ðå
 T
 squid:S106";Replace this usage of System.out or System.err by a logger.(­ŠÈ½üÿÿÿÿ
+T
+squid:S106";Replace this usage of System.out or System.err by a logger.(¹ïÙŒÿÿÿÿÿ
+‡"squid:ClassVariableVisibilityCheck"[Make outputProcessor a static final constant or non-public and provide accessors if needed.(ÆÆ¤ð
+=squid:S1148"#Use a logger to log this exception.(¯Óí‘úÿÿÿÿ
+:squid:S1166"%Either log or rethrow this exception.(Ñž´¯
+O
+squid:S106";Replace this usage of System.out or System.err by a logger.(‡¤±ð
+msquid:S00120"WRename this package name to match the regular expression '^[a-z]+(\.[a-z][a-z0-9]*)*$'.(èá§’

@@ -4,10 +4,18 @@ Side code project:
         -verify if the times are right is a big step too
             -see if there are ways to detect multithreading in the program
 
-
-        -make the parents of the tree table bold
-
         -handle exit with no selection from jar selector better
+
+        CSS:
+            -experiment with new css files
+            -make the parents of the tree table bold
+            -make charts match the main gui
+            -dark theme gui
+            -buttons a little less white
+
+
+
+        -Make every class as simple as possible
 
 
 
@@ -20,7 +28,7 @@ Side code project:
 
         -needs to have glossary where it explains certain things
             -what exactly overhead is
-            -have in the info helper portion say that total - overall time may look wrong because the mltithreading of the jvm might thread things to make them faster
+            -have in the info helper portion say that total - overall time may look wrong because the multithreading of the jvm might thread things to make them faster
 
         -investigate the time issue when all method calls are allowed
         -break up big classes if possible

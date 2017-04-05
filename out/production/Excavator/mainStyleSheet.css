@@ -1,34 +1,93 @@
-.root
+/*.root
 {
     -fx-font-size: 12pt;
-    -fx-font-family: "Verdana";
+    /*-fx-font-family: "Verdana";
     -fx-text-fill: rgb(0, 0, 0);
     -fx-base: rgb(93, 118, 158);
     -fx-background: rgb(225, 228, 203);
 
     -fx-border-radius: 10 10 10 10;
-    -fx-background-radius: 10 10 10 10;
-}
+    -fx-background-radius: 10 10 10 10;*/
+/*}
 
 .button
 {
-    -fx-text-fill: rgb(0, 0, 0);
+    /*-fx-text-fill: rgb(0, 0, 0);
+    -fx-border-color: rgb(49, 89, 23);
+    -fx-border-radius: 5;*/
+/*    -fx-padding: 3 6 6 6;
+}
+/*
+.scroll-pane
+{
+    -fx-background: rgb(0, 0, 0);
+}
+*/
+
+.root
+{
+    -fx-font-size: 12pt;
+    -fx-font-family: "Verdana";
+
+    -fx-base: rgb(25, 25, 25);
+    -fx-background: rgb(25, 25, 25);
+    -fx-control-inner-background: rgb(75, 75, 75);
+}
+
+Button
+{
+    -fx-text-fill: rgb(200, 200, 200);
     -fx-border-color: rgb(49, 89, 23);
     -fx-border-radius: 5;
     -fx-padding: 3 6 6 6;
 }
 
-.scroll-pane
+ComboBox
 {
-    -fx-background: rgb(0, 0, 0);
+    -fx-text-fill: rgb(200, 200, 200);
+
 }
 
-.tree-cell
+BorderPane
 {
-    -fx-font-weight: bold ;
+    /*-fx-background-color: red ;*/
 }
 
-.tree-cell:leaf
+
+
+/*
+
+.menu-bar
 {
-    -fx-font-weight: normal ;
+    -fx-background-color: linear-gradient(to bottom, -fx-base, derive(-fx-base,30%));
 }
+
+.button
+{
+    -fx-background-color: transparent;
+}
+
+.button:hover
+{
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-color: -fx-hover-base;
+}
+
+.table-view
+{
+    -fx-table-cell-border-color:derive(-fx-base,+10%);
+    -fx-table-header-border-color:derive(-fx-base,+20%);
+}
+
+.split-pane:horizontal > * > .split-pane-divider
+{
+    -fx-border-color: transparent -fx-base transparent -fx-base;
+    -fx-background-color: transparent, derive(-fx-base,20%);
+    -fx-background-insets: 0, 0 1 0 1;
+}
+
+.my-gridpane
+{
+    -fx-background-color: radial-gradient(radius 100%, derive(-fx-base,20%), derive(-fx-base,-20%));
+}
+*/

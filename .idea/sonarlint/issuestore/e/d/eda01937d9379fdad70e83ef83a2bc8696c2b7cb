@@ -1,7 +1,0 @@
-
-‹squid:S3008"qRename this field "OUTSIDE_PROGRAM_DYNAMIC_EXECUTION_TIME" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ö¯ˆúÿÿÿÿ
-fsquid:S1444"LMake this "public static OUTSIDE_PROGRAM_DYNAMIC_EXECUTION_TIME" field final(Ö¯ˆúÿÿÿÿ
-=squid:S3066"#Lower the visibility of this field.(×¸Ö®úÿÿÿÿ
-‰"squid:ClassVariableVisibilityCheck"XMake abbreviation a static final constant or non-public and provide accessors if needed.(×¸Ö®úÿÿÿÿ
-£"squid:ClassVariableVisibilityCheck"rMake OUTSIDE_PROGRAM_DYNAMIC_EXECUTION_TIME a static final constant or non-public and provide accessors if needed.(Ö¯ˆúÿÿÿÿ
-;squid:S2111"!Use "BigDecimal.valueOf" instead.(ú°ğƒıÿÿÿÿ
